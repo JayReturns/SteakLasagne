@@ -6,13 +6,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 public class TransactionData {
 
-    @NotNull
-    private UUID id;
+    private String id;
 
     @NotBlank
     private String title;

@@ -17,7 +17,7 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public Transaction getTransaction(UUID id) {
+    public Transaction getTransaction(String id) {
         return transactionRepository.findById(id).orElseThrow();
     }
 
@@ -26,9 +26,7 @@ public class TransactionService {
     }
 
     public Transaction createTransaction(Transaction transaction) {
-        if (transactionRepository.existsById(transaction.getId())) {
-            throw new IllegalArgumentException("Transaction with ID %s already exists!".formatted(transaction.getId()));
-        }
+        transaction.setId(UUID.randomUUID().toString());
 
         return transactionRepository.save(transaction);
     }
@@ -45,7 +43,7 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
-    public void deleteTransaction(UUID id) {
+    public void deleteTransaction(String id) {
         transactionRepository.deleteById(id);
     }
 

@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "SL_TRANSACTION")
@@ -18,7 +17,7 @@ public class Transaction {
 
     @Id
     @Column(name = "ID", nullable = false, unique = true)
-    private UUID id;
+    private String id;
 
 //    @ManyToOne
 //    @JoinColumn(name = "USER_ID")

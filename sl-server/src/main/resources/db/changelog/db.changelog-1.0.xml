@@ -6,16 +6,17 @@
 
     <changeSet id="1.0-transaction-table" author="Jan-Luca Wolf">
         <createTable tableName="sl_transaction">
-            <column name="id" type="binary(255)">
+            <column name="id" type="varchar(255)">
                 <constraints nullable="false" primaryKey="true"></constraints>
             </column>
             <column name="category" type="varchar(255)"/>
             <column name="date" type="datetime"/>
             <column name="notice" type="varchar(255)"/>
             <column name="title" type="varchar(255)"/>
-            <column name="user_id" type="binary(255)"/>
+            <column name="user_id" type="varchar(255)"/>
             <column name="value" type="int"/>
         </createTable>
     </changeSet>
+
 
 </databaseChangeLog>
