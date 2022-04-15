@@ -26,7 +26,7 @@ public class Transaction {
     @Column(name = "TITLE")
     private String title;
 
-    @Column(name = "CATEGORy")
+    @Column(name = "CATEGORY")
     private String category;
 
     @Column(name = "NOTICE")
