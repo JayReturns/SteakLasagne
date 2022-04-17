@@ -3,7 +3,7 @@ version: "3.8"
 services:
   database:
     container_name: Database
-    image: mysql:8-oracle
+    image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: developer
       MYSQL_USER: dev
