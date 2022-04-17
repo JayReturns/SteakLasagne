@@ -23,7 +23,7 @@ public class TransactionData {
     private String notice;
 
     @NotNull
-    private Double value;
+    private Float value;
 
     @PastOrPresent(message = "Date hast to be in past or present")
     private LocalDateTime date;

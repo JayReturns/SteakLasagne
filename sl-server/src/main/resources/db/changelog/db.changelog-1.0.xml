@@ -14,7 +14,7 @@
             <column name="notice" type="varchar(255)"/>
             <column name="title" type="varchar(255)"/>
             <column name="user_id" type="varchar(255)"/>
-            <column name="value" type="double"/>
+            <column name="value" type="decimal(10,2)"/>
         </createTable>
     </changeSet>
 

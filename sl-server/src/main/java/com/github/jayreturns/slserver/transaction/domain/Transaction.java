@@ -33,7 +33,7 @@ public class Transaction {
     private String notice;
 
     @Column(name = "VALUE")
-    private Double value;
+    private Float value;
 
     @Column(name = "DATE")
     private LocalDateTime date;

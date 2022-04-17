@@ -63,7 +63,7 @@ class TransactionDataFactoryTest {
         when(transaction.getCategory()).thenReturn("My Category");
         when(transaction.getNotice()).thenReturn("My Notice");
         when(transaction.getTitle()).thenReturn("My Title");
-        when(transaction.getValue()).thenReturn(15d);
+        when(transaction.getValue()).thenReturn(15f);
     }
 
 }

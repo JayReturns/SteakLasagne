@@ -36,7 +36,7 @@ class TransactionFactoryTest {
         transactionData.setDate(LocalDateTime.now());
         transactionData.setTitle("Transaction 1");
         transactionData.setNotice("Auto Tanken");
-        transactionData.setValue(70.99);
+        transactionData.setValue(70.99f);
         transactionData.setCategory("TANKeN");
         return transactionData;
     }
