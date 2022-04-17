@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 
+/**
+ * DTO for {@link com.github.jayreturns.slserver.transaction.domain.Transaction}
+ */
 @Data
 public class TransactionData {
 
@@ -20,7 +23,7 @@ public class TransactionData {
     private String notice;
 
     @NotNull
-    private Integer value;
+    private Double value;
 
     @PastOrPresent(message = "Date hast to be in past or present")
     private LocalDateTime date;

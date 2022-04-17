@@ -10,11 +10,11 @@
                 <constraints nullable="false" primaryKey="true"></constraints>
             </column>
             <column name="category" type="varchar(255)"/>
-            <column name="date" type="datetime"/>
+            <column name="date" type="datetime(6)"/>
             <column name="notice" type="varchar(255)"/>
             <column name="title" type="varchar(255)"/>
             <column name="user_id" type="varchar(255)"/>
-            <column name="value" type="int"/>
+            <column name="value" type="double"/>
         </createTable>
     </changeSet>
 

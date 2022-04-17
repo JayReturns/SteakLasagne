@@ -6,6 +6,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class TransactionFactory {
 
+    /**
+     * Converts {@link TransactionData} to {@link Transaction}
+     * @param transactionData The TransactionData to convert
+     * @return The converted {@link Transaction}
+     */
     public Transaction from(TransactionData transactionData) {
         Transaction transaction = new Transaction();
 
