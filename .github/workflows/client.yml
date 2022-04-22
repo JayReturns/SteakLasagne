@@ -1,0 +1,38 @@
+name: Build and Test Client
+
+on:
+  push:
+    branches:
+      - feature/*
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Configure
+        run: npm install
+      - name: Build
+        run: npm run build-test
+      - name: Test
+        run: npm run ci-test
+#      - name: Analyse
+#        run: node analyse.js
