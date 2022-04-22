@@ -39,5 +39,14 @@ jobs:
         run: npm run build-test
       - name: Test
         run: npm run ci-test
-#      - name: Analyse
-#        uses: sonarsource/sonarcloud-github-action@v1.6
+      - run: ls -la
+      - run: ls -laR
+      - name: Analyse
+        uses: sonarsource/sonarcloud-github-action@v1.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=jayreturns
+            -Dsonar.projectKey=sl-client
