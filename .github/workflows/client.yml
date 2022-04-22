@@ -40,4 +40,4 @@ jobs:
       - name: Test
         run: npm run ci-test
 #      - name: Analyse
-#        run: node analyse.js
+#        uses: sonarsource/sonarcloud-github-action@v1.6
