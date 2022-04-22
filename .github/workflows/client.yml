@@ -39,8 +39,7 @@ jobs:
         run: npm run build-test
       - name: Test
         run: npm run ci-test
-      - run: ls -la
-      - run: ls -laR
+      - run: ls -la coverage/sl-client
       - name: Analyse
         uses: sonarsource/sonarcloud-github-action@v1.6
         env:
@@ -50,3 +49,4 @@ jobs:
           args: >
             -Dsonar.organization=jayreturns
             -Dsonar.projectKey=sl-client
+            .Dsonar.exclusions=**/*.java
