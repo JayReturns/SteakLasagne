@@ -1,0 +1,42 @@
+.valueTableCell {
+  width: 10%;
+}
+
+.titleTableCell {
+  width: 50%;
+}
+
+.noticeTableCell {
+  width: 30%;
+}
+
+.divTable {
+  display: table;
+  width: 100%;
+}
+.divTableRow {
+  display: table-row;
+}
+
+.mat-card:hover {
+  background: whitesmoke;
+}
+
+.divTableHeading {
+  background-color: #EEE;
+  display: table-header-group;
+}
+.divTableCell {
+  display: table-cell;
+  padding: 3px 10px;
+}
+
+.divTableHeading {
+  background-color: #EEE;
+  display: table-header-group;
+  font-weight: bold;
+}
+
+.divTableBody {
+  display: table-row-group;
+}

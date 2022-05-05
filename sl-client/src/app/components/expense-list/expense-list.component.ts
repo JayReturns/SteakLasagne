@@ -3,14 +3,14 @@ import {TransactionService} from "../../services/transaction.service";
 import {Transaction} from "../../models/transaction.model";
 
 @Component({
-  selector: 'app-expense-list',
+  selector: 'expense-list',
   templateUrl: './expense-list.component.html',
   styleUrls: ['./expense-list.component.css']
 })
 export class ExpenseListComponent implements OnInit {
 
   transactions: Transaction[] = [];
-  map: Map<Date, Transaction[]> = new Map<Date, Transaction[]>()
+  map: Map<number, Transaction[]> = new Map<number, Transaction[]>()
 
   constructor(private transactionService: TransactionService) {
   }
@@ -22,10 +22,11 @@ export class ExpenseListComponent implements OnInit {
       for (let transaction of this.transactions) {
         transaction.date = new Date(transaction.date);
         transaction.date.setHours(0, 0, 0, 0);
-        if (this.map.has(transaction.date)) {
-          this.map.set(transaction.date, [...this.map.get(transaction.date)!, transaction]);
+        let time = transaction.date.getTime();
+        if (this.map.has(time)) {
+          this.map.set(time, [...this.map.get(time)!, transaction]);
         } else {
-          this.map.set(transaction.date, [transaction]);
+          this.map.set(time, [transaction]);
         }
       }
       console.log(this.map);
