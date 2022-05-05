@@ -1,0 +1,37 @@
+<p *ngIf="transactions">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell *matCellDef="let transaction">{{transaction.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>Titel</mat-header-cell>
+      <mat-cell *matCellDef="let transaction">{{transaction.title}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef>Kategorie</mat-header-cell>
+      <mat-cell *matCellDef="let transaction">{{transaction.category}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="notice">
+      <mat-header-cell *matHeaderCellDef>Notiz</mat-header-cell>
+      <mat-cell *matCellDef="let transaction">{{transaction.notice}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <mat-header-cell *matHeaderCellDef>Betrag</mat-header-cell>
+      <mat-cell *matCellDef="let transaction">{{transaction.value}} €</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef>Datum</mat-header-cell>
+      <mat-cell *matCellDef="let transaction">{{transaction.date | date}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+  </mat-table>
+</p>
