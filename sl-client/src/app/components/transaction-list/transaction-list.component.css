@@ -1,0 +1,22 @@
+.container { /*Global Styling of "Übersicht" Page" */
+  width: 60%;
+  margin: 0 auto;
+}
+
+.add-button {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 -5px 0;
+  color: gray
+}
+
+.mat-divider { /* Dividing line  between Transaction Dates */
+  margin: 10px 10px 5px 10px;
+  border-top-width: 2px;
+  border-top-color: lightgray;
+}
+
+
+.divider-date { /* Transaction Date */
+  margin: 0 0 10px 10px;
+}
