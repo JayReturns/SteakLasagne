@@ -1,0 +1,16 @@
+<p *ngIf="transactions">
+  <p *ngFor="let transaction of transactions">
+
+    <mat-card>
+      <div class="divTable">
+        <div class="divTableBody">
+          <div class="divTableRow">
+            <div class="divTableCell valueTableCell">{{transaction.value}}€</div>
+            <div class="divTableCell titleTableCell">{{transaction.title}}</div>
+            <div class="divTableCell noticeTableCell">{{transaction.notice}}</div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+
+  </p>

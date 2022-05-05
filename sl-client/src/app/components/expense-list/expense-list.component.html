@@ -1,0 +1,4 @@
+<p *ngFor="let a of map | keyvalue">
+  {{a.key | date}}
+  <expense-card-list [transactions]="a.value"></expense-card-list>
+</p>
