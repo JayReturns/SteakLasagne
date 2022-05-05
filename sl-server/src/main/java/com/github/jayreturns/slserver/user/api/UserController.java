@@ -1,5 +1,6 @@
 package com.github.jayreturns.slserver.user.api;
 
+import com.github.jayreturns.slserver.transaction.api.TransactionData;
 import com.github.jayreturns.slserver.user.domain.User;
 import com.github.jayreturns.slserver.user.domain.UserFactory;
 import com.github.jayreturns.slserver.user.repository.UserRepository;
@@ -42,5 +43,16 @@ public class UserController {
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserData getUser(@PathVariable(name = "id") String uuid) {
         return userDataFactory.from(userService.getUser(uuid));
+    }
+
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserData> updateUser(@Valid @RequestBody UserData userData) {
+        return ResponseEntity
+                .ok(userDataFactory.from(userService.updateUser(userFactory.from(userData))));
+    }
+
+    @DeleteMapping(path = "{id}")
+    public void deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
     }
 }

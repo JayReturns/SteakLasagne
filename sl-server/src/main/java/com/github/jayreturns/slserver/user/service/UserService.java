@@ -40,4 +40,27 @@ public class UserService {
     public User getUser(String id) {
         return userRepository.findById(id).orElseThrow();
     }
+
+    /**
+     * The User with {@code id} of {@code newUser} will be overwritten
+     * @param newUser The new User object
+     * @return The updated {@link User}
+     */
+    public User updateUser(User newUser) {
+        User user = userRepository.findById(newUser.getId()).orElseThrow();
+
+        user.setId(newUser.getId());
+        user.setFriendlyName(newUser.getFriendlyName());
+        user.setCurrentAmount(newUser.getCurrentAmount());
+
+        return userRepository.save(user);
+    }
+
+    /**
+     * Delete the user with {@code id}
+     * @param id UUID of User
+     */
+    public void deleteUser(String id) {
+        userRepository.deleteById(id);
+    }
 }
