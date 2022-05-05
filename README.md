@@ -2,6 +2,14 @@
 
 Development Notes: [Entwicklung Wiki](https://github.com/JayReturns/SteakLasagne/wiki/Entwicklung)  
 Progress Tracker: [Project SteakLasagne](https://github.com/JayReturns/SteakLasagne/projects/2)
+---
+## Management
+
+* [Strukturplan](https://github.com/JayReturns/SteakLasagne/wiki/Management#strukturplan)
+* [Lasten- und Pflichtenheft](https://github.com/JayReturns/SteakLasagne/wiki/Management#lasten--und-pflichtenheft)
+* [Risikomatrix](https://github.com/JayReturns/SteakLasagne/wiki/Management#risikomanagement)
+* [Zeiterfassung](https://github.com/JayReturns/SteakLasagne/discussions/categories/zeiterfassung)
+* [Weekly-Protokolle](https://github.com/JayReturns/SteakLasagne/discussions/categories/weekly)
 
 ---
 ## Getting started
@@ -14,5 +22,5 @@ Progress Tracker: [Project SteakLasagne](https://github.com/JayReturns/SteakLasa
 #### Development Environment
 * [Docker](https://www.docker.com/) (optional)
 
-### IDK
+### Projektbeschreibung
 >Das Projekt „SteakLasagne“ wird bis zum 08.06.2022 die Funktionalität zur Verfügung stellen, Ausgaben und Einnahmen benutzerspezifisch aufzulisten, diese zu kategorisieren und graphisch aufzubereiten, wobei jedem Eintrag verschiedene Eigenschaften zuweisbar sind und eine Rechnungsdatei ist anhängbar. Diese arbeitet browserbasierend mit 50 Personentagen Aufwand
