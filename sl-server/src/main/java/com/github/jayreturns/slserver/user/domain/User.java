@@ -1,4 +1,4 @@
-package com.github.jayreturns.slserver.User.domain;
+package com.github.jayreturns.slserver.user.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,12 +17,12 @@ public class User {
 
     @Id
     @Column(name = "id", nullable = false, unique = true)
-    private Long id;
+    private String Id;
 
     @Column(name = "friendly_name")
     private String FriendlyName;
 
     @Column(name = "current_amount")
-    private Float CurrentAmount;
+    private Double CurrentAmount;
 
 }
