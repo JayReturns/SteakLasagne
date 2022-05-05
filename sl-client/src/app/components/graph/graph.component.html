@@ -1,0 +1,22 @@
+
+<div class="container">
+  <div class="card mt-2">
+    <div class="card-body">
+      <h4 class="card-title">Tagesänderungen</h4>
+      <canvas
+        baseChart
+        [data]="salesData"
+        [type]="'line'"
+        [options]="LineChartOptions"
+      >
+      </canvas>
+      <canvas
+        baseChart
+        [data]="Day_to_Day_Transactions"
+        [type]="'bar'"
+        [options]="BarChartOptions"
+      >
+      </canvas>
+    </div>
+  </div>
+</div>
