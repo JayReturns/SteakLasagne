@@ -17,6 +17,34 @@
             <column name="value" type="decimal(10,2)"/>
         </createTable>
     </changeSet>
+    <changeSet id="1.1-user-table" author="Philip Rexroth">
+        <createTable tableName="user">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"></constraints>
+            </column>
+            <column name="FriendlyName" type="varchar(255)"/>
+            <column name="CurrentAmount" type="decimal(10,2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1.1.1-user-table" author="Philip Rexroth">
+    <createTable tableName="user">
+        <column name="id" type="bigint">
+            <constraints nullable="false" primaryKey="true"></constraints>
+        </column>
+        <column name="friendly_nameName" type="varchar(255)"/>
+        <column name="current_amounturrentAmount" type="decimal(10,2)"/>
+    </createTable>
+    </changeSet>
+    <changeSet id="1.1.2-user-table" author="Philip Rexroth">
+        <createTable tableName="user">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"></constraints>
+            </column>
+            <column name="friendly_name" type="varchar(255)"/>
+            <column name="current_amount" type="decimal(10,2)"/>
+        </createTable>
+    </changeSet>
+
 
 
 </databaseChangeLog>
