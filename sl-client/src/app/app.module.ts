@@ -8,19 +8,23 @@ import {MaterialModule} from "../material.module";
 import {HttpClientModule} from "@angular/common/http";
 import {ExpenseListComponent} from "./components/expense-list/expense-list.component";
 import { ExpenseCardListComponent } from './components/expense-card-list/expense-card-list.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExpenseListComponent,
-    ExpenseCardListComponent
+    ExpenseCardListComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     NgChartsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
