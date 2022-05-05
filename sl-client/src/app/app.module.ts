@@ -6,14 +6,16 @@ import {NgChartsModule} from "ng2-charts";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from "../material.module";
 import {HttpClientModule} from "@angular/common/http";
-import {ExpenseListComponent} from "./components/expense-list/expense-list.component";
-import { ExpenseCardListComponent } from './components/expense-card-list/expense-card-list.component';
+import {HeaderMenuComponent} from "./components/header-menu/header-menu.component";
+import {TransactionListComponent} from "./components/transaction-list/transaction-list.component";
+import { TransactionCardComponent } from './components/transaction-card/transaction-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ExpenseListComponent,
-    ExpenseCardListComponent
+    TransactionListComponent,
+    TransactionCardComponent,
+    HeaderMenuComponent,
   ],
   imports: [
     BrowserModule,

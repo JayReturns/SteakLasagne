@@ -1,0 +1,28 @@
+<div *ngIf="transactions">
+
+  <div *ngFor="let transaction of transactions">
+
+    <div class="display-row">
+      <mat-card class="mat-card">
+        <mat-card-title>
+          {{transaction.title}}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{transaction.value}}€
+        </mat-card-subtitle>
+        <mat-card-content>
+          {{transaction.notice}}
+        </mat-card-content>
+
+      </mat-card>
+          <button class="edit-button" mat-icon-button aria-label="Edit Transaction">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="!transactions">
+  Nothing to see here!
+</div>

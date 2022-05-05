@@ -1,0 +1,16 @@
+<div class="container">
+
+  <div class="add-button">
+    <button mat-icon-button aria-label="Add new Transactions">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+  </div>
+  <div *ngFor="let entry of map | keyvalue">
+    <mat-divider class="mat-divider"></mat-divider>
+    <div class="divider-date">
+      {{entry.key | date}}
+    </div>
+    <expense-card-list [transactions]="entry.value"></expense-card-list>
+
+  </div>
+</div>

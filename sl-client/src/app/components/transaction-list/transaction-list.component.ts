@@ -4,10 +4,10 @@ import {Transaction} from "../../models/transaction.model";
 
 @Component({
   selector: 'expense-list',
-  templateUrl: './expense-list.component.html',
-  styleUrls: ['./expense-list.component.css']
+  templateUrl: './transaction-list.component.html',
+  styleUrls: ['./transaction-list.component.css']
 })
-export class ExpenseListComponent implements OnInit {
+export class TransactionListComponent implements OnInit {
 
   transactions: Transaction[] = [];
   map: Map<number, Transaction[]> = new Map<number, Transaction[]>()

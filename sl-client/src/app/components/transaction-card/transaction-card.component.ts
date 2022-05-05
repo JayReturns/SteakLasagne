@@ -3,10 +3,10 @@ import {Transaction} from "../../models/transaction.model";
 
 @Component({
   selector: 'expense-card-list',
-  templateUrl: './expense-card-list.component.html',
-  styleUrls: ['./expense-card-list.component.css']
+  templateUrl: './transaction-card.component.html',
+  styleUrls: ['./transaction-card.component.css']
 })
-export class ExpenseCardListComponent {
+export class TransactionCardComponent {
 
   @Input() transactions?: Transaction[];
 
