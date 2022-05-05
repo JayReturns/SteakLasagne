@@ -3,7 +3,7 @@ import {TransactionService} from "../../services/transaction.service";
 import {Transaction} from "../../models/transaction.model";
 
 @Component({
-  selector: 'expense-list',
+  selector: 'transaction-list',
   templateUrl: './transaction-list.component.html',
   styleUrls: ['./transaction-list.component.css']
 })

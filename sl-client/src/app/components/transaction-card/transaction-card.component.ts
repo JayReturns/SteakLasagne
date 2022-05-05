@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Transaction} from "../../models/transaction.model";
 
 @Component({
-  selector: 'expense-card-list',
+  selector: 'transaction-card',
   templateUrl: './transaction-card.component.html',
   styleUrls: ['./transaction-card.component.css']
 })

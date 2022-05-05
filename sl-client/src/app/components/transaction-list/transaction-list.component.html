@@ -10,7 +10,7 @@
     <div class="divider-date">
       {{entry.key | date}}
     </div>
-    <expense-card-list [transactions]="entry.value"></expense-card-list>
+    <transaction-card [transactions]="entry.value"></transaction-card>
 
   </div>
 </div>
