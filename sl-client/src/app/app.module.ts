@@ -11,6 +11,7 @@ import {TransactionListComponent} from "./components/transaction-list/transactio
 import { TransactionCardComponent } from './components/transaction-card/transaction-card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { GraphComponent } from './components/graph/graph.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     TransactionListComponent,
     TransactionCardComponent,
     HeaderMenuComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,
