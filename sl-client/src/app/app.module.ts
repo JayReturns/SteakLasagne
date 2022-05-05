@@ -9,20 +9,25 @@ import {HttpClientModule} from "@angular/common/http";
 import {HeaderMenuComponent} from "./components/header-menu/header-menu.component";
 import {TransactionListComponent} from "./components/transaction-list/transaction-list.component";
 import { TransactionCardComponent } from './components/transaction-card/transaction-card.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+
     TransactionListComponent,
     TransactionCardComponent,
     HeaderMenuComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     NgChartsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
