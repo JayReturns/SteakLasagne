@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TransactionService} from "../../services/transaction.service";
 import {Transaction} from "../../models/transaction.model";
-import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-expense-list',
@@ -11,17 +10,26 @@ import {MatTableDataSource} from "@angular/material/table";
 export class ExpenseListComponent implements OnInit {
 
   transactions: Transaction[] = [];
-  dataSource = new MatTableDataSource(this.transactions);
-  displayedColumns = ["id", "title", "category", "notice", "value", "date"];
+  map: Map<Date, Transaction[]> = new Map<Date, Transaction[]>()
 
-  constructor(private transactionService: TransactionService) { }
+  constructor(private transactionService: TransactionService) {
+  }
 
   ngOnInit(): void {
     this.transactionService.getTransactions().subscribe(result => {
-      console.log(result)
       this.transactions = result;
-      this.dataSource = new MatTableDataSource<Transaction>(this.transactions);
-    })
+
+      for (let transaction of this.transactions) {
+        transaction.date = new Date(transaction.date);
+        transaction.date.setHours(0, 0, 0, 0);
+        if (this.map.has(transaction.date)) {
+          this.map.set(transaction.date, [...this.map.get(transaction.date)!, transaction]);
+        } else {
+          this.map.set(transaction.date, [transaction]);
+        }
+      }
+      console.log(this.map);
+    });
   }
 
 }
