@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class GraphSetService {
@@ -44,7 +43,6 @@ public class GraphSetService {
 
         map.forEach((time, transactionList) -> {
             AtomicFloat start = new AtomicFloat();
-            new AtomicInteger().addAndGet(5);
             transactionList.stream().map(Transaction::getValue).forEach(value -> start.set(start.get() + value));
             cumulatedMap.put(time.toLocalDateTime().toLocalDate(), start.get());
         });
