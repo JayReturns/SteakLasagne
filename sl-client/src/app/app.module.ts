@@ -14,6 +14,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
 import { NewTransactionDialogComponent } from './components/new-transaction/new-transaction-dialog/new-transaction-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditTransactionComponent } from './components/edit-transaction/edit-transaction.component';
+import { EditTransactionDialogComponent } from './components/edit-transaction/edit-transaction-dialog/edit-transaction-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderMenuComponent,
     PageNotFoundComponent,
     NewTransactionComponent,
-    NewTransactionDialogComponent
+    NewTransactionDialogComponent,
+    EditTransactionComponent,
+    EditTransactionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [NewTransactionComponent]
+  entryComponents: [NewTransactionComponent, EditTransactionComponent]
 })
 export class AppModule { }

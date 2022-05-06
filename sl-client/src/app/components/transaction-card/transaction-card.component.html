@@ -5,19 +5,18 @@
     <div class="display-row">
       <mat-card class="mat-card">
         <mat-card-title>
-          {{transaction.title}}
+          {{transaction.title}} - {{transaction.id}}
+
         </mat-card-title>
         <mat-card-subtitle>
-          {{transaction.value}}€ - {{transaction.id}}
+          {{transaction.value}}€
         </mat-card-subtitle>
         <mat-card-content>
           {{transaction.notice}}
         </mat-card-content>
 
       </mat-card>
-          <button class="edit-button" mat-icon-button aria-label="Edit Transaction">
-            <mat-icon>edit</mat-icon>
-        </button>
+      <app-edit-transaction [transaction]="transaction"></app-edit-transaction>
     </div>
   </div>
 </div>
