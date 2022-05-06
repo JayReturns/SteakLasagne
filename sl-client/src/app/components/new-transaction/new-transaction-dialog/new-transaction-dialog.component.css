@@ -1,0 +1,44 @@
+input.right-align::-webkit-outer-spin-button,
+input.right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+.right-align {
+  text-align: right;
+}
+
+input.right-align {
+  -moz-appearance: textfield;
+}
+
+.mat-dialog-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 0.25fr);
+  gap: 10px;
+  align-items: center;
+
+  grid-template-areas:
+    "title date amount"
+    "note note note";
+}
+
+.title{
+  grid-area: title;
+}
+
+.amount{
+  grid-area: amount;
+}
+
+.date {
+  grid-area: date;
+}
+
+.note{
+  grid-area: note;
+}
+
+.mat-raised-button {
+  margin: 5px 5px 5px 5px;
+}

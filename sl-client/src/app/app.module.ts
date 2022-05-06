@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
+import { MatDialogModule } from "@angular/material/dialog";
 import {AppComponent} from './app.component';
 import {NgChartsModule} from "ng2-charts";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -12,16 +12,24 @@ import { TransactionCardComponent } from './components/transaction-card/transact
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { GraphComponent } from './components/graph/graph.component';
+import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
+import { NewTransactionDialogComponent } from './components/new-transaction/new-transaction-dialog/new-transaction-dialog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditTransactionComponent } from './components/edit-transaction/edit-transaction.component';
+import { EditTransactionDialogComponent } from './components/edit-transaction/edit-transaction-dialog/edit-transaction-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-
     TransactionListComponent,
     TransactionCardComponent,
     HeaderMenuComponent,
     PageNotFoundComponent,
     GraphComponent
+    NewTransactionComponent,
+    NewTransactionDialogComponent,
+    EditTransactionComponent,
+    EditTransactionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -29,9 +37,13 @@ import { GraphComponent } from './components/graph/graph.component';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NewTransactionComponent, EditTransactionComponent]
 })
 export class AppModule { }
