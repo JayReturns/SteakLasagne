@@ -11,6 +11,7 @@ import {TransactionListComponent} from "./components/transaction-list/transactio
 import { TransactionCardComponent } from './components/transaction-card/transaction-card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { GraphComponent } from './components/graph/graph.component';
 import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
 import { NewTransactionDialogComponent } from './components/new-transaction/new-transaction-dialog/new-transaction-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +25,7 @@ import { EditTransactionDialogComponent } from './components/edit-transaction/ed
     TransactionCardComponent,
     HeaderMenuComponent,
     PageNotFoundComponent,
+    GraphComponent
     NewTransactionComponent,
     NewTransactionDialogComponent,
     EditTransactionComponent,
