@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {EditTransactionDialogComponent} from "./edit-transaction-dialog/edit-transaction-dialog.component";
 import {Transaction} from "../../models/transaction.model";
+import {TransactionService} from "../../services/transaction.service";
 
 @Component({
   selector: 'app-edit-transaction',
@@ -11,7 +12,7 @@ import {Transaction} from "../../models/transaction.model";
 export class EditTransactionComponent {
   @Input() transaction?: Transaction
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private transactionService: TransactionService) {
   }
 
   openDialog() {
@@ -36,7 +37,10 @@ export class EditTransactionComponent {
     const dialogRef = this.dialog.open(EditTransactionDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => console.log("Edited Transaction:", data)
+      data => {
+        console.log("Edited Transaction:", data);
+        this.transactionService.updateTransaction(data).subscribe(result => console.log(result))
+      }
     );
 
   }
