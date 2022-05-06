@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>Neue Transaktion hinzufügen</h2>
+
+
+<mat-dialog-content class="mat-dialog-content" [formGroup]="transaction">
+
+
+    <mat-form-field class="title" appearance="fill">
+      <mat-label>Titel</mat-label>
+      <input matInput #title maxlength="30" formControlName="title">
+      <mat-hint align="end" >{{title.value.length}}/30</mat-hint>
+    </mat-form-field>
+
+  <mat-form-field class="date" appearance="fill">
+    <mat-label>Datum</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-hint>MM/TT/JJJJ</mat-hint>
+  </mat-form-field>
+
+    <mat-form-field class="value" appearance="fill">
+      <mat-label>Betrag</mat-label>
+      <input matInput type="number" class="right-align" placeholder="0.00" formControlName="value">
+      <span matSuffix>&nbsp;€</span>
+    </mat-form-field>
+
+
+
+  <mat-form-field class="notice" appearance="fill">
+    <mat-label>Notiz</mat-label>
+    <textarea matInput #note maxlength="256" formControlName="notice"></textarea>
+    <mat-hint align="end">{{note.value.length}} / 256</mat-hint>
+  </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button class="mat-raised-button" (click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary" (click)="save()">Speichern</button>
+</mat-dialog-actions>
+
+

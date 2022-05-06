@@ -1,0 +1,8 @@
+.edit-button {
+  color:darkgray
+
+}
+.edit-button:hover {
+  color: gray;
+
+}
