@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
 @Component({
-  selector: 'app-root',
+  selector: 'graph-component',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css'],
 })
