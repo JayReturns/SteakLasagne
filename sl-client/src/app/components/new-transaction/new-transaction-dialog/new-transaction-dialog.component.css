@@ -19,24 +19,24 @@ input.right-align {
   align-items: center;
 
   grid-template-areas:
-    "title date amount"
-    "note note note";
+    "title date value"
+    "notice notice notice";
 }
 
 .title{
   grid-area: title;
 }
 
-.amount{
-  grid-area: amount;
+.value{
+  grid-area: value;
 }
 
 .date {
   grid-area: date;
 }
 
-.note{
-  grid-area: note;
+.notice{
+  grid-area: notice;
 }
 
 .mat-raised-button {

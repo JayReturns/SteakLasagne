@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import {Component} from '@angular/core';
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {NewTransactionDialogComponent} from "./new-transaction-dialog/new-transaction-dialog.component";
+import {TransactionService} from "../../services/transaction.service";
 
 @Component({
   selector: 'app-new-transaction',
@@ -9,7 +10,7 @@ import {NewTransactionDialogComponent} from "./new-transaction-dialog/new-transa
 })
 export class NewTransactionComponent{
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private transactionService: TransactionService) {
   }
 
   openDialog() {
@@ -24,7 +25,12 @@ export class NewTransactionComponent{
     const dialogRef = this.dialog.open(NewTransactionDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => console.log("New Transaction:", data)
+      data => {
+        console.log("New Transaction:", data);
+
+        this.transactionService.createTransaction(data).subscribe(result => console.log(result))
+      },
+
     );
 
   }

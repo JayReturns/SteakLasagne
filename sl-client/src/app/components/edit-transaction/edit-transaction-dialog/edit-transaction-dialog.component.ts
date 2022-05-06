@@ -14,8 +14,8 @@ export class EditTransactionDialogComponent {
   id!: string;
   title!: string;
   date!: Date;
-  amount!: number;
-  note!: string;
+  value!: number;
+  notice!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -26,15 +26,15 @@ export class EditTransactionDialogComponent {
     this.id = data.transaction_id
     this.title = data.transaction_title
     this.date = data.transaction_date
-    this.amount = data.transaction_amount
-    this.note = data.transaction_note
+    this.value = data.transaction_value
+    this.notice = data.transaction_notice
 
     this.transaction_input = this.fb.group({
       id: [this.id, []],
       title: [this.title, []],
       date: [this.date, []],
-      amount: [this.amount, []],
-      note: [this.note, []]
+      value: [this.value, []],
+      notice: [this.notice, []]
     });
   }
 

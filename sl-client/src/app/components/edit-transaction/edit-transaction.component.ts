@@ -27,8 +27,8 @@ export class EditTransactionComponent {
       transaction_id: this.transaction?.id,
       transaction_title: this.transaction?.title,
       transaction_date: this.transaction?.date,
-      transaction_amount: this.transaction?.value,
-      transaction_note: this.transaction?.notice
+      transaction_value: this.transaction?.value,
+      transaction_notice: this.transaction?.notice
 
 
 

@@ -12,9 +12,9 @@ export class NewTransactionDialogComponent implements OnInit {
 
   transaction!: FormGroup;
   title!: string;
-  date!: number;
-  amount!: number;
-  note!: string;
+  date!: Date;
+  value!: number;
+  notice!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -30,8 +30,8 @@ export class NewTransactionDialogComponent implements OnInit {
     this.transaction = this.fb.group({
       title: [this.title, []],
       date: [this.date, []],
-      amount: [this.amount, []],
-      note: [this.note, []]
+      value: [this.value, []],
+      notice: [this.notice, []]
     });
   }
 
