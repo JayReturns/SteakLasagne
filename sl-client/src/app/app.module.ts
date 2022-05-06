@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
+import { MatDialogModule } from "@angular/material/dialog";
 import {AppComponent} from './app.component';
 import {NgChartsModule} from "ng2-charts";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -11,15 +11,19 @@ import {TransactionListComponent} from "./components/transaction-list/transactio
 import { TransactionCardComponent } from './components/transaction-card/transaction-card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
+import { NewTransactionDialogComponent } from './components/new-transaction/new-transaction-dialog/new-transaction-dialog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-
     TransactionListComponent,
     TransactionCardComponent,
     HeaderMenuComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NewTransactionComponent,
+    NewTransactionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -27,9 +31,13 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NewTransactionComponent]
 })
 export class AppModule { }
