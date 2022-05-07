@@ -39,7 +39,9 @@ export class EditTransactionComponent {
     dialogRef.afterClosed().subscribe(
       data => {
         console.log("Edited Transaction:", data);
-        this.transactionService.updateTransaction(data).subscribe(result => console.log(result))
+        if (data != undefined) {
+          this.transactionService.updateTransaction(data).subscribe(result => console.log(result))
+        }
       }
     );
 
