@@ -4,6 +4,7 @@ import com.github.jayreturns.slserver.graphset.domain.GraphSet;
 import com.github.jayreturns.slserver.shared.api.AtomicFloat;
 import com.github.jayreturns.slserver.transaction.domain.Transaction;
 import com.github.jayreturns.slserver.transaction.repository.TransactionRepository;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -39,16 +40,23 @@ public class GraphSetService {
             }
         });
 
-        Map<LocalDate, Float> cumulatedMap = new HashMap<>();
+        Map<LocalDate, Pair<Float, Float>> cumulatedMap = new HashMap<>();
 
         map.forEach((time, transactionList) -> {
-            AtomicFloat start = new AtomicFloat();
-            transactionList.stream().map(Transaction::getValue).forEach(value -> start.set(start.get() + value));
-            cumulatedMap.put(time.toLocalDateTime().toLocalDate(), start.get());
+            AtomicFloat income = new AtomicFloat();
+            AtomicFloat expense = new AtomicFloat();
+            transactionList.stream().map(Transaction::getValue).forEach(value -> {
+                if (value > 0) {
+                    income.set(income.get() + value);
+                } else {
+                    expense.set(expense.get() + Math.abs(value));
+                }
+            });
+            cumulatedMap.put(time.toLocalDateTime().toLocalDate(), Pair.of(expense.get(), income.get()));
         });
 
         List<GraphSet> sets = new ArrayList<>();
-        cumulatedMap.forEach((time, value) -> sets.add(new GraphSet(time, value)));
+        cumulatedMap.forEach((time, pair) -> sets.add(new GraphSet(time, pair.getFirst(), pair.getSecond())));
 
         return sets;
     }
