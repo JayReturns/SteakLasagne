@@ -10,7 +10,7 @@ public class GraphSetDataFactory {
 
     public List<GraphSetData> from(List<GraphSet> graphSets) {
         return graphSets.stream()
-                .map(graphSet -> new GraphSetData(graphSet.getDate(), graphSet.getSum()))
+                .map(graphSet -> new GraphSetData(graphSet.getDate(), graphSet.getExpense(), graphSet.getIncome()))
                 .toList();
     }
 

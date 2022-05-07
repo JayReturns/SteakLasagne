@@ -11,6 +11,8 @@ public class GraphSet {
 
     private LocalDate date;
 
-    private Float sum;
+    private Float expense;
+
+    private Float income;
 
 }

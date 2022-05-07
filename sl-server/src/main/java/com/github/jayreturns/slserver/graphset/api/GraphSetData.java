@@ -13,6 +13,8 @@ public class GraphSetData {
     @PastOrPresent
     private LocalDate date;
 
-    private Float sum;
+    private Float expense;
+
+    private Float income;
 
 }
