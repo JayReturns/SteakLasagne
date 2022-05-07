@@ -1,22 +1,24 @@
-
 <div class="container">
   <div class="card mt-2">
     <div class="card-body">
-      <h4 class="card-title">Tagesänderungen</h4>
-      <canvas
-        baseChart
-        [data]="salesData"
-        [type]="'line'"
-        [options]="LineChartOptions"
-      >
-      </canvas>
-      <canvas
-        baseChart
-        [data]="Day_to_Day_Transactions"
-        [type]="'bar'"
-        [options]="BarChartOptions"
-      >
-      </canvas>
+
+      <mat-tab-group mat-align-tabs="center">
+
+        <mat-tab label="First">
+          <canvas #accumulatedTransactions>
+          </canvas>
+        </mat-tab>
+        <mat-tab label="Second">
+          <canvas #differentiatedTransactions>
+          </canvas>
+        </mat-tab>
+      </mat-tab-group>
+
+      <br/>
+      <mat-divider class="mat-divider"></mat-divider>
+      <br/>
+
+
     </div>
   </div>
 </div>
