@@ -1,49 +1,121 @@
-import { Component } from '@angular/core';
-import { ChartData, ChartOptions } from 'chart.js';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {Chart, registerables} from 'chart.js';
+import {GraphsetService} from "../../services/graphset.service";
+import {GraphSet} from "../../models/graphset.model";
+
 @Component({
   selector: 'graph-component',
   templateUrl: './graph.component.html',
   styleUrls: ['./graph.component.css'],
 })
-export class GraphComponent {
-  salesData: ChartData<'line'> = {
-    labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,47,48,49,50],
-    datasets: [
-      { label: 'Transaktionen', data: [785, 779, 972, 720, 996, -33, 54, 180, 353, 276, 603, 439, 756, 352, 56, 248, 441, -130, 141, 267, 496, 828, 831, 250, 391, 773, 445, 662, 878, 10, 904, -122, 302, 28, 799, 797, 734, -16, 824, 966, 789, 315, 816, 182, 6, 748, 23, 489, 5, 666], tension: 0.75 },
+export class GraphComponent implements AfterViewInit {
 
-    ],
-  };
-  Day_to_Day_Transactions: ChartData<'bar'> = {
-    labels: [1,2,3,4,5,6,7,8,9,10],
-    datasets: [
-      { label: 'Ausgaben', data: [-10,-36,-54,-57,-77,-101,-6,-52,-36,-54], backgroundColor: "#db3b5b", hoverBackgroundColor: "red"},
-      { label: 'Einnahmen', data: [69,420,42,145,23,65,37,346,776,34] , backgroundColor: "#33c45c", hoverBackgroundColor: "green"},
-    ],
-  };
-  LineChartOptions: ChartOptions = {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Monthly Sales Data',
-      },
-    },
-  };
-  BarChartOptions: ChartOptions = {
-    responsive: true,
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true,
+  graphSets: GraphSet[] = [];
+  dates: string[] = [];
+  sums: number[] = [];
+  invSums: number[] = [];
+  AccumulatedTransactionChart: any = [];
+  DifferentiatedTransactionChart: any = [];
+
+  @ViewChild('differentiatedTransactions') differentiatedTransactionsCanvas!: ElementRef;
+  @ViewChild('accumulatedTransactions') accumulatedTransactionsCanvas!: ElementRef;
+
+  constructor(private graphsetService: GraphsetService) {
+    Chart.register(...registerables);
+  }
+
+  ngAfterViewInit(): void {
+    this.graphsetService.getGraphset().subscribe(result => {
+      this.graphSets = result;
+
+      for (const graphSet of this.graphSets) {
+
+        this.dates.push(graphSet.date)
+
+        if (this.sums.length > 1) {
+          this.sums.push(this.sums[this.sums.length - 1] + graphSet.sum)
+        } else {
+          this.sums.push(graphSet.sum)
+        }
+        this.invSums.push(-Math.abs(graphSet.sum))
+        console.log(this.sums);
+        console.log(this.invSums);
       }
-    },
-    plugins: {
-      title: {
-        display: true,
-        text: 'Monthly Sales Data',
-      },
-    },
-  };
+
+      const down = (ctx: any, value: any) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+      const equal = (ctx: any, value: any) => ctx.p0.parsed.y == ctx.p1.parsed.y ? value : undefined;
+
+      this.AccumulatedTransactionChart = new Chart(this.accumulatedTransactionsCanvas.nativeElement, {
+        type: 'line',
+        data: {
+          labels: this.dates,
+          datasets: [
+            {
+              label: "Transaktionen",
+              data: this.sums,
+              fill: false,
+              borderColor: "#33c45c",
+              borderWidth: 3,
+              segment: {
+                borderColor: ctx => down(ctx, "#db3b5b") || equal(ctx, "gray"),
+              },
+              pointBackgroundColor: "gray",
+              pointHoverBorderColor: "gray",
+              pointHoverBorderWidth: 3,
+              pointHoverRadius: 5,
+              tension: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Aufsummierte Transaktionen',
+            },
+          },
+        }
+      });
+
+      this.DifferentiatedTransactionChart = new Chart(this.differentiatedTransactionsCanvas.nativeElement, {
+        type: 'bar',
+        data: {
+          labels: this.dates,
+          datasets: [
+            {
+              label: "Ausgaben",
+              data: this.invSums,
+              backgroundColor: "#db3b5b",
+              hoverBackgroundColor: "#DC143C"
+            },
+            {
+              label: "Einnahmen",
+              data: this.sums,
+              backgroundColor: "#33c45c",
+              hoverBackgroundColor: "#32CD32"
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              stacked: true,
+            },
+            y: {
+              stacked: true,
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: 'Einnahmen/Ausgaben',
+            },
+          },
+        }
+      });
+    });
+  }
 }
+
