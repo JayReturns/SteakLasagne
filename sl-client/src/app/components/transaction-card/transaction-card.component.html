@@ -16,7 +16,12 @@
         </mat-card-content>
 
       </mat-card>
+      <div class="buttons">
       <app-edit-transaction [transaction]="transaction"></app-edit-transaction>
+      <button class="delete-button"  mat-icon-button aria-label="Delete Transaction" (click)="deleteTransaction(transaction.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      </div>
     </div>
   </div>
 </div>

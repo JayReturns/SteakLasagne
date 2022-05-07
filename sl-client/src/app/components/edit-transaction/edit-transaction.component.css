@@ -1,8 +1,9 @@
 .edit-button {
-  color:darkgray
+  color: var(--button-color);
+  flex-basis: 5%;
 
 }
 .edit-button:hover {
-  color: gray;
+  color: var(--button-hover-color);
 
 }

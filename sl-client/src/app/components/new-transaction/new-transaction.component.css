@@ -1,8 +1,8 @@
 .add-button {
-  color:darkgray
+  color: var(--button-color)
 
 }
 .add-button:hover {
-  color: gray;
+  color: var(--button-hover-color);
 
 }

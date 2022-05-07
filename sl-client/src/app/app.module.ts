@@ -21,7 +21,6 @@ import {EditTransactionComponent} from './components/edit-transaction/edit-trans
 import {
   EditTransactionDialogComponent
 } from './components/edit-transaction/edit-transaction-dialog/edit-transaction-dialog.component';
-import {Graph2Component} from "./components/graph2/graph2.component";
 
 @NgModule({
   declarations: [
@@ -35,7 +34,6 @@ import {Graph2Component} from "./components/graph2/graph2.component";
     NewTransactionDialogComponent,
     EditTransactionComponent,
     EditTransactionDialogComponent,
-    Graph2Component
   ],
   imports: [
     BrowserModule,
