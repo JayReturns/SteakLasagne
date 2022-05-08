@@ -17,6 +17,7 @@ import {EditTransactionComponent} from "./components/edit-transaction/edit-trans
 import {TransactionDialogComponent} from "./components/transaction-dialog/transaction-dialog.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
+
 @NgModule({
   declarations: [
     AppComponent,

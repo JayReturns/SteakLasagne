@@ -4,6 +4,7 @@ import {TransactionDialogComponent} from "../transaction-dialog/transaction-dial
 import {Transaction} from "../../models/transaction.model";
 import {TransactionService} from "../../services/transaction.service";
 import {MessageService} from "../../services/message.service";
+
 @Component({
   selector: 'app-edit-transaction',
   templateUrl: './edit-transaction.component.html',
@@ -39,7 +40,7 @@ export class EditTransactionComponent {
 
         console.log("Edited Transaction:", data);
         this.transactionService.updateTransaction(data).subscribe(result => console.log(result));
-        //this.messageService.notifyUser(`Transaktion "${data.title}" erfolgreich geändert`) ; RE-ENABLE WHEN APPROPRIATE PULL REQUEST IS MERGED!
+        this.messageService.notifyUser(`Transaktion "${data.title}" erfolgerich geändert`) ;
       }
     );
 

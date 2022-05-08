@@ -14,17 +14,25 @@ export class MessageService {
     console.log(message);
   }
 
-  notifyUser() {
+  notifyUser(message: string) {
+    this.snackbar.open(message,  "", {
+      duration: 2000,
+      horizontalPosition: "center",
+      verticalPosition: "bottom"
+    });
+  }
+
+  notifyUserError() {
     this.snackbar.open('Ein Fehler ist aufgetreten!', "Schließen", {
       horizontalPosition: "center",
-      verticalPosition: "top"
+      verticalPosition: "bottom"
     });
   }
 
   notifyUserNoAccess() {
     this.snackbar.open('Keine Berechtigung!', 'Schließen', {
       horizontalPosition: "center",
-      verticalPosition: "top",
+      verticalPosition: "bottom",
       duration: 5000
     });
   }
@@ -36,10 +44,10 @@ export class MessageService {
         if (error.status === 403) {
           this.notifyUserNoAccess();
         } else {
-          this.notifyUser();
+          this.notifyUserError();
         }
       } else {
-        this.notifyUser();
+        this.notifyUserError();
       }
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
