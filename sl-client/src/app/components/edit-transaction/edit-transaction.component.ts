@@ -3,6 +3,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {EditTransactionDialogComponent} from "./edit-transaction-dialog/edit-transaction-dialog.component";
 import {Transaction} from "../../models/transaction.model";
 import {TransactionService} from "../../services/transaction.service";
+import {MessageService} from "../../services/message.service";
 
 @Component({
   selector: 'app-edit-transaction',
@@ -12,7 +13,7 @@ import {TransactionService} from "../../services/transaction.service";
 export class EditTransactionComponent {
   @Input() transaction?: Transaction
 
-  constructor(private dialog: MatDialog, private transactionService: TransactionService) {
+  constructor(private dialog: MatDialog, private transactionService: TransactionService, private messageService: MessageService) {
   }
 
   openDialog() {
@@ -38,8 +39,10 @@ export class EditTransactionComponent {
 
     dialogRef.afterClosed().subscribe(
       data => {
+
         console.log("Edited Transaction:", data);
-        this.transactionService.updateTransaction(data).subscribe(result => console.log(result))
+        this.transactionService.updateTransaction(data).subscribe(result => console.log(result));
+        this.messageService.notifyUser(`Transaktion "${data.title}" erfolgerich geändert`) ;
       }
     );
 
