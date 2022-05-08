@@ -7,7 +7,6 @@
   display: flex;
   justify-content: center;
   margin: 0 0 -5px 0;
-  color: gray
 }
 
 .mat-divider { /* Dividing line  between Transaction Dates */
@@ -20,6 +19,8 @@
 .divider-date { /* Transaction Date */
   margin: 0 0 10px 10px;
 }
+
+
 
 
 

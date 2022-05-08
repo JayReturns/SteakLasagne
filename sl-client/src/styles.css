@@ -1,4 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --button-color: #d9d9d9;
+  --button-hover-color: gray;
+
+  --graph-income-color: #33c45c;
+  --graph-income-hover-color: #32CD32;
+
+  --graph-expense-color: #db3b5b;
+  --graph-expense-hover-color: #DC143C;
+
+  --graph-point-color: darkgray;
+  --graph-pointhover-color: gray;
+
+}/* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
