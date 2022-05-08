@@ -27,7 +27,7 @@ export class NewTransactionComponent{
     dialogRef.afterClosed().subscribe(
       data => {
         console.log("New Transaction:", data);
-        if (data != undefined) {
+        if (data) {
           this.transactionService.createTransaction(data).subscribe(result => console.log(result))
         }
       },
