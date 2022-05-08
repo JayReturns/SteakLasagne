@@ -42,7 +42,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [NewTransactionComponent, EditTransactionComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
