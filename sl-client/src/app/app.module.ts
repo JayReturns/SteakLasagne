@@ -13,14 +13,10 @@ import {AppRoutingModule} from './app-routing.module';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {GraphComponent} from './components/graph/graph.component';
 import {NewTransactionComponent} from './components/new-transaction/new-transaction.component';
-import {
-  NewTransactionDialogComponent
-} from './components/new-transaction/new-transaction-dialog/new-transaction-dialog.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {EditTransactionComponent} from './components/edit-transaction/edit-transaction.component';
-import {
-  EditTransactionDialogComponent
-} from './components/edit-transaction/edit-transaction-dialog/edit-transaction-dialog.component';
+import {EditTransactionComponent} from "./components/edit-transaction/edit-transaction.component";
+import {TransactionDialogComponent} from "./components/transaction-dialog/transaction-dialog.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+
 
 @NgModule({
   declarations: [
@@ -31,9 +27,9 @@ import {
     PageNotFoundComponent,
     GraphComponent,
     NewTransactionComponent,
-    NewTransactionDialogComponent,
     EditTransactionComponent,
-    EditTransactionDialogComponent,
+    TransactionDialogComponent
+
   ],
   imports: [
     BrowserModule,
@@ -47,7 +43,6 @@ import {
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [NewTransactionComponent, EditTransactionComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

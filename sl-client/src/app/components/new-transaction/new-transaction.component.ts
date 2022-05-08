@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {NewTransactionDialogComponent} from "./new-transaction-dialog/new-transaction-dialog.component";
+import {TransactionDialogComponent} from "../transaction-dialog/transaction-dialog.component";
 import {TransactionService} from "../../services/transaction.service";
 import {MessageService} from "../../services/message.service";
 
@@ -22,8 +22,10 @@ export class NewTransactionComponent{
     dialogConfig.autoFocus = true;
     dialogConfig.hasBackdrop = true;
     dialogConfig.width = "50%";
-
-    const dialogRef = this.dialog.open(NewTransactionDialogComponent, dialogConfig);
+    dialogConfig.data = {
+      dialogTitle: "Neue Transaktion"
+    }
+    const dialogRef = this.dialog.open(TransactionDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       data => {
