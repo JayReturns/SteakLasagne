@@ -1,4 +1,5 @@
-export interface GraphSet {
-  date: string;
-  sum: number;
+export interface GraphSet   {
+  "date": string;
+  "expense": number;
+  "income": number;
 }

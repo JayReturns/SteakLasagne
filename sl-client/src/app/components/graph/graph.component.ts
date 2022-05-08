@@ -12,8 +12,11 @@ export class GraphComponent implements AfterViewInit {
 
   graphSets: GraphSet[] = [];
   dates: string[] = [];
+  expenses: number[] = [];
+  incomes: number[] = [];
+  sum!: number;
   sums: number[] = [];
-  invSums: number[] = [];
+
   AccumulatedTransactionChart: any = [];
   DifferentiatedTransactionChart: any = [];
 
@@ -29,17 +32,17 @@ export class GraphComponent implements AfterViewInit {
       this.graphSets = result;
 
       for (const graphSet of this.graphSets) {
-
+        graphSet.expense = -Math.abs(graphSet.expense)
         this.dates.push(graphSet.date)
+        this.expenses.push(graphSet.expense)
+        this.incomes.push(graphSet.income)
+        this.sum = (graphSet.income + graphSet.expense)
 
         if (this.sums.length > 1) {
-          this.sums.push(this.sums[this.sums.length - 1] + graphSet.sum)
+          this.sums.push(this.sums[this.sums.length - 1] + this.sum)
         } else {
-          this.sums.push(graphSet.sum)
+          this.sums.push(this.sum)
         }
-        this.invSums.push(-Math.abs(graphSet.sum))
-        console.log(this.sums);
-        console.log(this.invSums);
       }
 
       const down = (ctx: any, value: any) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
@@ -63,7 +66,7 @@ export class GraphComponent implements AfterViewInit {
               pointHoverBorderColor: "gray",
               pointHoverBorderWidth: 3,
               pointHoverRadius: 5,
-              tension: 0
+              tension: 0.5
             }
           ]
         },
@@ -85,13 +88,13 @@ export class GraphComponent implements AfterViewInit {
           datasets: [
             {
               label: "Ausgaben",
-              data: this.invSums,
+              data: this.expenses,
               backgroundColor: "#db3b5b",
               hoverBackgroundColor: "#DC143C"
             },
             {
               label: "Einnahmen",
-              data: this.sums,
+              data: this.incomes,
               backgroundColor: "#33c45c",
               hoverBackgroundColor: "#32CD32"
             }
