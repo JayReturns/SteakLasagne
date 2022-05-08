@@ -44,8 +44,7 @@ export class GraphComponent implements AfterViewInit {
           this.sums.push(this.sum)
         }
       }
-      console.log(this.expenses)
-      console.log(this.incomes)
+
       const down = (ctx: any, value: any) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
       const equal = (ctx: any, value: any) => ctx.p0.parsed.y == ctx.p1.parsed.y ? value : undefined;
 
