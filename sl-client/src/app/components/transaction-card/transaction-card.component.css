@@ -1,5 +1,5 @@
 .mat-card {
-  flex-basis: 95%;
+  flex-basis: 90%;
   border: black;
   border-width: 10px;
   margin: 10px 10px 10px 10px;
@@ -55,4 +55,18 @@
 
 .divTableBody {
   display: table-row-group;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column
+}
+
+.delete-button {
+  flex-basis: 5%;
+  color: var(--button-color);
+}
+
+.delete-button:hover {
+  color: var(--button-hover-color);
 }

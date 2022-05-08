@@ -62,7 +62,7 @@ export class GraphComponent implements AfterViewInit {
               segment: {
                 borderColor: ctx => down(ctx, "#db3b5b") || equal(ctx, "gray"),
               },
-              pointBackgroundColor: "gray",
+              pointBackgroundColor: "darkgray",
               pointHoverBorderColor: "gray",
               pointHoverBorderWidth: 3,
               pointHoverRadius: 5,
