@@ -39,8 +39,13 @@ export class EditTransactionComponent {
       data => {
 
         console.log("Edited Transaction:", data);
-        this.transactionService.updateTransaction(data).subscribe(result => console.log(result));
-        this.messageService.notifyUser(`Transaktion "${data.title}" erfolgerich geändert`) ;
+        if (data) {
+          this.transactionService.updateTransaction(data).subscribe(result => console.log(result))
+          this.messageService.notifyUser(`Transaktion "${data.title}" erfolgerich geändert`) ;
+        }
+
+        
+
       }
     );
 

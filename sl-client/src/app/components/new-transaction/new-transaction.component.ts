@@ -30,9 +30,10 @@ export class NewTransactionComponent{
     dialogRef.afterClosed().subscribe(
       data => {
         console.log("New Transaction:", data);
-
+        if (data) {
         this.transactionService.createTransaction(data).subscribe(result => console.log(result))
         this.messageService.notifyUser(`Transaktion "${data.title}" erfolgerich gespeichert`) ;
+        }
       },
 
     );
