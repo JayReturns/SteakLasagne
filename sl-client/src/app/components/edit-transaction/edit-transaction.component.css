@@ -1,9 +1,0 @@
-.edit-button {
-  color: var(--button-color);
-  flex-basis: 5%;
-
-}
-.edit-button:hover {
-  color: var(--button-hover-color);
-
-}

@@ -1,7 +1,8 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {TransactionService} from "../../services/transaction.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {Transaction} from "../../models/transaction.model";
 
 @Component({
   selector: 'app-transaction-dialog',
@@ -10,13 +11,14 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class TransactionDialogComponent {
 
+  transaction?: Transaction;
   dialogTitle: string = "TransactionDialog";
   transactionInput!: FormGroup;
-  id!: string;
-  title!: string;
-  date!: Date;
-  value!: number;
-  notice!: string;
+  idControl;
+  titleControl;
+  dateControl;
+  valueControl;
+  noticeControl;
 
   constructor(
     private fb: FormBuilder,
@@ -24,20 +26,33 @@ export class TransactionDialogComponent {
     private transactionService: TransactionService,
     @Inject(MAT_DIALOG_DATA) data: any) {
 
-    this.dialogTitle = data.dialogTitle
-    this.id = data.transactionId
-    this.title = data.transactionTitle
-    this.date = data.transactionDate
-    this.value = data.transactionValue
-    this.notice = data.transactionNotice
+    this.idControl = new FormControl();
+    this.titleControl = new FormControl();
+    this.dateControl = new FormControl();
+    this.valueControl = new FormControl();
+    this.noticeControl = new FormControl();
 
-    this.transactionInput = this.fb.group({
-      id: [this.id, []],
-      title: [this.title, []],
-      date: [this.date, []],
-      value: [this.value, []],
-      notice: [this.notice, []]
-    });
+    if (data && data.transaction) {
+      this.transaction = data.transaction;
+
+      this.idControl.setValue(this.transaction!.id);
+      this.titleControl.setValue(this.transaction!.title);
+      this.dateControl.setValue(this.transaction!.date);
+      this.valueControl.setValue(this.transaction!.value);
+      this.noticeControl.setValue(this.transaction!.notice);
+    }
+
+    if (data && data.title) {
+      this.dialogTitle = data.title;
+    }
+
+    this.transactionInput = fb.group({
+      id: this.idControl,
+      title: this.titleControl,
+      date: this.dateControl,
+      value: this.valueControl,
+      notice: this.noticeControl
+    })
   }
 
   close() {

@@ -1,12 +1,52 @@
 <div class="container">
-  <app-new-transaction class="new-transaction"></app-new-transaction>
+
+  <div class="add-button new-transaction">
+    <button mat-icon-button (click)="addTransaction()" aria-label="Add new Transaction">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+  </div>
 
   <div *ngFor="let entry of map | keyvalue">
     <mat-divider class="mat-divider"></mat-divider>
     <div class="divider-date">
       {{entry.key | date}}
     </div>
-    <transaction-card [transactions]="entry.value"></transaction-card>
+    <div *ngIf="entry.value">
+
+      <div *ngFor="let transaction of entry.value">
+
+        <div class="display-row">
+          <mat-card class="mat-card">
+            <mat-card-title>
+              {{transaction.title}} - {{transaction.id}}
+
+            </mat-card-title>
+            <mat-card-subtitle>
+              {{transaction.value}}€
+            </mat-card-subtitle>
+            <mat-card-content>
+              {{transaction.notice}}
+            </mat-card-content>
+
+          </mat-card>
+          <div class="buttons">
+            <button class="edit-button" mat-icon-button aria-label="Edit Transaction" (click)="editTransaction(transaction)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button class="delete-button"  mat-icon-button aria-label="Delete Transaction" (click)="deleteTransaction(transaction.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="!entry.value">
+      Nothing to see here!
+    </div>
+
 
 
   </div>
