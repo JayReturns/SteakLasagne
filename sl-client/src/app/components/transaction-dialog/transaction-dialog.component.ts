@@ -22,7 +22,7 @@ export class TransactionDialogComponent {
   noticeControl;
   minDate!: Date;
   maxDate!: Date;
-  valuePattern: string = '[0-9]*\.?[0-9]{0,2}';
+  valuePattern: string = '-?[0-9]*\.?[0-9]{0,2}';
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<TransactionDialogComponent>,
