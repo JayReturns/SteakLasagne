@@ -25,7 +25,7 @@
 }
 
 .expense {
-  color: red;
+  color: var(--graph-expense-color);
 }
 
 /* Transaction Card*/
