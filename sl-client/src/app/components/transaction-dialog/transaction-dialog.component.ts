@@ -1,8 +1,9 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {TransactionService} from "../../services/transaction.service";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Transaction} from "../../models/transaction.model";
+import {MessageService} from "../../services/message.service";
 
 @Component({
   selector: 'app-transaction-dialog',
@@ -19,18 +20,21 @@ export class TransactionDialogComponent {
   dateControl;
   valueControl;
   noticeControl;
-
+  minDate!: Date;
+  maxDate!: Date;
+  valuePattern: string = '[0-9]*\.?[0-9]{0,2}';
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<TransactionDialogComponent>,
     private transactionService: TransactionService,
+    private messageService: MessageService,
     @Inject(MAT_DIALOG_DATA) data: any) {
 
     this.idControl = new FormControl();
-    this.titleControl = new FormControl();
-    this.dateControl = new FormControl();
-    this.valueControl = new FormControl();
-    this.noticeControl = new FormControl();
+    this.titleControl = new FormControl('',[Validators.required, Validators.maxLength(30)]);
+    this.dateControl = new FormControl('',[Validators.required]);
+    this.valueControl = new FormControl('',[Validators.required, Validators.pattern(this.valuePattern)]);
+    this.noticeControl = new FormControl('',[Validators.maxLength(256)]);
 
     if (data && data.transaction) {
       this.transaction = data.transaction;
@@ -52,7 +56,13 @@ export class TransactionDialogComponent {
       date: this.dateControl,
       value: this.valueControl,
       notice: this.noticeControl
+
     })
+    const date = new Date();
+    this.minDate = new Date(1970, 0, 1);
+    this.maxDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate());
+
+
   }
 
   close() {
@@ -60,7 +70,12 @@ export class TransactionDialogComponent {
   }
 
   save() {
+
+    console.log("Errors", this.titleControl.errors, this.dateControl.errors, this.valueControl.errors, this.noticeControl.errors)
+    if (this.transactionInput.valid) {
+    this.transactionInput.value.date.setDate(this.transactionInput.value.date.getDate() + 1)
     this.dialogRef.close(this.transactionInput.value);
+    }
 
   }
 }
