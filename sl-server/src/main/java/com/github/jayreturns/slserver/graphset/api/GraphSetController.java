@@ -24,7 +24,7 @@ public class GraphSetController {
     }
 
     @GetMapping
-    public List<GraphSetData> getGraphSets(@RequestParam(required = false, defaultValue = "1970-01-01")
+    public List<GraphSetData> getGraphSets(@RequestParam(required = false, defaultValue = "-999999999-01-01")
                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate after) {
         return graphSetDataFactory.from(graphSetService.getGraphSets(after));
     }
