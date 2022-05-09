@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 
 /**
@@ -25,7 +24,6 @@ public class TransactionData {
     @NotNull
     private Float value;
 
-    @PastOrPresent(message = "Date hast to be in past or present")
     private LocalDateTime date;
 
 }
