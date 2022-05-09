@@ -71,7 +71,7 @@ export class TransactionListComponent implements OnInit {
           console.log(result);
           this.updateTransactions();
         });
-        this.messageService.notifyUser(`Transaktion "${transaction.title}" erfolgerich geändert`) ;
+        this.messageService.notifyUser(`Transaktion "${transaction.title}" erfolgreich geändert`) ;
       }
     })
   }
