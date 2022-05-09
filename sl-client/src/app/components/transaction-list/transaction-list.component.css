@@ -21,7 +21,7 @@
 }
 
 .income {
-  color: green;
+  color: var(--graph-income-color);
 }
 
 .expense {
