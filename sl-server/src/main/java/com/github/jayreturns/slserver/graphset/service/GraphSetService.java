@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class GraphSetService {
@@ -57,6 +54,8 @@ public class GraphSetService {
 
         List<GraphSet> sets = new ArrayList<>();
         cumulatedMap.forEach((time, pair) -> sets.add(new GraphSet(time, pair.getFirst(), pair.getSecond())));
+
+        Collections.sort(sets);
 
         return sets;
     }
