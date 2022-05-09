@@ -8,13 +8,10 @@ import {MaterialModule} from "../material.module";
 import {HttpClientModule} from "@angular/common/http";
 import {HeaderMenuComponent} from "./components/header-menu/header-menu.component";
 import {TransactionListComponent} from "./components/transaction-list/transaction-list.component";
-import {TransactionCardComponent} from './components/transaction-card/transaction-card.component';
 import {AppRoutingModule} from './app-routing.module';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {GraphComponent} from './components/graph/graph.component';
-import {NewTransactionComponent} from './components/new-transaction/new-transaction.component';
 
-import {EditTransactionComponent} from "./components/edit-transaction/edit-transaction.component";
 import {TransactionDialogComponent} from "./components/transaction-dialog/transaction-dialog.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
@@ -23,14 +20,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   declarations: [
     AppComponent,
     TransactionListComponent,
-    TransactionCardComponent,
     HeaderMenuComponent,
     PageNotFoundComponent,
     GraphComponent,
-    NewTransactionComponent,
-    EditTransactionComponent,
     TransactionDialogComponent
-
   ],
   imports: [
     BrowserModule,

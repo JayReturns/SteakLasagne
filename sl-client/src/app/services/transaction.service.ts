@@ -41,14 +41,17 @@ export class TransactionService {
       );
   }
 
-  deleteTransaction(id: string) {
+  deleteTransaction(id: string, returnObservable?: boolean): (void | Observable<any>) {
     const deleteUrl = `${this.url}/${id}`;
 
-    this.http.delete(deleteUrl)
+    const result = this.http.delete(deleteUrl)
       .pipe(
         tap(_ => this.messageService.log(`deleted transaction with id ${id}`)),
         catchError(this.messageService.handleError('deleteTransaction'))
-      ).subscribe();
+      );
+    if (returnObservable)
+      return result;
+    else
+      result.subscribe();
   }
-
 }
