@@ -1,0 +1,129 @@
+.container { /*Global Styling of "Übersicht" Page" */
+  width: 60%;
+  margin: 0 auto;
+}
+
+.new-transaction {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 -5px 0;
+}
+
+.mat-divider { /* Dividing line  between Transaction Dates */
+  margin: 10px 10px 5px 10px;
+  border-top-width: 2px;
+  border-top-color: lightgray;
+}
+
+
+.divider-date { /* Transaction Date */
+  margin: 0 0 10px 10px;
+}
+
+.income {
+  color: var(--graph-income-color);
+}
+
+.expense {
+  color: var(--graph-expense-color);
+}
+
+/* Transaction Card*/
+.mat-card {
+  flex-basis: 90%;
+  border: 10px black;
+  margin: 10px 10px 10px 10px;
+  box-shadow: 0 2px 6px 0 gray;
+  background-color: white;
+}
+.mat-card:hover {
+  background: whitesmoke;
+}
+
+.display-row {
+  display:flex;
+  align-items: center;
+}
+
+
+.valueTableCell {
+  width: 10%;
+}
+
+.titleTableCell {
+  width: 50%;
+}
+
+.noticeTableCell {
+  width: 30%;
+}
+
+.divTable {
+  display: table;
+  width: 100%;
+}
+.divTableRow {
+  display: table-row;
+}
+
+
+
+.divTableHeading {
+  background-color: #EEE;
+  display: table-header-group;
+}
+.divTableCell {
+  display: table-cell;
+  padding: 3px 10px;
+}
+
+.divTableHeading {
+  background-color: #EEE;
+  display: table-header-group;
+  font-weight: bold;
+}
+
+.divTableBody {
+  display: table-row-group;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column
+}
+
+.delete-button {
+  flex-basis: 5%;
+  color: var(--button-color);
+}
+
+.delete-button:hover {
+  color: var(--button-hover-color);
+}
+
+/*Edit*/
+.edit-button {
+  color: var(--button-color);
+  flex-basis: 5%;
+
+}
+.edit-button:hover {
+  color: var(--button-hover-color);
+
+}
+
+/* Add */
+.add-button {
+  color: var(--button-color)
+
+}
+.add-button:hover {
+  color: var(--button-hover-color);
+
+}
+
+
+
+
+
+

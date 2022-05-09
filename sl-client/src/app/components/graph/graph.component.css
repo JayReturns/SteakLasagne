@@ -1,0 +1,9 @@
+.container { /*Global Styling of "Statistik" Page" */
+  width: 60%;
+  margin: 0 auto;
+}
+
+.mat-divider { /* Dividing line  between Transaction Dates */
+  border-top-width: 2px;
+  border-top-color: lightgray;
+}
