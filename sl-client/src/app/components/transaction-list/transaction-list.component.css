@@ -20,11 +20,18 @@
   margin: 0 0 10px 10px;
 }
 
+.income {
+  color: var(--graph-income-color);
+}
+
+.expense {
+  color: var(--graph-expense-color);
+}
+
 /* Transaction Card*/
 .mat-card {
   flex-basis: 90%;
-  border: black;
-  border-width: 10px;
+  border: 10px black;
   margin: 10px 10px 10px 10px;
   box-shadow: 0 2px 6px 0 gray;
   background-color: white;
