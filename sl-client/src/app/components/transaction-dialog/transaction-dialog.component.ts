@@ -71,7 +71,6 @@ export class TransactionDialogComponent {
 
   save() {
 
-    console.log("Errors", this.titleControl.errors, this.dateControl.errors, this.valueControl.errors, this.noticeControl.errors)
     if (this.transactionInput.valid) {
     this.transactionInput.value.date.setDate(this.transactionInput.value.date.getDate() + 1)
     this.dialogRef.close(this.transactionInput.value);

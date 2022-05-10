@@ -13,6 +13,25 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {GraphComponent} from './components/graph/graph.component';
 import {TransactionDialogComponent} from "./components/transaction-dialog/transaction-dialog.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import {AuthGuard} from "./auth/auth.guard";
+
+function initializeKeycloak(keycloak: KeycloakService) {
+  return () =>
+    keycloak.init({
+      config: {
+        url: 'http://localhost:8081/',
+        realm: 'SteakLasagne',
+        clientId: 'Angular'
+      },
+      initOptions: {
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri:
+          window.location.origin + '/assets/silent-check-sso.html'
+      }
+    });
+}
+
 
 @NgModule({
   declarations: [
@@ -33,7 +52,16 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
+    KeycloakAngularModule
   ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    },
+  AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

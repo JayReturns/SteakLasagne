@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-header-menu',
   templateUrl: './header-menu.component.html',
@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 })
 export class HeaderMenuComponent {
 
-  constructor() { }
+  constructor(private keyCloak: KeycloakService) { }
 
+  public logout(){
+    this.keyCloak.logout()
+  }
 }

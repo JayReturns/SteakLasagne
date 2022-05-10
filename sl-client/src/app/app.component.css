@@ -1,3 +1,15 @@
-.header-menu {
+.header {
+  position: fixed;
+  /*position: -webkit-sticky;*/
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.main {
+  position: relative;
+  top: 128px;
+/*top: 0; !* Sets the sticky toolbar to be on top *!*/
+
 
 }

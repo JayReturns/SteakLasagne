@@ -25,6 +25,8 @@
     "@ng-bootstrap/ng-bootstrap": "^9.0.0",
     "bootstrap": "^4.5.0",
     "chart.js": "^3.7.1",
+    "keycloak-angular": "^9.1.0",
+    "keycloak-js": "^18.0.0",
     "ng2-charts": "^3.0.10",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

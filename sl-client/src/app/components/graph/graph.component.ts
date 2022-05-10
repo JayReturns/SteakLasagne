@@ -16,7 +16,7 @@ export class GraphComponent implements AfterViewInit {
   incomes: number[] = [];
   sum!: number;
   sums: number[] = [];
-
+  date: Date = new Date;
   AccumulatedTransactionChart: any = [];
   DifferentiatedTransactionChart: any = [];
 
@@ -33,7 +33,16 @@ export class GraphComponent implements AfterViewInit {
 
       for (const graphSet of this.graphSets) {
         graphSet.expense = -Math.abs(graphSet.expense)
-        this.dates.push(graphSet.date)
+
+        graphSet.date = new Date(graphSet.date)
+
+        this.dates.push(graphSet.date.toLocaleDateString())
+
+
+
+
+
+        console.log(graphSet.toLocaleString())
         this.expenses.push(graphSet.expense)
         this.incomes.push(graphSet.income)
         this.sum = (graphSet.income + graphSet.expense)
@@ -54,10 +63,11 @@ export class GraphComponent implements AfterViewInit {
           labels: this.dates,
           datasets: [
             {
-              label: "Transaktionen",
+              label: "Kontostand",
               data: this.sums,
               fill: false,
               borderColor: "#33c45c",
+              backgroundColor: "#33c45c",
               borderWidth: 3,
               segment: {
                 borderColor: ctx => down(ctx, "#db3b5b") || equal(ctx, "gray"),
@@ -66,17 +76,39 @@ export class GraphComponent implements AfterViewInit {
               pointHoverBorderColor: "gray",
               pointHoverBorderWidth: 3,
               pointHoverRadius: 5,
-              tension: 0.5
+              tension: 0.2
             }
           ]
         },
         options: {
           responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Aufsummierte Transaktionen',
+          scales: {
+            x: {
+              stacked: true,
+              title: {
+                display: true,
+                text: 'Datum',
+                font: {
+                  size: 14
+                }
+              },
+
             },
+            y: {
+              stacked: true,
+              title: {
+                display: true,
+                text: 'Kontostand (€)',
+                font: {
+                  size: 14
+                }
+
+              },
+            }
+          },
+          plugins: {
+
+
           },
         }
       });
@@ -105,16 +137,30 @@ export class GraphComponent implements AfterViewInit {
           scales: {
             x: {
               stacked: true,
+              title: {
+                display: true,
+                text: 'Datum'
+                ,
+                font: {
+                  size: 14
+                }
+              },
+
             },
             y: {
               stacked: true,
+              title: {
+                display: true,
+                text: 'Veränderungen (€)',
+                font: {
+                  size: 14
+                }
+              },
             }
           },
           plugins: {
-            title: {
-              display: true,
-              text: 'Einnahmen/Ausgaben',
-            },
+
+
           },
         }
       });

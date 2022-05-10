@@ -1,6 +1,8 @@
 .container { /*Global Styling of "Übersicht" Page" */
+  position: relative;
   width: 60%;
   margin: 0 auto;
+  top: 64px;
 }
 
 .new-transaction {
@@ -35,9 +37,16 @@
   margin: 10px 10px 10px 10px;
   box-shadow: 0 2px 6px 0 gray;
   background-color: white;
+
 }
 .mat-card:hover {
-  background: whitesmoke;
+  background-color: whitesmoke;
+}
+
+.mat-card-actions {
+  display: flex;
+
+  align-items: center;
 }
 
 .display-row {
@@ -66,8 +75,6 @@
   display: table-row;
 }
 
-
-
 .divTableHeading {
   background-color: #EEE;
   display: table-header-group;
@@ -93,24 +100,33 @@
 }
 
 .delete-button {
-  flex-basis: 5%;
+  /*flex-basis: 5%;*/
+  opacity: 0.5;
   color: var(--button-color);
 }
 
 .delete-button:hover {
+  opacity: 1;
   color: var(--button-hover-color);
 }
 
 /*Edit*/
 .edit-button {
+  opacity: 0.5;
   color: var(--button-color);
-  flex-basis: 5%;
+
+  /*flex-basis: 5%;*/
 
 }
 .edit-button:hover {
+  opacity: 1;
   color: var(--button-hover-color);
 
 }
+
+/*.category-chip {
+  color: var(--button-color);
+}*/
 
 /* Add */
 .add-button {

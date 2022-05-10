@@ -33,7 +33,7 @@ export class TransactionService {
       );
   }
 
-  updateTransaction(transaction: Transaction): Observable<any> {
+  updateTransaction(transaction: Transaction): Observable <any> {
     return this.http.put<any>(this.url, transaction, this.httpOptions)
       .pipe(
         tap(_ => this.messageService.log(`updated transaction with id ${transaction.id}`)),
