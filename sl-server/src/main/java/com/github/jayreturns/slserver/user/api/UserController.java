@@ -34,7 +34,7 @@ public class UserController {
         return userService.Get_all();
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserData> createUser(@RequestBody @Valid UserData userData) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userDataFactory.from(userService.createUser(userFactory.from(userData))));
@@ -45,7 +45,7 @@ public class UserController {
         return userDataFactory.from(userService.getUser(uuid));
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserData> updateUser(@Valid @RequestBody UserData userData) {
         return ResponseEntity
                 .ok(userDataFactory.from(userService.updateUser(userFactory.from(userData))));
