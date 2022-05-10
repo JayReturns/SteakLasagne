@@ -11,5 +11,6 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
 
     List<Transaction> getAllByDateAfter(LocalDateTime after);
+    List<Transaction> getAllByTitle(String title);
 
 }

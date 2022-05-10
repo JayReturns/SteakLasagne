@@ -11,10 +11,8 @@ import {TransactionListComponent} from "./components/transaction-list/transactio
 import {AppRoutingModule} from './app-routing.module';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {GraphComponent} from './components/graph/graph.component';
-
 import {TransactionDialogComponent} from "./components/transaction-dialog/transaction-dialog.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-
 
 @NgModule({
   declarations: [
