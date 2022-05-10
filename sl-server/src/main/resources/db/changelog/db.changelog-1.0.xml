@@ -17,6 +17,11 @@
             <column name="value" type="decimal(10,2)"/>
         </createTable>
     </changeSet>
+    
+    <changeSet id="1.0-alter-constraints" author="Jan-Luca Wolf">
+        <modifyDataType tableName="sl_transaction" columnName="notice" newDataType="varchar(260)"/>
+        <modifyDataType tableName="sl_transaction" columnName="title" newDataType="varchar(31)"/>
+    </changeSet>
 
 
 </databaseChangeLog>
