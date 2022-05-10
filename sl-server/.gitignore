@@ -5,8 +5,6 @@ target/
 !**/src/test/**/target/
 /config/*
 
-### TEST ###
-/src/main
 ### STS ###
 .apt_generated
 .classpath
