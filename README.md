@@ -17,7 +17,7 @@ Progress Tracker: [Project SteakLasagne](https://github.com/JayReturns/SteakLasa
 ### Requirements
 #### Development Tools
 * [Angular CLI](https://angular.io/) (`npm install -g @angular/cli`)
-* [Java / JDK](https://www.java.com/de/)asd
+* [Java / JDK](https://www.java.com/de/)
 * [Maven](https://maven.apache.org/)
 
 #### Development Environment
