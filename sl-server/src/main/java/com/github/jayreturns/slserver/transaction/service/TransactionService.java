@@ -2,6 +2,8 @@ package com.github.jayreturns.slserver.transaction.service;
 
 import com.github.jayreturns.slserver.transaction.domain.Transaction;
 import com.github.jayreturns.slserver.transaction.repository.TransactionRepository;
+import com.github.jayreturns.slserver.user.domain.User;
+import com.github.jayreturns.slserver.user.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,15 @@ public class TransactionService {
      */
     public Transaction getTransaction(String id) {
         return transactionRepository.findById(id).orElseThrow();
+    }
+
+    /**
+     * Returns the {@link com.github.jayreturns.slserver.transaction.domain.Transaction} with {@code id}
+     * @param user to get
+     * @return Transaction with corresponding {@code user}
+     */
+    public List<Transaction> getUserTransaction(User user) {
+        return transactionRepository.getAllByUser(user);
     }
 
     /**

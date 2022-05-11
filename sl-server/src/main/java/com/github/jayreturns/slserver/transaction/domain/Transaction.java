@@ -1,12 +1,10 @@
 package com.github.jayreturns.slserver.transaction.domain;
 
+import com.github.jayreturns.slserver.user.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,9 +17,9 @@ public class Transaction {
     @Column(name = "ID", nullable = false, unique = true)
     private String id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "USER_ID")
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @Column(name = "TITLE")
     private String title;

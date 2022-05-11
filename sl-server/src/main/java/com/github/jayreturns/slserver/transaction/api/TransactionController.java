@@ -2,6 +2,8 @@ package com.github.jayreturns.slserver.transaction.api;
 
 import com.github.jayreturns.slserver.transaction.domain.TransactionFactory;
 import com.github.jayreturns.slserver.transaction.service.TransactionService;
+import com.github.jayreturns.slserver.user.domain.User;
+import com.github.jayreturns.slserver.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +20,13 @@ public class TransactionController {
     private final TransactionDataFactory transactionDataFactory;
     private final TransactionFactory transactionFactory;
 
-    public TransactionController(TransactionService transactionService, TransactionDataFactory transactionDataFactory, TransactionFactory transactionFactory) {
+    private final UserService userService;
+
+    public TransactionController(TransactionService transactionService, TransactionDataFactory transactionDataFactory, TransactionFactory transactionFactory, UserService userService) {
         this.transactionService = transactionService;
         this.transactionDataFactory = transactionDataFactory;
         this.transactionFactory = transactionFactory;
+        this.userService = userService;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,6 +37,11 @@ public class TransactionController {
     @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public TransactionData getTransaction(@PathVariable(name = "id") String uuid) {
         return transactionDataFactory.from(transactionService.getTransaction(uuid));
+    }
+
+    @GetMapping(path = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<TransactionData> getUserTransaction(@PathVariable(name = "id") String user_Id) {
+        return transactionDataFactory.from(transactionService.getUserTransaction(userService.getUser(user_Id)));
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
