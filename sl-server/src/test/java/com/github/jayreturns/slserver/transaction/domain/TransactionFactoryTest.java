@@ -27,7 +27,6 @@ class TransactionFactoryTest {
         assertEquals(transactionData.getNotice(), transaction.getNotice());
         assertEquals(transactionData.getDate(), transaction.getDate());
         assertEquals(transactionData.getTitle(), transaction.getTitle());
-        assertEquals(transactionData.getValue(), transaction.getValue());
     }
 
     private TransactionData createMockDate() {
@@ -36,7 +35,7 @@ class TransactionFactoryTest {
         transactionData.setDate(LocalDateTime.now());
         transactionData.setTitle("Transaction 1");
         transactionData.setNotice("Auto Tanken");
-        transactionData.setValue(70.99f);
+        transactionData.setValue(70.99);
         transactionData.setCategory("TANKeN");
         return transactionData;
     }

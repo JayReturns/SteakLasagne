@@ -22,7 +22,7 @@ public class TransactionData {
     private String notice;
 
     @NotNull
-    private Float value;
+    private Double value;
 
     private LocalDateTime date;
 
