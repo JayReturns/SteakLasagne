@@ -17,7 +17,7 @@
             <column name="value" type="decimal(10,2)"/>
         </createTable>
     </changeSet>
-
+  
     <changeSet id="1.1-user-table" author="Philip Rexroth">
         <createTable tableName="user">
             <column name="id" type="bigint">
@@ -27,7 +27,7 @@
             <column name="CurrentAmount" type="decimal(10,2)"/>
         </createTable>
     </changeSet>
-
+  
     <changeSet id="1.1.1-user-table" author="Philip Rexroth">
     <createTable tableName="user">
         <column name="id" type="bigint">
@@ -37,7 +37,7 @@
         <column name="current_amounturrentAmount" type="decimal(10,2)"/>
     </createTable>
     </changeSet>
-
+  
     <changeSet id="1.1.2-user-table" author="Philip Rexroth">
         <createTable tableName="user">
             <column name="id" type="bigint">
@@ -57,7 +57,7 @@
         <column name="current_amount" type="decimal(10,2)"/>
     </createTable>
     </changeSet>
-
+  
     <changeSet id="1.0-alter-constraints" author="Jan-Luca Wolf">
         <modifyDataType tableName="sl_transaction" columnName="notice" newDataType="varchar(260)"/>
         <modifyDataType tableName="sl_transaction" columnName="title" newDataType="varchar(31)"/>
