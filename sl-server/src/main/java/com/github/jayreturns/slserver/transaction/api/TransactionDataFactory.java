@@ -20,7 +20,7 @@ public class TransactionDataFactory {
         transactionData.setCategory(transaction.getCategory());
         transactionData.setNotice(transaction.getNotice());
         transactionData.setTitle(transaction.getTitle());
-        transactionData.setValue(transaction.getValue());
+        transactionData.setValue(transaction.getValue() / 100d);
         transactionData.setDate(transaction.getDate());
 
         return transactionData;

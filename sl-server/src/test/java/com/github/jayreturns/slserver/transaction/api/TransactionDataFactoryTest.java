@@ -54,7 +54,6 @@ class TransactionDataFactoryTest {
         assertEquals(expected.getDate(), actual.getDate());
         assertEquals(expected.getNotice(), actual.getNotice());
         assertEquals(expected.getTitle(), actual.getTitle());
-        assertEquals(expected.getValue(), actual.getValue());
     }
 
     private void setUpTransaction() {
@@ -63,7 +62,7 @@ class TransactionDataFactoryTest {
         when(transaction.getCategory()).thenReturn("My Category");
         when(transaction.getNotice()).thenReturn("My Notice");
         when(transaction.getTitle()).thenReturn("My Title");
-        when(transaction.getValue()).thenReturn(15f);
+        when(transaction.getValue()).thenReturn(155L);
     }
 
 }
