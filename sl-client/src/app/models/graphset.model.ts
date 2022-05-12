@@ -1,5 +1,5 @@
 export interface GraphSet   {
-  "date": string;
+  "date": Date;
   "expense": number;
   "income": number;
 }

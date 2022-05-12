@@ -2,7 +2,6 @@ package com.github.jayreturns.slserver.transaction.api;
 
 import com.github.jayreturns.slserver.transaction.domain.TransactionFactory;
 import com.github.jayreturns.slserver.transaction.service.TransactionService;
-import com.github.jayreturns.slserver.user.domain.User;
 import com.github.jayreturns.slserver.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

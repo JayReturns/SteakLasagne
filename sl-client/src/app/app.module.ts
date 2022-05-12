@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {MatDialogModule} from "@angular/material/dialog";
 import {AppComponent} from './app.component';
@@ -13,6 +13,24 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {GraphComponent} from './components/graph/graph.component';
 import {TransactionDialogComponent} from "./components/transaction-dialog/transaction-dialog.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
+import {AuthGuard} from "./auth/auth.guard";
+import {environment} from "../environments/environment";
+
+function initializeKeycloak(keycloak: KeycloakService) {
+  return () =>
+    keycloak.init({
+      config: environment.keycloak,
+      initOptions: {
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri:
+          window.location.origin + '/assets/silent-check-sso.html'
+      },
+      enableBearerInterceptor: true,
+      bearerPrefix: 'Bearer',
+      authorizationHeaderName: "Authorization"
+    });
+}
 
 @NgModule({
   declarations: [
@@ -33,6 +51,16 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
+    KeycloakAngularModule
+  ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

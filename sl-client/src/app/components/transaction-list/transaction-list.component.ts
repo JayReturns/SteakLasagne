@@ -38,9 +38,9 @@ export class TransactionListComponent implements OnInit {
       this.map.clear();
 
       for (let transaction of this.transactions) {
-        transaction.date = new Date(transaction.date);
-        transaction.date.setHours(0, 0, 0, 0);
-        let time = transaction.date.getTime();
+        transaction.date = new Date(transaction.date); //Macht aus einem "Datum" ein Datum!
+        transaction.date.setHours(0, 0, 0, 0); //Setzt die Zeit im Datum aus Mitternacht (00:00:00:00)
+        let time = transaction.date.getTime() //erstelle einen Unix Zeitstempel time
         if (this.map.has(time)) {
           this.map.set(time, [...this.map.get(time)!, transaction]);
         } else {
@@ -66,9 +66,9 @@ export class TransactionListComponent implements OnInit {
     const dialog = this.dialogRef.open(TransactionDialogComponent, this.dialogConfig);
 
     dialog.afterClosed().subscribe(input => {
+      console.log(input)
       if (input) {
         this.transactionService.updateTransaction(input).subscribe(result => {
-          console.log(result);
           this.updateTransactions();
         });
         this.messageService.notifyUser(`Transaktion "${transaction.title}" erfolgreich geändert`) ;
