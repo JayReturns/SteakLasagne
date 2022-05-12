@@ -22,6 +22,11 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
+    private static final String[] SWAGGER_WHITELIST = {
+            "/api/v1/v3/api-docs/**",
+            "/api/v1/swagger-ui/**",
+            "/api/v1/swagger-ui.html",
+    };
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
@@ -52,6 +57,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(SWAGGER_WHITELIST).permitAll()
                 .anyRequest().authenticated();
     }
 
