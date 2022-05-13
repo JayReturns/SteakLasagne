@@ -1,7 +1,10 @@
 package com.github.jayreturns.slserver.transaction.api;
 
+import com.github.jayreturns.slserver.user.domain.User;
 import lombok.Data;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -13,6 +16,9 @@ import java.time.LocalDateTime;
 public class TransactionData {
 
     private String id;
+
+    @NotBlank
+    private User user;
 
     @NotBlank
     private String title;

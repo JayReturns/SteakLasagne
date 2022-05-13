@@ -20,6 +20,7 @@ public class TransactionFactory {
         transaction.setDate(transactionData.getDate());
         transaction.setCategory(transactionData.getCategory());
         transaction.setId(transactionData.getId());
+        transaction.setUser(transactionData.getUser());
 
         return transaction;
     }
