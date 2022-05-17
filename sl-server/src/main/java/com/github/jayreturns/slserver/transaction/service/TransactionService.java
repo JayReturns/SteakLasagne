@@ -3,7 +3,6 @@ package com.github.jayreturns.slserver.transaction.service;
 import com.github.jayreturns.slserver.transaction.domain.Transaction;
 import com.github.jayreturns.slserver.transaction.repository.TransactionRepository;
 import com.github.jayreturns.slserver.user.domain.User;
-import com.github.jayreturns.slserver.user.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
