@@ -50,6 +50,6 @@ public class CustomEventListenerProviderFactory implements EventListenerProvider
 
     @Override
     public String getId() {
-        return "sysout";
+        return "stakus lasangius maximus";
     }
 }
