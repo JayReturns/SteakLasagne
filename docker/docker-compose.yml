@@ -1,5 +1,9 @@
 version: "3.8"
 
+volumes:
+  postgres_data:
+    driver: local
+
 services:
   database:
     container_name: Database
@@ -11,3 +15,31 @@ services:
       MYSQL_DATABASE: steaklasagne
     ports:
       - "3306:3306"
+  keycloak:
+    container_name: Keycloak
+    image: jboss/keycloak:latest
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: keycloak_postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      DB_SCHEMA: public
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /tmp/realm-export.json
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./realm-export.json:/tmp/realm-export.json
+    depends_on:
+      - keycloak_postgres
+  keycloak_postgres:
+    container_name: Keycloak-Database
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password

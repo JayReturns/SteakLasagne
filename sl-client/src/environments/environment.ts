@@ -7,7 +7,7 @@ import {KeycloakConfig} from "keycloak-js";
 const keycloakConfig: KeycloakConfig = {
   url:'http://localhost:8081/auth',
   realm: 'SteakLasagne',
-  clientId: 'Angular',
+  clientId: 'steak-lasagne-frontend'
 }
 
 export const environment = {

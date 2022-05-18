@@ -1,4 +1,4 @@
-package com.github.jayreturns.slserver.shared.api.configuration;
+package com.github.jayreturns.slserver.shared.configuration;
 
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
