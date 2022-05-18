@@ -37,7 +37,7 @@ public class Transaction {
     @Column(name = "DATE")
     private LocalDateTime date;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "INVOICE_ID")
     private Invoice invoice;
 

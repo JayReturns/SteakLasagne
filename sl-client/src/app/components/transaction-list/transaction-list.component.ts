@@ -1,10 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TransactionService} from "../../services/transaction.service";
 import {Transaction} from "../../models/transaction.model";
 import {Observable} from "rxjs";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {TransactionDialogComponent} from "../transaction-dialog/transaction-dialog.component";
 import {MessageService} from "../../services/message.service";
+import {Invoice} from "../../models/invoice.model";
+import {InvoiceService} from "../../services/invoice.service";
+import {environment} from "../../../environments/environment";
+import {MatMenuTrigger} from "@angular/material/menu";
 
 @Component({
   selector: 'transaction-list',
@@ -18,9 +22,16 @@ export class TransactionListComponent implements OnInit {
 
   dialogConfig = new MatDialogConfig();
 
+  linkPrefix = environment.baseApiUrl;
+
+  menuTopLeftPosition = {x: '0', y: '0'};
+
+  @ViewChild(MatMenuTrigger, {static: true}) matMenuTrigger: MatMenuTrigger | undefined;
+
   constructor(private transactionService: TransactionService,
               private dialogRef: MatDialog,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private invoiceService: InvoiceService) {
     this.dialogConfig.disableClose = true;
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.hasBackdrop = true;
@@ -66,7 +77,6 @@ export class TransactionListComponent implements OnInit {
     const dialog = this.dialogRef.open(TransactionDialogComponent, this.dialogConfig);
 
     dialog.afterClosed().subscribe(input => {
-      console.log(input)
       if (input) {
         this.transactionService.updateTransaction(input).subscribe(result => {
           this.updateTransactions();
@@ -90,6 +100,58 @@ export class TransactionListComponent implements OnInit {
         })
       }
     });
+  }
+
+  uploadInvoice(event: any, transaction: Transaction) {
+    if (!(event.target.files && event.target.files.length)) return;
+
+    const reader = new FileReader();
+
+    const [file] = event.target.files;
+    const type = file.type;
+
+    if (type != 'application/pdf') {
+      if (!confirm("Datei ist keine PDF-Datei! Wirklich hochladen?")) {
+        return;
+      }
+    }
+
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      let result = (reader.result as string).replace(`data:${type};base64,`, '');
+      const invoice: Invoice = {
+        id: transaction.invoice?.id,
+        mimeType: type,
+        data: result,
+        fileName: file.name
+      };
+
+      const observable = transaction.invoiceLink ?
+        this.invoiceService.updateInvoice(invoice) :
+        this.invoiceService.createInvoice(transaction.id, invoice);
+
+      observable.subscribe(_ => this.updateTransactions());
+
+    }
+  }
+
+  deleteInvoice(transaction: Transaction) {
+    if (!transaction.invoiceLink) return;
+
+    if (!confirm("Rechnung wirklich löschen?")) return;
+
+    this.invoiceService.deleteInvoice(transaction.invoice!.id!, transaction.id).subscribe(_ => this.updateTransactions());
+  }
+
+  onRightClick(event: MouseEvent, transaction: Transaction) {
+    event.preventDefault();
+    this.menuTopLeftPosition.x = event.clientX + 'px';
+    this.menuTopLeftPosition.y = event.clientY + 'px';
+
+    this.matMenuTrigger!.menuData = {transaction: transaction};
+
+    this.matMenuTrigger?.openMenu();
   }
 
 }

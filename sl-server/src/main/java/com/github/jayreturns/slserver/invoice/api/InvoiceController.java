@@ -52,5 +52,10 @@ public class InvoiceController {
         );
     }
 
+    @DeleteMapping(path = "delete")
+    public void deleteInvoice(@RequestParam(name = "invoiceId") Long id, @RequestParam(name = "transactionId") String transactionId) {
+        invoiceService.deleteInvoice(transactionId, id);
+    }
+
 
 }

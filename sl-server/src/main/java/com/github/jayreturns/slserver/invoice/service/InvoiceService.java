@@ -36,4 +36,12 @@ public class InvoiceService {
 
         return invoiceRepository.save(invoice);
     }
+
+    public void deleteInvoice(String transactionId, Long id) {
+        Transaction transaction = transactionService.getTransaction(transactionId);
+        transaction.setInvoice(null);
+        invoiceRepository.deleteById(id);
+        transactionService.updateTransaction(transaction);
+    }
+
 }

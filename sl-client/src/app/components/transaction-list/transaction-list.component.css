@@ -99,29 +99,15 @@
   flex-direction: column
 }
 
-.delete-button {
-  /*flex-basis: 5%;*/
+.invoice-button, .edit-button, .delete-button, .invoice-download-button {
   opacity: 0.5;
   color: var(--button-color);
+    /*flex-basis: 5%;*/
 }
 
-.delete-button:hover {
+.invoice-button:hover, .edit-button:hover, .delete-button:hover, .invoice-download-button:hover {
   opacity: 1;
   color: var(--button-hover-color);
-}
-
-/*Edit*/
-.edit-button {
-  opacity: 0.5;
-  color: var(--button-color);
-
-  /*flex-basis: 5%;*/
-
-}
-.edit-button:hover {
-  opacity: 1;
-  color: var(--button-hover-color);
-
 }
 
 /*.category-chip {
@@ -138,7 +124,10 @@
 
 }
 
-
+.link {
+  text-decoration: none;
+  color: inherit !important;
+}
 
 
 

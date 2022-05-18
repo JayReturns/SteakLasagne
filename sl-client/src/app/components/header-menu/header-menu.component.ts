@@ -15,7 +15,6 @@ export class HeaderMenuComponent implements OnInit {
 
     if (isLoggedIn) {
       const userProfile = await this.keyCloak.loadUserProfile();
-      console.log(userProfile);
     }
   }
 
