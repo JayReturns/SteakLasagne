@@ -1,5 +1,6 @@
 package com.github.jayreturns.slserver.transaction.domain;
 
+import com.github.jayreturns.slserver.invoice.domain.Invoice;
 import com.github.jayreturns.slserver.user.domain.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,8 +37,8 @@ public class Transaction {
     @Column(name = "DATE")
     private LocalDateTime date;
 
-//    @OneToOne
-//    @JoinColumn(name = "INVOICE_ID")
-//    private Invoice invoice;
+    @OneToOne
+    @JoinColumn(name = "INVOICE_ID")
+    private Invoice invoice;
 
 }
