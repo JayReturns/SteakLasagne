@@ -1,9 +1,11 @@
 package com.github.jayreturns.slserver.transaction.api;
 
-import com.github.jayreturns.slserver.transaction.domain.Transaction;
+import com.github.jayreturns.slserver.invoice.domain.Invoice;
+*import com.github.jayreturns.slserver.transaction.domain.Transaction;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class TransactionDataFactory {
@@ -22,6 +24,13 @@ public class TransactionDataFactory {
         transactionData.setTitle(transaction.getTitle());
         transactionData.setValue(transaction.getValue() / 100d);
         transactionData.setDate(transaction.getDate());
+        transactionData.setInvoiceLink(
+                Optional.ofNullable(transaction.getInvoice())
+                        .map(Invoice::getId)
+                        .map("/invoice/%d"::formatted)
+                        .orElse(null)
+        );
+        transactionData.setInvoice(transaction.getInvoice());
         transactionData.setUserId(transaction.getUser().getId());
 
         return transactionData;

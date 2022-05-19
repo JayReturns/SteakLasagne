@@ -1,9 +1,7 @@
 package com.github.jayreturns.slserver.user.api;
 
-import com.github.jayreturns.slserver.transaction.api.TransactionData;
 import com.github.jayreturns.slserver.user.domain.User;
 import com.github.jayreturns.slserver.user.domain.UserFactory;
-import com.github.jayreturns.slserver.user.repository.UserRepository;
 import com.github.jayreturns.slserver.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,13 +15,11 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserRepository userRepository;
     private final UserService userService;
     private final UserDataFactory userDataFactory;
     private final UserFactory userFactory;
 
-    public UserController(UserRepository userRepository, UserService userService, UserDataFactory userDataFactory, UserFactory userFactory) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService, UserDataFactory userDataFactory, UserFactory userFactory) {
         this.userService = userService;
         this.userDataFactory = userDataFactory;
         this.userFactory = userFactory;
