@@ -29,6 +29,9 @@ public class GraphSetService {
         // Remove time
         transactions.forEach(t -> t.setDate(t.getDate().toLocalDate().atStartOfDay()));
 
+        // Correct amount
+        transactions.forEach(t -> t.setValue(t.getValue() / 100));
+
         transactions.forEach(t -> {
             Timestamp time = Timestamp.valueOf(t.getDate());
             if (map.containsKey(time)) {
