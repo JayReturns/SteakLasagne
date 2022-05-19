@@ -9,4 +9,5 @@ export interface Transaction {
   date: Date;
   invoice?: Invoice;
   invoiceLink?: string;
+  userId: string;
 }

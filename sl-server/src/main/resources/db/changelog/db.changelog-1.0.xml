@@ -54,7 +54,7 @@
 
         </createTable>
     </changeSet>
-    
+
     <changeSet id="1.0-add-invoice-key" author="Jan-Luca Wolf">
         <addColumn tableName="sl_transaction">
             <column name="invoice_id" type="bigint">
@@ -87,5 +87,5 @@
     <changeSet id="1.0-alter-value" author="Jan-Luca Wolf">
         <modifyDataType tableName="sl_transaction" columnName="value" newDataType="bigint"/>
     </changeSet>
-    
+
 </databaseChangeLog>

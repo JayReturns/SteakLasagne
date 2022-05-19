@@ -1,10 +1,17 @@
 package com.github.jayreturns.slserver.transaction.domain;
 
 import com.github.jayreturns.slserver.transaction.api.TransactionData;
+import com.github.jayreturns.slserver.user.service.UserService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TransactionFactory {
+
+    private final UserService userService;
+
+    public TransactionFactory(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Converts {@link TransactionData} to {@link Transaction}
@@ -20,8 +27,8 @@ public class TransactionFactory {
         transaction.setDate(transactionData.getDate());
         transaction.setCategory(transactionData.getCategory());
         transaction.setId(transactionData.getId());
-        transaction.setUser(transactionData.getUser());
         transaction.setInvoice(transactionData.getInvoice());
+        transaction.setUser(userService.getUser(transactionData.getUserId()));
 
         return transaction;
     }

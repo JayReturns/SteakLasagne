@@ -1,7 +1,6 @@
 package com.github.jayreturns.slserver.transaction.api;
 
 import com.github.jayreturns.slserver.invoice.domain.Invoice;
-import com.github.jayreturns.slserver.user.domain.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -17,7 +16,7 @@ public class TransactionData {
     private String id;
 
     @NotBlank
-    private User user;
+    private String userId;
 
     @NotBlank
     private String title;

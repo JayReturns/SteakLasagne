@@ -1,7 +1,7 @@
 package com.github.jayreturns.slserver.transaction.api;
 
 import com.github.jayreturns.slserver.invoice.domain.Invoice;
-import com.github.jayreturns.slserver.transaction.domain.Transaction;
+*import com.github.jayreturns.slserver.transaction.domain.Transaction;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,7 +24,6 @@ public class TransactionDataFactory {
         transactionData.setTitle(transaction.getTitle());
         transactionData.setValue(transaction.getValue() / 100d);
         transactionData.setDate(transaction.getDate());
-        transactionData.setUser(transaction.getUser());
         transactionData.setInvoiceLink(
                 Optional.ofNullable(transaction.getInvoice())
                         .map(Invoice::getId)
@@ -32,6 +31,7 @@ public class TransactionDataFactory {
                         .orElse(null)
         );
         transactionData.setInvoice(transaction.getInvoice());
+        transactionData.setUserId(transaction.getUser().getId());
 
         return transactionData;
     }
