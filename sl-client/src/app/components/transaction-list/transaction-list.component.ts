@@ -12,6 +12,8 @@ import {Invoice} from "../../models/invoice.model";
 import {InvoiceService} from "../../services/invoice.service";
 import {environment} from "../../../environments/environment";
 import {MatMenuTrigger} from "@angular/material/menu";
+import {DomSanitizer} from '@angular/platform-browser';
+import {MatIconRegistry} from '@angular/material/icon';
 
 @Component({
   selector: 'transaction-list',
@@ -29,7 +31,6 @@ export class TransactionListComponent implements OnInit {
   showExpense: boolean = true;
   sortOrder: string = "newest";
   currentValue: number = 0;
-
   linkPrefix = environment.baseApiUrl;
 
   menuTopLeftPosition = {x: '0', y: '0'};
@@ -42,13 +43,18 @@ export class TransactionListComponent implements OnInit {
 
               private keyCloak: KeycloakService,
               private userService: UserService,
-              private invoiceService: InvoiceService) {
+              private invoiceService: InvoiceService,
+              private iconRegistry: MatIconRegistry,
+              private sanitizer: DomSanitizer) {
     this.dialogConfig.disableClose = true;
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.hasBackdrop = true;
     this.dialogConfig.width = "50%";
+    this.iconRegistry.addSvgIcon('file-upload', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/file-upload-outline.svg'));
+    this.iconRegistry.addSvgIcon('file-download', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/file-download-outline.svg'));
+    this.iconRegistry.addSvgIcon('file-delete', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/file-cancel-outline.svg'));
+    this.iconRegistry.addSvgIcon('file-edit', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/file-edit-outline.svg'));
   }
-
   async ngOnInit() {
     const userProfile = await this.keyCloak.loadUserProfile();
     this.userId = userProfile.id;
@@ -143,7 +149,7 @@ export class TransactionListComponent implements OnInit {
       }
     })
   }
-  
+
   uploadInvoice(event: any, transaction: Transaction) {
     if (!(event.target.files && event.target.files.length)) return;
 
