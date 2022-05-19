@@ -34,6 +34,6 @@ public class SampleEventListenerProviderFactory implements EventListenerProvider
 
     @Override
     public String getId() {
-        return "stakius-lasangius-listenerius";
+        return "SteaklasangeEventlistener";
     }
 }
