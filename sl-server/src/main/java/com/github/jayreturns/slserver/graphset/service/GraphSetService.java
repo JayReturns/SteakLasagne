@@ -4,6 +4,7 @@ import com.github.jayreturns.slserver.graphset.domain.GraphSet;
 import com.github.jayreturns.slserver.shared.api.AtomicFloat;
 import com.github.jayreturns.slserver.transaction.domain.Transaction;
 import com.github.jayreturns.slserver.transaction.repository.TransactionRepository;
+import com.github.jayreturns.slserver.user.domain.User;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,8 @@ public class GraphSetService {
         this.transactionRepository = transactionRepository;
     }
 
-    public List<GraphSet> getGraphSets(LocalDate after) {
-        List<Transaction> transactions = transactionRepository.getAllByDateAfter(after.atStartOfDay());
+    public List<GraphSet> getGraphSets(User user, LocalDate after) {
+        List<Transaction> transactions = transactionRepository.getAllByUserAndDateAfter(user, after.atStartOfDay());
 
         Map<Timestamp, List<Transaction>> map = new HashMap<>();
 
