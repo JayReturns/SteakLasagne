@@ -1,7 +1,7 @@
 package com.github.jayreturns.slserver.transaction.api;
 
 import com.github.jayreturns.slserver.invoice.domain.Invoice;
-*import com.github.jayreturns.slserver.transaction.domain.Transaction;
+import com.github.jayreturns.slserver.transaction.domain.Transaction;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
