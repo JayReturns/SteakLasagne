@@ -132,15 +132,19 @@
   justify-items: end;
 }
 
-.delete-button, .add-button, .edit-button{
+
+.invoice-button, .edit-button, .delete-button, .invoice-download-button {
   opacity: 0.5;
   color: var(--button-color);
+    /*flex-basis: 5%;*/
 }
 
-.delete-button:hover, .add-button:hover, .edit-button:hover {
+
+.invoice-button:hover, .edit-button:hover, .delete-button:hover, .invoice-download-button:hover {
   opacity: 1;
   color: var(--button-hover-color);
 }
+
 
 .outline {
   border-style: solid;
@@ -150,6 +154,24 @@
   background-color: rgba(255, 255, 255, 0.35);
   margin: 15px 0 15px 0;
   padding: 10px 10px 10px 10px;
+}
+/*.category-chip {
+  color: var(--button-color);
+}*/
+
+/* Add */
+.add-button {
+  color: var(--button-color)
+
+}
+.add-button:hover {
+  color: var(--button-hover-color);
+
+}
+
+.link {
+  text-decoration: none;
+  color: inherit !important;
 }
 
 

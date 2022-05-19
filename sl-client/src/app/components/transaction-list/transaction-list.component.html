@@ -43,6 +43,10 @@
           <mat-divider class="mat-divider"></mat-divider>
           <div class="mat-card-title">
          <span class="title">
+
+        <div class="display-row">
+          <mat-card class="mat-card" (contextmenu)="onRightClick($event, transaction)">
+            <mat-card-title>
               {{transaction.title}}
               </span>
             <span class="value" [class.income]="transaction.value >= 0" [class.expense]="transaction.value < 0">
@@ -72,11 +76,35 @@
                       (click)="deleteTransaction(transaction.id)">
                 <mat-icon>delete</mat-icon>
               </button>
-
-            </div>
+              
+              <button class="invoice-button" mat-icon-button aria-label="Upload Invoice" (click)="fileInput.click()"
+                    matTooltip="Rechnung hochladen">
+                <mat-icon>file_upload</mat-icon>
+              </button>
+              <a *ngIf="transaction.invoiceLink" [href]="linkPrefix + transaction.invoiceLink" target="_blank" class="link">
+                <button class="invoice-download-button" mat-icon-button matTooltip="Rechnung herunterladen">
+                  <mat-icon>file_download</mat-icon>
+                </button>
+              </a>
+              <input hidden (change)="uploadInvoice($event, transaction)" #fileInput type="file"/>
+            </mat-card-actions>
+          </mat-card>
+          <div class="buttons">
           </div>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
 </div>
+
+<div style="visibility: hidden; position: fixed;"
+     [style.left]="menuTopLeftPosition.x"
+     [style.top]="menuTopLeftPosition.y"
+     [matMenuTriggerFor]="rightMenu"></div>
+
+<mat-menu #rightMenu="matMenu">
+  <ng-template matMenuContent let-transaction="transaction">
+    <button disabled mat-button>Menü</button>
+    <button *ngIf="transaction.invoiceLink" mat-menu-item (click)="deleteInvoice(transaction)">Rechnung löschen</button>
+  </ng-template>
+</mat-menu>

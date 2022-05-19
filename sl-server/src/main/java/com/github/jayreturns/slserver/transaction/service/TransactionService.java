@@ -67,6 +67,8 @@ public class TransactionService {
         transaction.setNotice(newTransaction.getNotice());
         transaction.setTitle(newTransaction.getTitle());
         transaction.setValue(newTransaction.getValue());
+        transaction.setUser(newTransaction.getUser());
+        transaction.setInvoice(newTransaction.getInvoice());
 
         return transactionRepository.save(transaction);
     }

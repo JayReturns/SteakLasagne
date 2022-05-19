@@ -17,9 +17,11 @@ export class HeaderMenuComponent implements OnInit {
     const isLoggedIn = await this.keyCloak.isLoggedIn();
     if (isLoggedIn) {
       const userProfile = await this.keyCloak.loadUserProfile();
+
       this.friendlyName = userProfile.firstName;
       this.userId = userProfile.id;
       this.accountLink = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/account/`
+
     }
   }
 

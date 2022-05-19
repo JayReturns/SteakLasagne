@@ -1,5 +1,6 @@
 package com.github.jayreturns.slserver.transaction.api;
 
+import com.github.jayreturns.slserver.invoice.domain.Invoice;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -28,5 +29,9 @@ public class TransactionData {
     private Double value;
 
     private LocalDateTime date;
+
+    private String invoiceLink;
+
+    private Invoice invoice;
 
 }
