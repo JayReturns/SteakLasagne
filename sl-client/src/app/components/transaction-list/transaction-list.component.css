@@ -5,7 +5,6 @@
   position: -webkit-sticky;
   top: 0;
   z-index: 1000;
-
 }
 
 .positiveValue {
@@ -19,19 +18,16 @@
 .spacer {
   flex: 1 1 auto;
 }
+
 .toggle {
   font-size: 14px;
   margin: 10px 10px 10px 10px;
-
 }
 
 .filter {
   font-size: 14px;
   margin: 10px 10px 10px 10px;
-
 }
-
-
 
 .container { /*Global Styling of "Übersicht" Page" */
   position: relative;
@@ -45,13 +41,11 @@
   margin: 0 0 -5px 0;
 }
 
-/*
-.mat-divider { !* Dividing line  between Transaction Dates *!
+.mat-divider {
   margin: 10px 10px 5px 10px;
   border-top-width: 2px;
   border-top-color: var(--divider-color);
 }
-*/
 
 .mat-divider { /* Dividing line  between Transaction Dates */
   margin: 10px 0 10px 0;
@@ -75,15 +69,13 @@
   justify-content: center;
 }
 
-
 /* Transaction Card*/
 .mat-card {
   border: 10px black;
   margin: 15px 10px 15px 10px;
   box-shadow: 0 0 15px gray;
   background-color: white;
-  border-radius: 7.5px;
-
+  border-radius: 8px;
 }
 .mat-card:hover {
   background-color: whitesmoke;
@@ -99,10 +91,6 @@
     "title value";
 }
 
-.title{
-
-}
-
 .value{
   justify-self: end;
 }
@@ -115,15 +103,9 @@
   color: var(--graph-expense-color);
 }
 
-mat-card-subtitle{
-
-}
-
 .mat-card-content{
   font-size: 16px;
 }
-
-
 
 .mat-card-actions {
   display: grid;
@@ -131,13 +113,9 @@ mat-card-subtitle{
   grid-template-rows: 1fr;
   grid-column-gap: 0;
   grid-row-gap: 0;
-
   grid-template-areas:
     "categories buttons";
-
-
 }
-
 
 .display-row {
   align-items: center;
@@ -147,43 +125,14 @@ mat-card-subtitle{
   justify-self: end;
 }
 
-.delete-button {
-  /*flex-basis: 5%;*/
+.delete-button .add-button .edit-button{
   opacity: 0.5;
   color: var(--button-color);
 }
 
-.delete-button:hover {
+.delete-button:hover .add-button:hover .edit-button:hover {
   opacity: 1;
   color: var(--button-hover-color);
-}
-
-/*Edit*/
-.edit-button {
-  opacity: 0.5;
-  color: var(--button-color);
-
-  /*flex-basis: 5%;*/
-
-}
-.edit-button:hover {
-  opacity: 1;
-  color: var(--button-hover-color);
-
-}
-
-/*.category-chip {
-  color: var(--button-color);
-}*/
-
-/* Add */
-.add-button {
-  color: var(--button-color)
-
-}
-.add-button:hover {
-  color: var(--button-hover-color);
-
 }
 
 .outline {

@@ -21,7 +21,7 @@ export class UserService {
     return this.http.get<User>(`${this.url}/${userId}`)
       .pipe(
         tap(_ => this.messageService.log("fetched all transactions")),
-        catchError(this.messageService.handleError<User>('getTransactions'))
+        catchError(this.messageService.handleError<User>('getUser'))
       );
   }
 
@@ -29,7 +29,7 @@ export class UserService {
     return this.http.post<User>(this.url, user, this.httpOptions)
       .pipe(
         tap(_ => this.messageService.log(`created transaction with id ${user.id}`)),
-        catchError(this.messageService.handleError<User>('createTransaction'))
+        catchError(this.messageService.handleError<User>('createUser'))
       );
   }
 
@@ -48,7 +48,7 @@ export class UserService {
     const result = this.http.delete(deleteUrl)
       .pipe(
         tap(_ => this.messageService.log(`deleted transaction with id ${id}`)),
-        catchError(this.messageService.handleError('deleteTransaction'))
+        catchError(this.messageService.handleError('deleteUser'))
       );
     if (returnObservable)
       return result;

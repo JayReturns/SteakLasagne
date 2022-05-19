@@ -29,39 +29,26 @@ export class GraphComponent implements AfterViewInit {
     Chart.register(...registerables);
   }
 
-
-
   async ngAfterViewInit() {
     const userProfile = await this.keyCloak.loadUserProfile();
     this.userId = userProfile.id;
     this.graphsetService.getGraphset(this.userId!).subscribe(result => {
       this.graphSets = result;
-
       for (const graphSet of this.graphSets) {
         graphSet.expense = -Math.abs(graphSet.expense)
-
         graphSet.date = new Date(graphSet.date)
-
         this.dates.push(graphSet.date.toLocaleDateString())
-
-
-
-
-
         this.expenses.push(graphSet.expense)
         this.incomes.push(graphSet.income)
         this.sum = (graphSet.income + graphSet.expense)
-
         if (this.sums.length > 1) {
           this.sums.push(this.sums[this.sums.length - 1] + this.sum)
         } else {
           this.sums.push(this.sum)
         }
       }
-
       const down = (ctx: any, value: any) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
       const equal = (ctx: any, value: any) => ctx.p0.parsed.y == ctx.p1.parsed.y ? value : undefined;
-
       this.AccumulatedTransactionChart = new Chart(this.accumulatedTransactionsCanvas.nativeElement, {
         type: 'line',
         data: {
@@ -107,14 +94,10 @@ export class GraphComponent implements AfterViewInit {
                 font: {
                   size: 14
                 }
-
               },
             }
           },
-          plugins: {
-
-
-          },
+          plugins: {},
         }
       });
 
@@ -163,10 +146,7 @@ export class GraphComponent implements AfterViewInit {
               },
             }
           },
-          plugins: {
-
-
-          },
+          plugins: {},
         }
       });
     });

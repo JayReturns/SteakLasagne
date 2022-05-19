@@ -11,7 +11,6 @@ import {MessageService} from "../../services/message.service";
   styleUrls: ['./transaction-dialog.component.css']
 })
 export class TransactionDialogComponent {
-
   transaction?: Transaction;
   dialogTitle: string = "TransactionDialog";
   transactionInput!: FormGroup;
@@ -24,6 +23,7 @@ export class TransactionDialogComponent {
   maxDate!: Date;
   valuePattern: string = '-?[0-9]*\.?[0-9]{0,2}';
   userId: string = "";
+
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<TransactionDialogComponent>,
@@ -40,18 +40,15 @@ export class TransactionDialogComponent {
 
     if (data && data.transaction) {
       this.transaction = data.transaction;
-
       this.idControl.setValue(this.transaction!.id);
       this.titleControl.setValue(this.transaction!.title);
       this.dateControl.setValue(this.transaction!.date);
       this.valueControl.setValue(this.transaction!.value);
       this.noticeControl.setValue(this.transaction!.notice);
     }
-
     if (data && data.title) {
       this.dialogTitle = data.title;
     }
-
     this.transactionInput = fb.group({
       id: this.idControl,
       title: this.titleControl,
@@ -63,20 +60,14 @@ export class TransactionDialogComponent {
     const date = new Date();
     this.minDate = new Date(1970, 0, 1);
     this.maxDate = new Date(date.getFullYear() + 1, date.getMonth(), date.getDate());
-
-
   }
-
   close() {
     this.dialogRef.close();
   }
-
   save() {
-
     if (this.transactionInput.valid) {
     this.transactionInput.value.date.setDate(this.transactionInput.value.date.getDate() + 1)
     this.dialogRef.close(this.transactionInput.value);
     }
-
   }
 }

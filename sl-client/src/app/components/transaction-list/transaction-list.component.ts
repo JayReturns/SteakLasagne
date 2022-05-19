@@ -15,7 +15,6 @@ import {User} from "../../models/user.model";
   styleUrls: ['./transaction-list.component.css']
 })
 export class TransactionListComponent implements OnInit {
-
   transactions: Transaction[] = [];
   user?: User;
   tempMap: Map<number, Transaction[]> = new Map<number, Transaction[]>()
@@ -26,7 +25,6 @@ export class TransactionListComponent implements OnInit {
   showExpense: boolean = true;
   sortOrder: string = "newest";
   currentValue: number = 0;
-
 
   constructor(private transactionService: TransactionService,
               private dialogRef: MatDialog,
@@ -65,16 +63,11 @@ export class TransactionListComponent implements OnInit {
       if (this.tempMap.size === 0) {
         this.messageService.notifyUser("Keine Transaktionen gefunden. Bitte Filtereinstellungen anpassen.")
       }
-
       this.userService.getUser(this.userId).subscribe(result => {
         this.user = result
         this.currentValue = this.user.currentAmount / 10
       })
-
     });
-
-
-    // this.userService.updateUser(this.user)
   }
 
   deleteTransaction(id: string) {
@@ -92,9 +85,7 @@ export class TransactionListComponent implements OnInit {
       userId: this.userId
     };
     const dialog = this.dialogRef.open(TransactionDialogComponent, this.dialogConfig);
-
     dialog.afterClosed().subscribe(input => {
-
       if (input) {
         this.transactionService.updateTransaction(input).subscribe(transactionResult => {
           this.userService.getUser(this.userId).subscribe(result => {
@@ -107,13 +98,12 @@ export class TransactionListComponent implements OnInit {
             this.userService.updateUser(updatedUser).subscribe(_ => {
               this.messageService.notifyUser(`Transaktion "${transactionResult.title}" erfolgreich geändert`);
               this.updateTransactions();
-
             })
-        });
-      })
-    }
-  })
-}
+          });
+        })
+      }
+    })
+  }
 
   addTransaction() {
     this.dialogConfig.data = {
@@ -121,7 +111,6 @@ export class TransactionListComponent implements OnInit {
       userId: this.userId
     }
     const dialog = this.dialogRef.open(TransactionDialogComponent, this.dialogConfig);
-
     dialog.afterClosed().subscribe(input => {
       if (input) {
         this.transactionService.createTransaction(input).subscribe(transactionResult => {
@@ -136,13 +125,10 @@ export class TransactionListComponent implements OnInit {
             this.userService.updateUser(updatedUser).subscribe(_ => {
               this.messageService.notifyUser(`Transaktion "${transactionResult.title}" erfolgreich gespeichert`);
               this.updateTransactions();
-
             })
           })
         })
-
       }
     })
   }
-
 }

@@ -16,7 +16,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {AuthGuard} from "./auth/auth.guard";
 import {environment} from "../environments/environment";
-import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -42,7 +41,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
     PageNotFoundComponent,
     GraphComponent,
     TransactionDialogComponent,
-    FilterBarComponent
   ],
   imports: [
     BrowserModule,
