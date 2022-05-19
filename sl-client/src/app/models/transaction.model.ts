@@ -5,4 +5,5 @@ export interface Transaction {
   notice: string;
   value: number;
   date: Date;
+  userId: string;
 }
