@@ -7,11 +7,11 @@
     </span>
     <span class="spacer"></span>
 
-    <mat-slide-toggle class="toggle" [(ngModel)]="showIncome" (change)="updateTransactions()" color="primary">
+    <mat-slide-toggle class="toggle" [(ngModel)]="showIncome" (change)="updateTransactions()" color="primary" matTooltip="Einnahmen anzeigen/ausblenden">
       Einnahmen
     </mat-slide-toggle>
 
-    <mat-slide-toggle class="toggle" [(ngModel)]="showExpense" (change)="updateTransactions()" color="primary">
+    <mat-slide-toggle class="toggle" [(ngModel)]="showExpense" (change)="updateTransactions()" color="primary" matTooltip="Ausgaben anzeigen/ausblenden">
       Ausgaben
     </mat-slide-toggle>
 
@@ -37,58 +37,61 @@
       <div class="divider-date">
         {{entry.key | date:'dd.MM.yyyy'}}
       </div>
-
       <mat-card-content>
         <div *ngFor="let transaction of entry.value">
           <mat-divider class="mat-divider"></mat-divider>
-          <div class="mat-card-title">
-         <span class="title">
 
-        <div class="display-row">
-          <mat-card class="mat-card" (contextmenu)="onRightClick($event, transaction)">
-            <mat-card-title>
-              {{transaction.title}}
-              </span>
-            <span class="value" [class.income]="transaction.value >= 0" [class.expense]="transaction.value < 0">
+
+          <div class="display-row">
+            <div (contextmenu)="onRightClick($event, transaction)">
+              <div class="mat-card-title">
+                {{transaction.title}}
+                <span class="value" [class.income]="transaction.value >= 0" [class.expense]="transaction.value < 0">
                {{transaction.value}}€
-              </span>
-          </div>
-          <div class="mat-card-content">
-            {{transaction.notice}}
-          </div>
-          <div class="mat-card-actions">
-            <!-- FUTUREPROOFING FOR CATRGORIES! DO NOT REMOVE THE FOLLOWING!-->
-            <mat-chip-list class="categories" aria-label="Category">
-<!--              <mat-chip color="primary" selected>WICHTIGE KATEGORIE
-                <button matChipRemove>
-                  <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-chip>-->
-            </mat-chip-list>
-            <div class="buttons">
+            </span>
+              </div>
+              <div class="mat-card-content">
+                {{transaction.notice}}
+              </div>
+              <div class="mat-card-actions">
+                <!-- FUTUREPROOFING FOR CATRGORIES! DO NOT REMOVE THE FOLLOWING!-->
+                <mat-chip-list class="categories" aria-label="Category">
+                  <!--              <mat-chip color="primary" selected>WICHTIGE KATEGORIE
+                                  <button matChipRemove>
+                                    <mat-icon>cancel</mat-icon>
+                                  </button>
+                                </mat-chip>-->
+                </mat-chip-list>
+                <div class="buttons">
 
-              <button class="edit-button" mat-icon-button aria-label="Edit Transaction"
-                      (click)="editTransaction(transaction)">
-                <mat-icon>edit</mat-icon>
-              </button>
+                  <button class="edit-button" mat-icon-button aria-label="Edit Transaction"
+                          (click)="editTransaction(transaction)" matTooltip="Transaktion bearbeiten">
 
-              <button class="delete-button" mat-icon-button aria-label="Delete Transaction"
-                      (click)="deleteTransaction(transaction.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-              
-              <button class="invoice-button" mat-icon-button aria-label="Upload Invoice" (click)="fileInput.click()"
-                    matTooltip="Rechnung hochladen">
-                <mat-icon>file_upload</mat-icon>
-              </button>
-              <a *ngIf="transaction.invoiceLink" [href]="linkPrefix + transaction.invoiceLink" target="_blank" class="link">
-                <button class="invoice-download-button" mat-icon-button matTooltip="Rechnung herunterladen">
-                  <mat-icon>file_download</mat-icon>
-                </button>
-              </a>
-              <input hidden (change)="uploadInvoice($event, transaction)" #fileInput type="file"/>
-            </mat-card-actions>
-          </mat-card>
+                    <mat-icon>edit</mat-icon>
+                  </button>
+
+                  <button class="delete-button" mat-icon-button aria-label="Delete Transaction"
+                          (click)="deleteTransaction(transaction.id)" matTooltip="Transaktion löschen">
+
+                    <mat-icon>delete</mat-icon>
+                  </button>
+
+                  <button class="invoice-button" mat-icon-button aria-label="Upload Invoice" (click)="fileInput.click()" matTooltip="Rechnung hochladen">
+                    <mat-icon>file_upload</mat-icon>
+                  </button>
+
+                  <a *ngIf="transaction.invoiceLink" [href]="linkPrefix + transaction.invoiceLink" target="_blank"
+                     class="link">
+                    <button class="invoice-download-button" mat-icon-button matTooltip="Rechnung herunterladen">
+                      <mat-icon>file_download</mat-icon>
+                    </button>
+                  </a>
+
+                  <input hidden (change)="uploadInvoice($event, transaction)" #fileInput type="file"/>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="buttons">
           </div>
         </div>
