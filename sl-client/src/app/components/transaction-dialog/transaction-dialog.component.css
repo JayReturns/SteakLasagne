@@ -17,7 +17,6 @@ input.right-align {
   grid-template-rows: repeat(2, 0.25fr);
   gap: 10px;
   align-items: center;
-
   grid-template-areas:
     "title date value"
     "notice notice notice";

@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {Chart, registerables} from 'chart.js';
 import {GraphsetService} from "../../services/graphset.service";
 import {GraphSet} from "../../models/graphset.model";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'graph-component',
@@ -9,7 +10,7 @@ import {GraphSet} from "../../models/graphset.model";
   styleUrls: ['./graph.component.css'],
 })
 export class GraphComponent implements AfterViewInit {
-
+  userId?: string;
   graphSets: GraphSet[] = [];
   dates: string[] = [];
   expenses: number[] = [];
@@ -23,30 +24,24 @@ export class GraphComponent implements AfterViewInit {
   @ViewChild('differentiatedTransactions') differentiatedTransactionsCanvas!: ElementRef;
   @ViewChild('accumulatedTransactions') accumulatedTransactionsCanvas!: ElementRef;
 
-  constructor(private graphsetService: GraphsetService) {
+  constructor(private graphsetService: GraphsetService,
+              private keyCloak: KeycloakService) {
     Chart.register(...registerables);
   }
 
-  ngAfterViewInit(): void {
-    this.graphsetService.getGraphset().subscribe(result => {
+  async ngAfterViewInit() {
+    const userProfile = await this.keyCloak.loadUserProfile();
+    this.userId = userProfile.id;
+    this.graphsetService.getGraphset(this.userId!).subscribe(result => {
       this.graphSets = result;
 
       for (const graphSet of this.graphSets) {
         graphSet.expense = -Math.abs(graphSet.expense)
-
         graphSet.date = new Date(graphSet.date)
-
         this.dates.push(graphSet.date.toLocaleDateString())
-
-
-
-
-
-        console.log(graphSet.toLocaleString())
         this.expenses.push(graphSet.expense)
         this.incomes.push(graphSet.income)
         this.sum = (graphSet.income + graphSet.expense)
-
         if (this.sums.length > 1) {
           this.sums.push(this.sums[this.sums.length - 1] + this.sum)
         } else {
@@ -102,14 +97,10 @@ export class GraphComponent implements AfterViewInit {
                 font: {
                   size: 14
                 }
-
               },
             }
           },
-          plugins: {
-
-
-          },
+          plugins: {},
         }
       });
 
@@ -158,10 +149,7 @@ export class GraphComponent implements AfterViewInit {
               },
             }
           },
-          plugins: {
-
-
-          },
+          plugins: {},
         }
       });
     });

@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {NgModule, APP_INITIALIZER} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {MatDialogModule} from "@angular/material/dialog";
 import {AppComponent} from './app.component';
@@ -40,7 +40,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     HeaderMenuComponent,
     PageNotFoundComponent,
     GraphComponent,
-    TransactionDialogComponent
+    TransactionDialogComponent,
   ],
   imports: [
     BrowserModule,

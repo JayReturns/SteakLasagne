@@ -3,6 +3,10 @@
   margin: 0 auto;
 }
 
+.tab-group{
+  background-color: white;
+}
+
 .mat-divider { /* Dividing line  between Transaction Dates */
   border-top-width: 2px;
   border-top-color: lightgray;

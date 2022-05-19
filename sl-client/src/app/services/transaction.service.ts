@@ -17,13 +17,21 @@ export class TransactionService {
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
-  getTransactions(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(this.url)
+  getTransactions(userId?: string): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.url}/user/${userId}/`)
       .pipe(
         tap(_ => this.messageService.log("fetched all transactions")),
         catchError(this.messageService.handleError<Transaction[]>('getTransactions', []))
       );
   }
+
+/*  getTransaction(transaction: Transaction): Observable<Transaction> {
+    return this.http.get<Transaction>(`${this.url}/${transaction.id}/`)
+      .pipe(
+        tap(_ => this.messageService.log(`fetched transaction with id ${transaction.id}`)),
+        catchError(this.messageService.handleError<Transaction>('getTransaction'))
+      );
+  }*/
 
   createTransaction(transaction: Transaction): Observable<Transaction> {
     return this.http.post<Transaction>(this.url, transaction, this.httpOptions)
