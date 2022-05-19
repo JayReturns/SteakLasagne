@@ -8,10 +8,8 @@ import {AuthGuard} from "./auth/auth.guard";
 const routes: Routes = [
   { path: '', component: TransactionListComponent , canActivate: [AuthGuard]},
   {path: 'overview', redirectTo: ''},
-/*  // { path: '', redirectTo: 'overview', pathMatch: 'full'},
-  { path: 'overview', component: TransactionListComponent },*/
-
   { path: 'statistics', component: GraphComponent },
+  {path: 'userAccount', redirectTo:'http://localhost:8081/auth/realms/SteakLasagne/account/'},
   { path: '**', component: PageNotFoundComponent }
 ];
 

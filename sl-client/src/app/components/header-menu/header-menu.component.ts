@@ -7,7 +7,8 @@ import {KeycloakService} from 'keycloak-angular';
   styleUrls: ['./header-menu.component.css']
 })
 export class HeaderMenuComponent implements OnInit {
-
+  friendlyName?: string;
+  userId?: string;
   constructor(private keyCloak: KeycloakService) { }
 
   async ngOnInit() {
@@ -15,7 +16,9 @@ export class HeaderMenuComponent implements OnInit {
 
     if (isLoggedIn) {
       const userProfile = await this.keyCloak.loadUserProfile();
-      console.log(userProfile);
+      this.friendlyName = userProfile.firstName;
+      this.userId = userProfile.id;
+
     }
   }
 

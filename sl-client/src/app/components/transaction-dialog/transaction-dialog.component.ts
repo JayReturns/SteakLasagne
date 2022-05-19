@@ -23,6 +23,7 @@ export class TransactionDialogComponent {
   minDate!: Date;
   maxDate!: Date;
   valuePattern: string = '-?[0-9]*\.?[0-9]{0,2}';
+  userId: string = "";
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<TransactionDialogComponent>,
@@ -35,6 +36,7 @@ export class TransactionDialogComponent {
     this.dateControl = new FormControl('',[Validators.required]);
     this.valueControl = new FormControl('',[Validators.required, Validators.pattern(this.valuePattern)]);
     this.noticeControl = new FormControl('',[Validators.maxLength(256)]);
+    this.userId = data.userId
 
     if (data && data.transaction) {
       this.transaction = data.transaction;
@@ -55,8 +57,8 @@ export class TransactionDialogComponent {
       title: this.titleControl,
       date: this.dateControl,
       value: this.valueControl,
-      notice: this.noticeControl
-
+      notice: this.noticeControl,
+      userId: this.userId
     })
     const date = new Date();
     this.minDate = new Date(1970, 0, 1);

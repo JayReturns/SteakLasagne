@@ -1,8 +1,42 @@
+.filter-bar {
+  background-color: var(--button-color);
+  box-shadow: 0 2px 6px 0 gray;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+
+}
+
+.positiveValue {
+  color: var(--graph-income-color);
+}
+
+.negativeValue {
+  color: var(--graph-expense-color);
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+.toggle {
+  font-size: 14px;
+  margin: 10px 10px 10px 10px;
+
+}
+
+.filter {
+  font-size: 14px;
+  margin: 10px 10px 10px 10px;
+
+}
+
+
+
 .container { /*Global Styling of "Übersicht" Page" */
   position: relative;
   width: 60%;
   margin: 0 auto;
-  top: 64px;
 }
 
 .new-transaction {
@@ -11,15 +45,66 @@
   margin: 0 0 -5px 0;
 }
 
-.mat-divider { /* Dividing line  between Transaction Dates */
+/*
+.mat-divider { !* Dividing line  between Transaction Dates *!
   margin: 10px 10px 5px 10px;
   border-top-width: 2px;
-  border-top-color: lightgray;
+  border-top-color: var(--divider-color);
+}
+*/
+
+.mat-divider { /* Dividing line  between Transaction Dates */
+  margin: 10px 0 10px 0;
+  position: relative !important;
+  display: flex;
+  justify-content: center;
+  width: 98%;
+  border-top-width: 2px;
+  border-top-color: var(--divider-color);
 }
 
+.emptyMap {
+  display: flex;
+  justify-content: center;
+  margin: 5px 0 0 0;
+}
 
 .divider-date { /* Transaction Date */
   margin: 0 0 10px 10px;
+  display: flex;
+  justify-content: center;
+}
+
+
+/* Transaction Card*/
+.mat-card {
+  border: 10px black;
+  margin: 15px 10px 15px 10px;
+  box-shadow: 0 0 15px gray;
+  background-color: white;
+  border-radius: 7.5px;
+
+}
+.mat-card:hover {
+  background-color: whitesmoke;
+}
+
+.mat-card-title {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  grid-template-areas:
+    "title value";
+}
+
+.title{
+
+}
+
+.value{
+  justify-self: end;
 }
 
 .income {
@@ -30,73 +115,36 @@
   color: var(--graph-expense-color);
 }
 
-/* Transaction Card*/
-.mat-card {
-  flex-basis: 90%;
-  border: 10px black;
-  margin: 10px 10px 10px 10px;
-  box-shadow: 0 2px 6px 0 gray;
-  background-color: white;
+mat-card-subtitle{
 
 }
-.mat-card:hover {
-  background-color: whitesmoke;
+
+.mat-card-content{
+  font-size: 16px;
 }
+
+
 
 .mat-card-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
 
-  align-items: center;
+  grid-template-areas:
+    "categories buttons";
+
+
 }
+
 
 .display-row {
-  display:flex;
   align-items: center;
-}
-
-
-.valueTableCell {
-  width: 10%;
-}
-
-.titleTableCell {
-  width: 50%;
-}
-
-.noticeTableCell {
-  width: 30%;
-}
-
-.divTable {
-  display: table;
-  width: 100%;
-}
-.divTableRow {
-  display: table-row;
-}
-
-.divTableHeading {
-  background-color: #EEE;
-  display: table-header-group;
-}
-.divTableCell {
-  display: table-cell;
-  padding: 3px 10px;
-}
-
-.divTableHeading {
-  background-color: #EEE;
-  display: table-header-group;
-  font-weight: bold;
-}
-
-.divTableBody {
-  display: table-row-group;
 }
 
 .buttons {
-  display: flex;
-  flex-direction: column
+  justify-self: end;
 }
 
 .delete-button {
@@ -138,7 +186,15 @@
 
 }
 
-
+.outline {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: var(--divider-color);
+  background-color: rgba(255, 255, 255, 0.35);
+  margin: 15px 0 15px 0;
+  padding: 10px 10px 10px 10px;
+}
 
 
 

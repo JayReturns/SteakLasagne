@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {NgModule, APP_INITIALIZER} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {MatDialogModule} from "@angular/material/dialog";
 import {AppComponent} from './app.component';
@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {AuthGuard} from "./auth/auth.guard";
 import {environment} from "../environments/environment";
+import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -40,7 +41,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     HeaderMenuComponent,
     PageNotFoundComponent,
     GraphComponent,
-    TransactionDialogComponent
+    TransactionDialogComponent,
+    FilterBarComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,9 @@ import {Observable} from "rxjs";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {TransactionDialogComponent} from "../transaction-dialog/transaction-dialog.component";
 import {MessageService} from "../../services/message.service";
+import {KeycloakService} from "keycloak-angular";
+import {UserService} from "../../services/user.service";
+import {User} from "../../models/user.model";
 
 @Component({
   selector: 'transaction-list',
@@ -14,40 +17,64 @@ import {MessageService} from "../../services/message.service";
 export class TransactionListComponent implements OnInit {
 
   transactions: Transaction[] = [];
-  map: Map<number, Transaction[]> = new Map<number, Transaction[]>()
-
+  user?: User;
+  tempMap: Map<number, Transaction[]> = new Map<number, Transaction[]>()
+  displayMap: Map<number, Transaction[]> = new Map<number, Transaction[]>()
+  userId?: string;
   dialogConfig = new MatDialogConfig();
+  showIncome: boolean = true;
+  showExpense: boolean = true;
+  sortOrder: string = "newest";
+  currentValue: number = 0;
+
 
   constructor(private transactionService: TransactionService,
               private dialogRef: MatDialog,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private keyCloak: KeycloakService,
+              private userService: UserService) {
     this.dialogConfig.disableClose = true;
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.hasBackdrop = true;
     this.dialogConfig.width = "50%";
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    const userProfile = await this.keyCloak.loadUserProfile();
+    this.userId = userProfile.id;
     this.updateTransactions();
   }
 
   updateTransactions(): void {
-    this.transactionService.getTransactions().subscribe(result => {
+    this.transactionService.getTransactions(this.userId).subscribe(result => {
       this.transactions = result;
-
-      this.map.clear();
+      this.tempMap.clear()
 
       for (let transaction of this.transactions) {
         transaction.date = new Date(transaction.date); //Macht aus einem "Datum" ein Datum!
         transaction.date.setHours(0, 0, 0, 0); //Setzt die Zeit im Datum aus Mitternacht (00:00:00:00)
         let time = transaction.date.getTime() //erstelle einen Unix Zeitstempel time
-        if (this.map.has(time)) {
-          this.map.set(time, [...this.map.get(time)!, transaction]);
-        } else {
-          this.map.set(time, [transaction]);
+        if (this.showIncome && transaction.value > 0 || this.showExpense && transaction.value < 0) {
+          if (this.tempMap.has(time)) {
+            this.tempMap.set(time, [...this.tempMap.get(time)!, transaction]);
+          } else {
+            this.tempMap.set(time, [transaction]);
+          }
         }
       }
+      if (this.tempMap.size === 0) {
+        this.messageService.notifyUser("Keine Transaktionen gefunden. Bitte Filtereinstellungen anpassen.")
+      }
+
+      this.userService.getUser(this.userId).subscribe(result => {
+        this.user = result
+        this.currentValue = this.user.currentAmount / 10
+      })
+
     });
+
+
+    // this.userService.updateUser(this.user)
   }
 
   deleteTransaction(id: string) {
@@ -59,37 +86,63 @@ export class TransactionListComponent implements OnInit {
   editTransaction(transaction: Transaction) {
 
     this.dialogConfig.data = {
-      transaction: transaction,
-      title: "Transaktion bearbeiten"
-    };
 
+      transaction: transaction,
+      title: "Transaktion bearbeiten",
+      userId: this.userId
+    };
     const dialog = this.dialogRef.open(TransactionDialogComponent, this.dialogConfig);
 
     dialog.afterClosed().subscribe(input => {
-      console.log(input)
+
       if (input) {
-        this.transactionService.updateTransaction(input).subscribe(result => {
-          this.updateTransactions();
+        this.transactionService.updateTransaction(input).subscribe(transactionResult => {
+          this.userService.getUser(this.userId).subscribe(result => {
+            this.user = result
+            let updatedUser: User = {
+              id: this.user?.id!,
+              currentAmount: this.user.currentAmount + (input.value * 10),
+              friendlyName: this.user?.friendlyName!
+            }
+            this.userService.updateUser(updatedUser).subscribe(_ => {
+              this.messageService.notifyUser(`Transaktion "${transactionResult.title}" erfolgreich geändert`);
+              this.updateTransactions();
+
+            })
         });
-        this.messageService.notifyUser(`Transaktion "${transaction.title}" erfolgreich geändert`) ;
-      }
-    })
-  }
+      })
+    }
+  })
+}
 
   addTransaction() {
     this.dialogConfig.data = {
-      title: "Neue Transaktion"
+      title: "Neue Transaktion",
+      userId: this.userId
     }
     const dialog = this.dialogRef.open(TransactionDialogComponent, this.dialogConfig);
 
     dialog.afterClosed().subscribe(input => {
       if (input) {
-        this.transactionService.createTransaction(input).subscribe(result => {
-          this.updateTransactions();
-          this.messageService.notifyUser(`Transaktion "${result.title}" erfolgreich gespeichert`) ;
+        this.transactionService.createTransaction(input).subscribe(transactionResult => {
+
+          this.userService.getUser(this.userId).subscribe(result => {
+            this.user = result
+            let updatedUser: User = {
+              id: this.user?.id!,
+              currentAmount: this.user.currentAmount + (input.value * 10),
+              friendlyName: this.user?.friendlyName!
+            }
+            this.userService.updateUser(updatedUser).subscribe(_ => {
+              this.messageService.notifyUser(`Transaktion "${transactionResult.title}" erfolgreich gespeichert`);
+              this.updateTransactions();
+
+            })
+          })
         })
+
       }
-    });
+    })
   }
 
 }

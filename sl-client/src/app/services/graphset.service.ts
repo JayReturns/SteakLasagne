@@ -15,8 +15,8 @@ export class GraphsetService {
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
-  getGraphset(): Observable<GraphSet[]> {
-    return this.http.get<GraphSet[]>(`${this.url}/?after=1970-01-01`)
+  getGraphset(userId: string): Observable<GraphSet[]> {
+    return this.http.get<GraphSet[]>(`${this.url}/${userId}/?after=1970-01-01`)
       .pipe(
         tap(_ => this.messageService.log("fetched graphset")),
         catchError(this.messageService.handleError<GraphSet[]>('getGraphset', []))

@@ -1,10 +1,34 @@
-<mat-toolbar color="primary">
-  <h1>SteakLasagne</h1>
+<mat-toolbar color="primary" class="header-menu">
+<!--  <h1 class="title">SteakLasagne</h1>-->
+  <img class="title" src="assets/images/logo-weiss.webp" alt="logo" style="width:35%;">
+<!--  <span class="spacer"></span>-->
 
-  <span class="spacer"></span>
-  <button mat-button (click)="logout()" >Auslog</button>
-  <button mat-button routerLink="/overview">Übersicht</button>
+  <h1 class="welcome">Herzlich Willkommen {{friendlyName}}</h1>
+
+  <div class="buttons">
+
+<!--  <button mat-button routerLink="/overview">Übersicht</button>
   <button mat-button routerLink="/statistics">Statistik</button>
+    <button mat-button (click)="logout()" >Auslog</button>-->
 
+
+    <button mat-icon-button aria-label="Overview" routerLink="/overview" class="button">
+      <mat-icon>home</mat-icon>
+    </button>
+
+    <button mat-icon-button aria-label="Statistics" routerLink="/statistics" class="button">
+      <mat-icon>insights</mat-icon>
+    </button>
+    <a href="http://localhost:8081/auth/realms/SteakLasagne/account/" class="link">
+    <button mat-icon-button aria-label="User Settings" class="button">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    </a>
+
+    <button mat-icon-button aria-label="Logout" (click)="logout()" class="button">
+      <mat-icon>logout</mat-icon>
+    </button>
+
+  </div>
 </mat-toolbar>
 

@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {Chart, registerables} from 'chart.js';
 import {GraphsetService} from "../../services/graphset.service";
 import {GraphSet} from "../../models/graphset.model";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'graph-component',
@@ -9,7 +10,7 @@ import {GraphSet} from "../../models/graphset.model";
   styleUrls: ['./graph.component.css'],
 })
 export class GraphComponent implements AfterViewInit {
-
+  userId?: string;
   graphSets: GraphSet[] = [];
   dates: string[] = [];
   expenses: number[] = [];
@@ -23,12 +24,17 @@ export class GraphComponent implements AfterViewInit {
   @ViewChild('differentiatedTransactions') differentiatedTransactionsCanvas!: ElementRef;
   @ViewChild('accumulatedTransactions') accumulatedTransactionsCanvas!: ElementRef;
 
-  constructor(private graphsetService: GraphsetService) {
+  constructor(private graphsetService: GraphsetService,
+              private keyCloak: KeycloakService) {
     Chart.register(...registerables);
   }
 
-  ngAfterViewInit(): void {
-    this.graphsetService.getGraphset().subscribe(result => {
+
+
+  async ngAfterViewInit() {
+    const userProfile = await this.keyCloak.loadUserProfile();
+    this.userId = userProfile.id;
+    this.graphsetService.getGraphset(this.userId!).subscribe(result => {
       this.graphSets = result;
 
       for (const graphSet of this.graphSets) {
@@ -42,7 +48,6 @@ export class GraphComponent implements AfterViewInit {
 
 
 
-        console.log(graphSet.toLocaleString())
         this.expenses.push(graphSet.expense)
         this.incomes.push(graphSet.income)
         this.sum = (graphSet.income + graphSet.expense)

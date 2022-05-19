@@ -1,33 +1,112 @@
-<div class="container">
+<div class="filter-bar">
+  <mat-toolbar>
+    Aktueller Kontostand:&nbsp;
+    <span [class.positiveValue]="currentValue >= 0" [class.negativeValue]="currentValue < 0">
+     {{currentValue}}€
+    </span>
+    <span class="spacer"></span>
 
+    <mat-slide-toggle class="toggle" [(ngModel)]="showIncome" (change)="updateTransactions()" color="primary">
+      Einnahmen
+    </mat-slide-toggle>
+
+    <mat-slide-toggle class="toggle" [(ngModel)]="showExpense" (change)="updateTransactions()" color="primary">
+      Ausgaben
+    </mat-slide-toggle>
+
+    <mat-form-field class="filter" appearance="standard">
+      <mat-select [(value)]="sortOrder">
+        <mat-option value="newest">Neuste zuerst</mat-option>
+        <mat-option value="oldest">Älteste zuerst</mat-option>
+
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar>
+</div>
+
+
+<div class="container">
   <div class="add-button new-transaction">
     <button mat-icon-button (click)="addTransaction()" aria-label="Add new Transaction">
       <mat-icon>add_circle_outline</mat-icon>
     </button>
   </div>
 
-  <div *ngFor="let entry of map | keyvalue">
-    <mat-divider class="mat-divider"></mat-divider>
+
+  <div *ngFor="let entry of tempMap | keyvalue">
+
+    <mat-card class="mat-card">
+      <div class="divider-date">
+        {{entry.key | date:'dd.MM.yyyy'}}
+      </div>
+
+      <mat-card-content>
+        <div *ngFor="let transaction of entry.value">
+          <mat-divider class="mat-divider"></mat-divider>
+          <div class="mat-card-title">
+         <span class="title">
+              {{transaction.title}}
+              </span>
+        <span class="value" [class.income]="transaction.value >= 0" [class.expense]="transaction.value < 0">
+               {{transaction.value}}€
+              </span>
+
+          </div>
+          <div class="mat-card-content">
+          {{transaction.notice}}
+        </div>
+        <div class="mat-card-actions">
+          <mat-chip-list class="category-chip" aria-label="Category">
+            <mat-chip color="primary" selected>WICHTIGE KATEGORIE
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+          </mat-chip-list>
+          <div class="buttons">
+            <button class="edit-button" mat-icon-button aria-label="Edit Transaction"
+                    (click)="editTransaction(transaction)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button class="delete-button" mat-icon-button aria-label="Delete Transaction"
+                    (click)="deleteTransaction(transaction.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        </div>
+      </mat-card-content>
+
+
+    </mat-card>
+
+    <!--<div class="outline">
+
     <div class="divider-date">
       {{entry.key | date:'dd.MM.yyyy'}}
     </div>
     <div *ngIf="entry.value">
 
       <div *ngFor="let transaction of entry.value">
-
         <div class="display-row">
           <mat-card class="mat-card">
-            <mat-card-title>
+            <mat-card-title class="mat-card-title">
+              <span class="title">
               {{transaction.title}}
-
-            </mat-card-title>
-            <mat-card-subtitle>
-              <span [class.income]="transaction.value >= 0" [class.expense]="transaction.value < 0">
-              {{transaction.value}}€
               </span>
+              <span class="value" [class.income]="transaction.value >= 0" [class.expense]="transaction.value < 0">
+               {{transaction.value}}€
+              </span>
+            </mat-card-title>
+
+            <mat-card-subtitle class="mat-card-subtitle">
+
             </mat-card-subtitle>
-            <mat-card-content>
+            <mat-card-content class="mat-card-content">
               {{transaction.notice}}
+
             </mat-card-content>
             <mat-card-actions class="mat-card-actions">
 
@@ -39,28 +118,26 @@
                   </button>
                 </mat-chip>
               </mat-chip-list>
-              <button class="edit-button" mat-icon-button aria-label="Edit Transaction" (click)="editTransaction(transaction)">
-                <mat-icon>edit</mat-icon>
-              </button>
+              <div class="buttons">
+                <button class="edit-button" mat-icon-button aria-label="Edit Transaction"
+                        (click)="editTransaction(transaction)">
+                  <mat-icon>edit</mat-icon>
+                </button>
 
-              <button class="delete-button"  mat-icon-button aria-label="Delete Transaction" (click)="deleteTransaction(transaction.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
+                <button class="delete-button" mat-icon-button aria-label="Delete Transaction"
+                        (click)="deleteTransaction(transaction.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+
+
             </mat-card-actions>
           </mat-card>
-          <div class="buttons">
 
-          </div>
         </div>
       </div>
     </div>
 
-
-    <div *ngIf="!entry.value">
-      Nothing to see here!
-    </div>
-
-
-
+    </div>-->
   </div>
 </div>
