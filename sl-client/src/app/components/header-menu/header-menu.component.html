@@ -3,21 +3,21 @@
   <h1 class="welcome">Herzlich Willkommen {{friendlyName}}</h1>
   <div class="buttons">
 
-    <button mat-icon-button aria-label="Overview" routerLink="/overview" class="button">
+    <button mat-icon-button aria-label="Overview" routerLink="/overview" class="button" matTooltip="Übersicht">
       <mat-icon>home</mat-icon>
     </button>
 
-    <button mat-icon-button aria-label="Statistics" routerLink="/statistics" class="button">
+    <button mat-icon-button aria-label="Statistics" routerLink="/statistics" class="button" matTooltip="Statistik">
       <mat-icon>insights</mat-icon>
     </button>
 
     <a href="{{accountLink}}" class="link">
-      <button mat-icon-button aria-label="User Settings" class="button">
+      <button mat-icon-button aria-label="User Settings" class="button" matTooltip="Account">
         <mat-icon>account_circle</mat-icon>
       </button>
     </a>
 
-    <button mat-icon-button aria-label="Logout" (click)="logout()" class="button">
+    <button mat-icon-button aria-label="Logout" (click)="logout()" class="button" matTooltip="Auslog">
       <mat-icon>logout</mat-icon>
     </button>
 
