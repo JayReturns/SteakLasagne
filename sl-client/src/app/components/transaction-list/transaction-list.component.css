@@ -115,22 +115,29 @@
   grid-row-gap: 0;
   grid-template-areas:
     "categories buttons";
+  margin: 0 0 -15px 0;
 }
 
 .display-row {
   align-items: center;
 }
 
-.buttons {
-  justify-self: end;
+
+.categories {
+ justify-self: start;
 }
 
-.delete-button .add-button .edit-button{
+.buttons {
+  justify-self: end;
+  justify-items: end;
+}
+
+.delete-button, .add-button, .edit-button{
   opacity: 0.5;
   color: var(--button-color);
 }
 
-.delete-button:hover .add-button:hover .edit-button:hover {
+.delete-button:hover, .add-button:hover, .edit-button:hover {
   opacity: 1;
   color: var(--button-hover-color);
 }

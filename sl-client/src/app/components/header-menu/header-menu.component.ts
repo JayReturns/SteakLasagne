@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {KeycloakService} from 'keycloak-angular';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-header-menu',
@@ -9,6 +10,7 @@ import {KeycloakService} from 'keycloak-angular';
 export class HeaderMenuComponent implements OnInit {
   friendlyName?: string;
   userId?: string;
+  accountLink?: string;
   constructor(private keyCloak: KeycloakService) { }
 
   async ngOnInit() {
@@ -17,6 +19,7 @@ export class HeaderMenuComponent implements OnInit {
       const userProfile = await this.keyCloak.loadUserProfile();
       this.friendlyName = userProfile.firstName;
       this.userId = userProfile.id;
+      this.accountLink = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/account/`
     }
   }
 

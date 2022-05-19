@@ -34,6 +34,7 @@ export class GraphComponent implements AfterViewInit {
     this.userId = userProfile.id;
     this.graphsetService.getGraphset(this.userId!).subscribe(result => {
       this.graphSets = result;
+
       for (const graphSet of this.graphSets) {
         graphSet.expense = -Math.abs(graphSet.expense)
         graphSet.date = new Date(graphSet.date)
@@ -47,8 +48,10 @@ export class GraphComponent implements AfterViewInit {
           this.sums.push(this.sum)
         }
       }
+
       const down = (ctx: any, value: any) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
       const equal = (ctx: any, value: any) => ctx.p0.parsed.y == ctx.p1.parsed.y ? value : undefined;
+
       this.AccumulatedTransactionChart = new Chart(this.accumulatedTransactionsCanvas.nativeElement, {
         type: 'line',
         data: {

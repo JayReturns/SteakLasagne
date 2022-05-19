@@ -65,7 +65,7 @@ export class TransactionListComponent implements OnInit {
       }
       this.userService.getUser(this.userId).subscribe(result => {
         this.user = result
-        this.currentValue = this.user.currentAmount / 10
+        this.currentValue = this.user.currentAmount
       })
     });
   }
@@ -92,7 +92,7 @@ export class TransactionListComponent implements OnInit {
             this.user = result
             let updatedUser: User = {
               id: this.user?.id!,
-              currentAmount: this.user.currentAmount + (input.value * 10),
+              currentAmount: this.user.currentAmount - (transaction.value) + (input.value),
               friendlyName: this.user?.friendlyName!
             }
             this.userService.updateUser(updatedUser).subscribe(_ => {
@@ -119,7 +119,7 @@ export class TransactionListComponent implements OnInit {
             this.user = result
             let updatedUser: User = {
               id: this.user?.id!,
-              currentAmount: this.user.currentAmount + (input.value * 10),
+              currentAmount: this.user.currentAmount + (input.value),
               friendlyName: this.user?.friendlyName!
             }
             this.userService.updateUser(updatedUser).subscribe(_ => {
