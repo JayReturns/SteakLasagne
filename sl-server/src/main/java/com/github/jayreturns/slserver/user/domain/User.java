@@ -23,6 +23,6 @@ public class User {
     private String FriendlyName;
 
     @Column(name = "current_amount")
-    private Double CurrentAmount;
+    private long CurrentAmount;
 
 }

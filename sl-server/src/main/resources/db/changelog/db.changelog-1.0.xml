@@ -88,4 +88,8 @@
         <modifyDataType tableName="sl_transaction" columnName="value" newDataType="bigint"/>
     </changeSet>
 
+    <changeSet id="1.0-alter-value" author="Philip Rexroth">
+        <modifyDataType tableName="sl_user" columnName="current_amount" newDataType="bigint"/>
+    </changeSet>
+
 </databaseChangeLog>
