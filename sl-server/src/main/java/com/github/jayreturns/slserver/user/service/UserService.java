@@ -38,7 +38,11 @@ public class UserService {
      * @return Transaction with corresponding {@code ID}
      */
     public User getUser(String id) {
-        return userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById(id).orElseThrow();
+        user.setCurrentAmount(user.getCurrentAmount()/100);
+
+        return user;
+
     }
 
     /**
@@ -51,7 +55,7 @@ public class UserService {
 
         user.setId(newUser.getId());
         user.setFriendlyName(newUser.getFriendlyName());
-        user.setCurrentAmount(newUser.getCurrentAmount());
+        user.setCurrentAmount(newUser.getCurrentAmount()*100);
 
         return userRepository.save(user);
     }
