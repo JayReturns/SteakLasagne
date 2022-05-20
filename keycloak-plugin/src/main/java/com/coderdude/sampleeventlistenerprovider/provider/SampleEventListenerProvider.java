@@ -24,7 +24,7 @@ import javax.json.Json;
 
 public class SampleEventListenerProvider implements EventListenerProvider {
 
-    private final String accessToken = "pls add your token when u want to update the api^^";
+    private final String accessToken = "Generate one yourself OR ASK @Rexphel for one^^";
     private final CloseableHttpClient httpClient = HttpClients.createDefault();
     private final String authorizationString = "Bearer " + accessToken;
 

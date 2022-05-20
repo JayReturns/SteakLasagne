@@ -16,7 +16,7 @@ public class UserFactory {
 
         user.setId(userData.getId());
         user.setFriendlyName(userData.getFriendlyName());
-        user.setCurrentAmount(userData.getCurrentAmount());
+        user.setCurrentAmount((long) (userData.getCurrentAmount()*100));
 
         return user;
     }

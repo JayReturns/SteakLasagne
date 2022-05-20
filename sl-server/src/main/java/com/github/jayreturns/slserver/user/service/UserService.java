@@ -39,7 +39,7 @@ public class UserService {
      */
     public User getUser(String id) {
         User user = userRepository.findById(id).orElseThrow();
-        user.setCurrentAmount(user.getCurrentAmount()/100);
+        user.setCurrentAmount(user.getCurrentAmount());
 
         return user;
 
@@ -55,7 +55,7 @@ public class UserService {
 
         user.setId(newUser.getId());
         user.setFriendlyName(newUser.getFriendlyName());
-        user.setCurrentAmount(newUser.getCurrentAmount()*100);
+        user.setCurrentAmount(newUser.getCurrentAmount());
 
         return userRepository.save(user);
     }
