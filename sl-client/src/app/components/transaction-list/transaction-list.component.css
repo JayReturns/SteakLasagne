@@ -1,10 +1,11 @@
 .filter-bar {
-  background-color: var(--button-color);
-  box-shadow: 0 2px 6px 0 gray;
+  background: white !important;
+  box-shadow: 0 3px 5px 0 gray;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 900;
+  opacity: 90%;
 }
 
 .positiveValue {
@@ -29,6 +30,8 @@
   margin: 10px 10px 10px 10px;
 }
 
+
+
 .container { /*Global Styling of "Übersicht" Page" */
   position: relative;
   width: 60%;
@@ -39,12 +42,6 @@
   display: flex;
   justify-content: center;
   margin: 0 0 -5px 0;
-}
-
-.mat-divider {
-  margin: 10px 10px 5px 10px;
-  border-top-width: 2px;
-  border-top-color: var(--divider-color);
 }
 
 .mat-divider { /* Dividing line  between Transaction Dates */
@@ -71,14 +68,10 @@
 
 /* Transaction Card*/
 .mat-card {
-  border: 10px black;
   margin: 15px 10px 15px 10px;
   box-shadow: 0 0 15px gray;
   background-color: white;
   border-radius: 8px;
-}
-.mat-card:hover {
-  background-color: whitesmoke;
 }
 
 .mat-card-title {
@@ -109,13 +102,13 @@
 
 .mat-card-actions {
   display: grid;
-  grid-template-columns: 5fr 1fr;
+  grid-template-columns: 5fr 2fr;
   grid-template-rows: 1fr;
   grid-column-gap: 0;
   grid-row-gap: 0;
   grid-template-areas:
     "categories buttons";
-  margin: 0 0 -15px 0;
+  margin: 0 0 -10px 0;
 }
 
 .display-row {
@@ -132,34 +125,32 @@
   justify-items: end;
 }
 
+.transactionButtons, .invoiceButtons {
+  display: inline;
+  background-color: var(--border-color);
+  border-radius: 20px;
+  margin: 0 2px 0 2px;
+  padding: 5px 5px 8px 5px;
+  height: 24px !important;
+}
 
-.invoice-button, .edit-button, .delete-button, .invoice-download-button {
+.invoice-upload-button, .edit-button, .delete-button, .invoice-download-button, .invoice-delete-button {
   opacity: 0.5;
   color: var(--button-color);
     /*flex-basis: 5%;*/
 }
 
 
-.invoice-button:hover, .edit-button:hover, .delete-button:hover, .invoice-download-button:hover {
+.invoice-upload-button:hover, .edit-button:hover, .delete-button:hover, .invoice-download-button:hover, .invoice-delete-button:hover {
   opacity: 1;
   color: var(--button-hover-color);
 }
 
-
-.outline {
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 10px;
-  border-color: var(--divider-color);
-  background-color: rgba(255, 255, 255, 0.35);
-  margin: 15px 0 15px 0;
-  padding: 10px 10px 10px 10px;
-}
 /*.category-chip {
   color: var(--button-color);
 }*/
 
-/* Add */
+
 .add-button {
   color: var(--button-color)
 
