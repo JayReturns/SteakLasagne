@@ -18,7 +18,7 @@ public class UserDataFactory {
 
         userData.setId(user.getId());
         userData.setFriendlyName(user.getFriendlyName());
-        userData.setCurrentAmount(user.getCurrentAmount());
+        userData.setCurrentAmount(user.getCurrentAmount()/100d);
 
         return userData;
     }
