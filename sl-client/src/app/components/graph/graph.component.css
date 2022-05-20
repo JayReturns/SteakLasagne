@@ -1,13 +1,17 @@
 .container { /*Global Styling of "Statistik" Page" */
   width: 60%;
   margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .tab-group{
+  margin: 15px 10px 0 10px;
+  box-shadow: 0 0 15px gray;
   background-color: white;
+  border-radius: 8px;
 }
 
-.mat-divider { /* Dividing line  between Transaction Dates */
-  border-top-width: 2px;
-  border-top-color: lightgray;
-}

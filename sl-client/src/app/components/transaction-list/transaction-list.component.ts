@@ -40,7 +40,6 @@ export class TransactionListComponent implements OnInit {
   constructor(private transactionService: TransactionService,
               private dialogRef: MatDialog,
               private messageService: MessageService,
-
               private keyCloak: KeycloakService,
               private userService: UserService,
               private invoiceService: InvoiceService,
@@ -55,6 +54,7 @@ export class TransactionListComponent implements OnInit {
     this.iconRegistry.addSvgIcon('file-delete', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/file-cancel-outline.svg'));
     this.iconRegistry.addSvgIcon('file-edit', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/file-edit-outline.svg'));
   }
+
   async ngOnInit() {
     const userProfile = await this.keyCloak.loadUserProfile();
     this.userId = userProfile.id;
@@ -158,12 +158,6 @@ export class TransactionListComponent implements OnInit {
     const [file] = event.target.files;
     const type = file.type;
 
-    if (type != 'application/pdf') {
-      if (!confirm("Datei ist keine PDF-Datei! Wirklich hochladen?")) {
-        return;
-      }
-    }
-
     reader.readAsDataURL(file);
 
     reader.onload = () => {
@@ -190,15 +184,5 @@ export class TransactionListComponent implements OnInit {
     if (!confirm("Rechnung wirklich löschen?")) return;
 
     this.invoiceService.deleteInvoice(transaction.invoice!.id!, transaction.id).subscribe(_ => this.updateTransactions());
-  }
-
-  onRightClick(event: MouseEvent, transaction: Transaction) {
-    event.preventDefault();
-    this.menuTopLeftPosition.x = event.clientX + 'px';
-    this.menuTopLeftPosition.y = event.clientY + 'px';
-
-    this.matMenuTrigger!.menuData = {transaction: transaction};
-
-    this.matMenuTrigger?.openMenu();
   }
 }

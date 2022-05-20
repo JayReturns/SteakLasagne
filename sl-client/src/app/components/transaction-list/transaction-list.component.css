@@ -68,7 +68,6 @@
 
 /* Transaction Card*/
 .mat-card {
-  border: 10px black;
   margin: 15px 10px 15px 10px;
   box-shadow: 0 0 15px gray;
   background-color: white;
