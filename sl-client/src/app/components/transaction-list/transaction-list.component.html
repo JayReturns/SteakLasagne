@@ -72,7 +72,7 @@
                   </button>
 
                   <button class="delete-button" mat-icon-button aria-label="Delete Transaction"
-                          (click)="deleteTransaction(transaction.id)" matTooltip="Transaktion löschen">
+                          (click)="deleteTransaction(transaction.id, userId!, transaction.value)" matTooltip="Transaktion löschen">
 
                     <mat-icon>delete</mat-icon>
                   </button>

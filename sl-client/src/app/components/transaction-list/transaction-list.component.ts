@@ -88,9 +88,25 @@ export class TransactionListComponent implements OnInit {
     });
   }
 
-  deleteTransaction(id: string) {
+  deleteTransaction(id: string, userId: string, transactionValue: number) {
     (this.transactionService.deleteTransaction(id, true) as Observable<any>).subscribe(_ => {
-      this.updateTransactions();
+      console.log(id)
+      console.log(userId)
+      console.log(transactionValue)
+      if (userId) {
+        this.userService.getUser(userId).subscribe(result => {
+          this.user = result
+          let updatedUser: User = {
+            id: this.user?.id!,
+            currentAmount: this.user.currentAmount - transactionValue,
+            friendlyName: this.user?.friendlyName!
+          }
+          this.userService.updateUser(updatedUser).subscribe(_ => {
+            this.messageService.notifyUser(`Transaktion "${id}" erfolgreich gelöscht`);
+            this.updateTransactions();
+          })
+        });
+      }
     })
   }
 
