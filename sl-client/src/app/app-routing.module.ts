@@ -6,10 +6,10 @@ import {GraphComponent} from "./components/graph/graph.component";
 import {AuthGuard} from "./auth/auth.guard";
 
 const routes: Routes = [
-  { path: '', component: TransactionListComponent , canActivate: [AuthGuard]},
-  {path: 'overview', redirectTo: ''},
-  { path: 'statistics', component: GraphComponent },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '', redirectTo: '/overview', pathMatch: "full"},
+  { path: 'overview', component: TransactionListComponent, canActivate: [AuthGuard]},
+  { path: 'statistics', component: GraphComponent, canActivate: [AuthGuard]},
+  { path: '**', component: PageNotFoundComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
