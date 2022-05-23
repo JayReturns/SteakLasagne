@@ -64,19 +64,19 @@ public class SampleEventListenerProvider implements EventListenerProvider {
 
     }
 
-    private String getAccestoken() throws ParseException {
+    private String getAccestoken() {
 
         String accestoken;
 
         HttpPost post = new HttpPost(keycloak_uri + "/auth/realms/SteakLasagne/protocol/openid-connect/token");
-        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+        List <NameValuePair> nvps = new ArrayList <>();
         nvps.add(new BasicNameValuePair("client_id", client_id));
         nvps.add(new BasicNameValuePair("client_secret", client_secret));
         nvps.add(new BasicNameValuePair("grant_type", "client_credentials"));
         nvps.add(new BasicNameValuePair("scpope","email"));
 
         try {
-            post.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+            post.setEntity(new UrlEncodedFormEntity(nvps));
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
@@ -93,9 +93,7 @@ public class SampleEventListenerProvider implements EventListenerProvider {
             String retSrc = EntityUtils.toString(response.getEntity());
             JSONObject result = new JSONObject(retSrc);
 
-            String token = result.getString("access_token");
-
-            return token;
+            return result.getString("access_token");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
