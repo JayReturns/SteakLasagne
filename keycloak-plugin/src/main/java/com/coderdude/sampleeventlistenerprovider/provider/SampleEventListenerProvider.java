@@ -1,33 +1,42 @@
 package com.coderdude.sampleeventlistenerprovider.provider;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
-
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+
+import org.json.JSONObject;
+import org.json.simple.parser.ParseException;
+
 import org.keycloak.events.Event;
 import org.keycloak.events.EventListenerProvider;
 import org.keycloak.events.EventType;
 import org.keycloak.events.admin.AdminEvent;
 
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
-
-
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
 import javax.json.Json;
 
 
 public class SampleEventListenerProvider implements EventListenerProvider {
 
-    private final String accessToken = "Generate one yourself OR ASK @Rexphel for one^^";
-    private final CloseableHttpClient httpClient = HttpClients.createDefault();
-    private final String authorizationString = "Bearer " + accessToken;
-
+    private final String client_id = "get from Keycloak^^";
+    private final String client_secret = "again, get from Keycloak^^";
+    private final String keycloak_uri = "ask @AlexSchmitz";
+    private final String backend_uri = "ask @AlexSchmitz";
     public SampleEventListenerProvider() {
     }
 
@@ -35,8 +44,6 @@ public class SampleEventListenerProvider implements EventListenerProvider {
     public void onEvent(Event event) {
 
         System.out.println(" LOL a Event Occurred:" + toString(event));
-
-        System.out.println("Username:" + event.getDetails().get("username"));
         if (event.getType() == EventType.REGISTER){
             try {
                 createnewUser(event);
@@ -57,7 +64,47 @@ public class SampleEventListenerProvider implements EventListenerProvider {
 
     }
 
+    private String getAccestoken() throws ParseException {
+
+        String accestoken;
+
+        HttpPost post = new HttpPost(keycloak_uri + "/auth/realms/SteakLasagne/protocol/openid-connect/token");
+        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+        nvps.add(new BasicNameValuePair("client_id", client_id));
+        nvps.add(new BasicNameValuePair("client_secret", client_secret));
+        nvps.add(new BasicNameValuePair("grant_type", "client_credentials"));
+        nvps.add(new BasicNameValuePair("scpope","email"));
+
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+
+        try {
+            HttpResponse response = httpClient.execute(post);
+
+            System.out.println(response.getEntity().toString());
+            HttpEntity test = response.getEntity();
+            System.out.println(test.getContent().toString());
+
+            String retSrc = EntityUtils.toString(response.getEntity());
+            JSONObject result = new JSONObject(retSrc);
+
+            String token = result.getString("access_token");
+
+            return token;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void createnewUser(Event event) throws Exception {
+
+        String authorizationString = "Bearer " + getAccestoken();
 
         //Post new User with Keycloak UserID to MariaDB
 
@@ -68,15 +115,11 @@ public class SampleEventListenerProvider implements EventListenerProvider {
                 .build()
                 .toString();
 
-        System.out.println(payload);
-
-        System.out.println(payload);
-
         StringEntity entity = new StringEntity(payload,
                 ContentType.APPLICATION_FORM_URLENCODED);
 
         HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost("http://localhost:8080/api/v1/user/");
+        HttpPost request = new HttpPost(backend_uri+"/api/v1/user/");
         request.setEntity(entity);
         request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         request.setHeader(HttpHeaders.AUTHORIZATION, authorizationString);
