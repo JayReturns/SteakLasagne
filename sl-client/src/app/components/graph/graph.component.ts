@@ -20,7 +20,7 @@ export class GraphComponent implements AfterViewInit {
   date: Date = new Date;
   AccumulatedTransactionChart: any = [];
   DifferentiatedTransactionChart: any = [];
-
+  isLoaded: boolean = false;
   @ViewChild('differentiatedTransactions') differentiatedTransactionsCanvas!: ElementRef;
   @ViewChild('accumulatedTransactions') accumulatedTransactionsCanvas!: ElementRef;
 
@@ -30,6 +30,7 @@ export class GraphComponent implements AfterViewInit {
   }
 
   async ngAfterViewInit() {
+    this.isLoaded = false
     const userProfile = await this.keyCloak.loadUserProfile();
     this.userId = userProfile.id;
     this.graphsetService.getGraphset(this.userId!).subscribe(result => {
@@ -51,7 +52,7 @@ export class GraphComponent implements AfterViewInit {
 
       const down = (ctx: any, value: any) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
       const equal = (ctx: any, value: any) => ctx.p0.parsed.y == ctx.p1.parsed.y ? value : undefined;
-
+      this.isLoaded = true
       this.AccumulatedTransactionChart = new Chart(this.accumulatedTransactionsCanvas.nativeElement, {
         type: 'line',
         data: {

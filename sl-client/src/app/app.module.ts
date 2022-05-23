@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {AuthGuard} from "./auth/auth.guard";
 import {environment} from "../environments/environment";
+import {MAT_DATE_LOCALE} from "@angular/material/core";
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -60,8 +61,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
       multi: true,
-      deps: [KeycloakService]
+      deps: [KeycloakService],
     },
+    {provide: MAT_DATE_LOCALE, useValue: 'de-DE',},
     AuthGuard
   ],
   bootstrap: [AppComponent]

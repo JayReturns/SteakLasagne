@@ -29,13 +29,15 @@ export class TransactionListComponent implements OnInit {
   dialogConfig = new MatDialogConfig();
   showIncome: boolean = true;
   showExpense: boolean = true;
+  transactionCount: number = 0;
   sortOrder: string = "newest";
+  sortOrderCounter!: number;
   currentValue: number = 0;
   linkPrefix = environment.baseApiUrl;
-
   menuTopLeftPosition = {x: '0', y: '0'};
-
+  isLoaded: boolean = false;
   @ViewChild(MatMenuTrigger, {static: true}) matMenuTrigger: MatMenuTrigger | undefined;
+
 
   constructor(private transactionService: TransactionService,
               private dialogRef: MatDialog,
@@ -62,22 +64,26 @@ export class TransactionListComponent implements OnInit {
   }
 
   updateTransactions(): void {
+    this.isLoaded = false
     this.transactionService.getTransactions(this.userId).subscribe(result => {
+
       this.transactions = result;
       this.tempMap.clear()
 
-      for (let transaction of this.transactions) {
-        transaction.date = new Date(transaction.date); //Macht aus einem "Datum" ein Datum!
-        transaction.date.setHours(0, 0, 0, 0); //Setzt die Zeit im Datum aus Mitternacht (00:00:00:00)
-        let time = transaction.date.getTime() //erstelle einen Unix Zeitstempel time
-        if (this.showIncome && transaction.value > 0 || this.showExpense && transaction.value < 0) {
-          if (this.tempMap.has(time)) {
-            this.tempMap.set(time, [...this.tempMap.get(time)!, transaction]);
-          } else {
-            this.tempMap.set(time, [transaction]);
+      this.transactionCount = this.transactions.length
+        this.transactionCount = 101
+        for (let transaction of this.transactions) {
+          transaction.date = new Date(transaction.date); //Macht aus einem "Datum" ein Datum!
+          transaction.date.setHours(0, 0, 0, 0); //Setzt die Zeit im Datum aus Mitternacht (00:00:00:00)
+          let time = transaction.date.getTime() //erstelle einen Unix Zeitstempel time
+          if (this.showIncome && transaction.value > 0 || this.showExpense && transaction.value < 0) {
+            if (this.tempMap.has(time)) {
+              this.tempMap.set(time, [...this.tempMap.get(time)!, transaction]);
+            } else {
+              this.tempMap.set(time, [transaction]);
+            }
           }
         }
-      }
       if (this.tempMap.size === 0) {
         this.messageService.notifyUser("Keine Transaktionen gefunden. Bitte Filtereinstellungen anpassen.")
       }
@@ -85,6 +91,7 @@ export class TransactionListComponent implements OnInit {
         this.user = result
         this.currentValue = this.user.currentAmount
       })
+      this.isLoaded = true
     });
   }
 

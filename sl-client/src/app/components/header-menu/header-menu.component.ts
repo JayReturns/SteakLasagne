@@ -20,7 +20,7 @@ export class HeaderMenuComponent implements OnInit {
 
       this.friendlyName = userProfile.firstName;
       this.userId = userProfile.id;
-      this.accountLink = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/account/`
+      this.accountLink = `${environment.keycloak.url}/realms/${environment.keycloak.realm}/account?referrer=steak-lasagne-frontend`
 
     }
   }

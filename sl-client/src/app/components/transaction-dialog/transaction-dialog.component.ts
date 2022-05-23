@@ -21,7 +21,9 @@ export class TransactionDialogComponent {
   noticeControl;
   minDate!: Date;
   maxDate!: Date;
+  // valuePattern: string = '^-?(?=.*[1-9])\d*(?:\.?\,?\d{0,2})$';
   valuePattern: string = '-?[0-9]*\.?[0-9]{0,2}';
+  valuePattern2: string = '^(?!0*(\\.0+)?$)(\\d+|\\d*\\.\\d+)$'
   userId: string = "";
 
   constructor(
@@ -34,7 +36,7 @@ export class TransactionDialogComponent {
     this.idControl = new FormControl();
     this.titleControl = new FormControl('',[Validators.required, Validators.maxLength(30)]);
     this.dateControl = new FormControl('',[Validators.required]);
-    this.valueControl = new FormControl('',[Validators.required, Validators.pattern(this.valuePattern)]);
+    this.valueControl = new FormControl('',[Validators.required, Validators.pattern(this.valuePattern), Validators.pattern(this.valuePattern2)]);
     this.noticeControl = new FormControl('',[Validators.maxLength(256)]);
     this.userId = data.userId
 
