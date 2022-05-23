@@ -18,8 +18,9 @@
 
   <mat-form-field class="value" appearance="fill">
     <mat-label>Betrag</mat-label>
-    <input matInput type="number" class="right-align" placeholder="00.00" pattern='{{valuePattern}}' [formControl]="valueControl" matTooltip="Für negative Transaktionen ein - voranstellen">
+    <input matInput type="number" class="right-align" placeholder="00.00" pattern='{{valuePattern}}' [formControl]="valueControl">
     <span matSuffix>&nbsp;€</span>
+    <mat-hint>Bei Ausgaben ein Minus voranstellen</mat-hint>
     <mat-error *ngIf="valueControl.errors?.['pattern']">Diese Summe ist nicht gültig! </mat-error>
     <mat-error *ngIf="valueControl.errors?.['required']">Bitte eine Transaktionssumme angeben! </mat-error>
   </mat-form-field>

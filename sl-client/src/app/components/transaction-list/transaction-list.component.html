@@ -23,12 +23,12 @@
   </mat-slide-toggle>
 
 
-  <!--  <mat-form-field class="sortOrder" appearance="standard">
-      <mat-select [(value)]="sortOrder">
+  <mat-form-field class="sortOrder" appearance="standard">
+      <mat-select [(value)]="sortOrder" (selectionChange)="updateTransactions()">
         <mat-option value="newest">Neuste zuerst</mat-option>
         <mat-option value="oldest">Älteste zuerst</mat-option>
       </mat-select>
-    </mat-form-field>-->
+  </mat-form-field>
 
 </mat-toolbar>
 
@@ -44,7 +44,7 @@
     </button>
   </div>
 
-  <div *ngFor="let entry of tempMap | keyvalue">
+  <div *ngFor="let entry of Map | keyvalue: order">
     <mat-card class="mat-card">
       <div class="divider-date">
         {{entry.key | date:'dd.MM.yyyy'}}
@@ -134,15 +134,3 @@
     </mat-card>
   </div>
 </div>
-
-<div style="visibility: hidden; position: fixed;"
-     [style.left]="menuTopLeftPosition.x"
-     [style.top]="menuTopLeftPosition.y"
-     [matMenuTriggerFor]="rightMenu"></div>
-
-<mat-menu #rightMenu="matMenu">
-  <ng-template matMenuContent let-transaction="transaction">
-    <button disabled mat-button>Menü</button>
-    <button *ngIf="transaction.invoiceLink" mat-menu-item (click)="deleteInvoice(transaction)">Rechnung löschen</button>
-  </ng-template>
-</mat-menu>

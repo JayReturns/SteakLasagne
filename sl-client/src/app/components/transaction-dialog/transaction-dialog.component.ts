@@ -36,7 +36,7 @@ export class TransactionDialogComponent {
     this.idControl = new FormControl();
     this.titleControl = new FormControl('',[Validators.required, Validators.maxLength(30)]);
     this.dateControl = new FormControl('',[Validators.required]);
-    this.valueControl = new FormControl('',[Validators.required, Validators.pattern(this.valuePattern), Validators.pattern(this.valuePattern2)]);
+    this.valueControl = new FormControl('',[Validators.required, Validators.pattern(this.valuePattern)]);//, Validators.pattern(this.valuePattern2)]);
     this.noticeControl = new FormControl('',[Validators.maxLength(256)]);
     this.userId = data.userId
 
@@ -50,6 +50,7 @@ export class TransactionDialogComponent {
     }
     if (data && data.title) {
       this.dialogTitle = data.title;
+      this.messageService.setTitle(`${this.dialogTitle}`)
     }
     this.transactionInput = fb.group({
       id: this.idControl,

@@ -14,6 +14,7 @@ import {environment} from "../../../environments/environment";
 import {MatMenuTrigger} from "@angular/material/menu";
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material/icon';
+import {KeyValue} from "@angular/common";
 
 @Component({
   selector: 'transaction-list',
@@ -23,18 +24,17 @@ import {MatIconRegistry} from '@angular/material/icon';
 export class TransactionListComponent implements OnInit {
   transactions: Transaction[] = [];
   user?: User;
-  tempMap: Map<number, Transaction[]> = new Map<number, Transaction[]>()
-  displayMap: Map<number, Transaction[]> = new Map<number, Transaction[]>()
+  Map: Map<number, Transaction[]> = new Map<number, Transaction[]>();
   userId?: string;
+  friendlyName?: string;
   dialogConfig = new MatDialogConfig();
   showIncome: boolean = true;
   showExpense: boolean = true;
   transactionCount: number = 0;
   sortOrder: string = "newest";
-  sortOrderCounter!: number;
   currentValue: number = 0;
   linkPrefix = environment.baseApiUrl;
-  menuTopLeftPosition = {x: '0', y: '0'};
+  order: any;
   isLoaded: boolean = false;
   @ViewChild(MatMenuTrigger, {static: true}) matMenuTrigger: MatMenuTrigger | undefined;
 
@@ -60,7 +60,10 @@ export class TransactionListComponent implements OnInit {
   async ngOnInit() {
     const userProfile = await this.keyCloak.loadUserProfile();
     this.userId = userProfile.id;
+    this.friendlyName = userProfile.firstName;
+    this.messageService.setTitle(`Übersicht - ${this.friendlyName}`);
     this.updateTransactions();
+
   }
 
   updateTransactions(): void {
@@ -68,7 +71,7 @@ export class TransactionListComponent implements OnInit {
     this.transactionService.getTransactions(this.userId).subscribe(result => {
 
       this.transactions = result;
-      this.tempMap.clear()
+      this.Map.clear()
 
       this.transactionCount = this.transactions.length
         this.transactionCount = 101
@@ -77,16 +80,41 @@ export class TransactionListComponent implements OnInit {
           transaction.date.setHours(0, 0, 0, 0); //Setzt die Zeit im Datum aus Mitternacht (00:00:00:00)
           let time = transaction.date.getTime() //erstelle einen Unix Zeitstempel time
           if (this.showIncome && transaction.value > 0 || this.showExpense && transaction.value < 0) {
-            if (this.tempMap.has(time)) {
-              this.tempMap.set(time, [...this.tempMap.get(time)!, transaction]);
+            if (this.Map.has(time)) {
+              this.Map.set(time, [...this.Map.get(time)!, transaction]);
             } else {
-              this.tempMap.set(time, [transaction]);
+              this.Map.set(time, [transaction]);
             }
           }
         }
-      if (this.tempMap.size === 0) {
-        this.messageService.notifyUser("Keine Transaktionen gefunden. Bitte Filtereinstellungen anpassen.")
+      if (this.Map.size === 0) {
+        this.messageService.notifyUser("Keine Transaktionen gefunden.")
       }
+
+      const newest = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+        return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+      }
+
+      const oldest = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+        return a.key < b.key ? -1 : (b.key < a.key ? 1 : 0);
+      }
+
+      switch (this.sortOrder) {
+        case "newest": {
+          this.order = newest
+          break;
+        }
+        case "oldest": {
+          this.order = oldest
+          break;
+        }
+        default: {
+          this.messageService.notifyUserError()
+          break;
+        }
+      }
+
+
       this.userService.getUser(this.userId).subscribe(result => {
         this.user = result
         this.currentValue = this.user.currentAmount
@@ -96,10 +124,8 @@ export class TransactionListComponent implements OnInit {
   }
 
   deleteTransaction(id: string, userId: string, transactionValue: number) {
+    if (!confirm("Transaktion wirklich löschen?")) return;
     (this.transactionService.deleteTransaction(id, true) as Observable<any>).subscribe(_ => {
-      console.log(id)
-      console.log(userId)
-      console.log(transactionValue)
       if (userId) {
         this.userService.getUser(userId).subscribe(result => {
           this.user = result
@@ -127,6 +153,7 @@ export class TransactionListComponent implements OnInit {
     };
     const dialog = this.dialogRef.open(TransactionDialogComponent, this.dialogConfig);
     dialog.afterClosed().subscribe(input => {
+      this.messageService.setTitle(`Übersicht - ${this.friendlyName}`)
       if (input) {
         this.transactionService.updateTransaction(input).subscribe(transactionResult => {
           this.userService.getUser(this.userId).subscribe(result => {
@@ -153,6 +180,7 @@ export class TransactionListComponent implements OnInit {
     }
     const dialog = this.dialogRef.open(TransactionDialogComponent, this.dialogConfig);
     dialog.afterClosed().subscribe(input => {
+      this.messageService.setTitle(`Übersicht - ${this.friendlyName}`)
       if (input) {
         this.transactionService.createTransaction(input).subscribe(transactionResult => {
 
@@ -182,7 +210,7 @@ export class TransactionListComponent implements OnInit {
     const type = file.type;
 
     reader.readAsDataURL(file);
-
+    this.isLoaded = false
     reader.onload = () => {
       let result = (reader.result as string).replace(`data:${type};base64,`, '');
       const invoice: Invoice = {
@@ -196,7 +224,11 @@ export class TransactionListComponent implements OnInit {
         this.invoiceService.updateInvoice(invoice) :
         this.invoiceService.createInvoice(transaction.id, invoice);
 
-      observable.subscribe(_ => this.updateTransactions());
+      observable.subscribe(_ => {
+        this.isLoaded = true
+        this.updateTransactions()
+      }
+    );
 
     }
   }
@@ -205,7 +237,10 @@ export class TransactionListComponent implements OnInit {
     if (!transaction.invoiceLink) return;
 
     if (!confirm("Rechnung wirklich löschen?")) return;
-
-    this.invoiceService.deleteInvoice(transaction.invoice!.id!, transaction.id).subscribe(_ => this.updateTransactions());
+    this.isLoaded = false
+    this.invoiceService.deleteInvoice(transaction.invoice!.id!, transaction.id).subscribe(_ => {
+      this.isLoaded = true
+      this.updateTransactions()});
   }
+
 }

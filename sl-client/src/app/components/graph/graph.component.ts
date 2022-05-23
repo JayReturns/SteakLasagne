@@ -3,6 +3,7 @@ import {Chart, registerables} from 'chart.js';
 import {GraphsetService} from "../../services/graphset.service";
 import {GraphSet} from "../../models/graphset.model";
 import {KeycloakService} from "keycloak-angular";
+import {MessageService} from "../../services/message.service";
 
 @Component({
   selector: 'graph-component',
@@ -25,7 +26,8 @@ export class GraphComponent implements AfterViewInit {
   @ViewChild('accumulatedTransactions') accumulatedTransactionsCanvas!: ElementRef;
 
   constructor(private graphsetService: GraphsetService,
-              private keyCloak: KeycloakService) {
+              private keyCloak: KeycloakService,
+              private messageService: MessageService) {
     Chart.register(...registerables);
   }
 
@@ -33,6 +35,7 @@ export class GraphComponent implements AfterViewInit {
     this.isLoaded = false
     const userProfile = await this.keyCloak.loadUserProfile();
     this.userId = userProfile.id;
+    this.messageService.setTitle(`Statistik - ${userProfile.firstName}`)
     this.graphsetService.getGraphset(this.userId!).subscribe(result => {
       this.graphSets = result;
 

@@ -2,13 +2,15 @@ import {Injectable} from '@angular/core';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Observable, of} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
+import {Title} from "@angular/platform-browser";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
 
-  constructor(private snackbar: MatSnackBar) { }
+  constructor(private snackbar: MatSnackBar,
+              private titleService: Title) { }
 
   log(message?: string) {
     console.log(message);
@@ -54,4 +56,7 @@ export class MessageService {
     }
   }
 
+  setTitle(title: string) {
+    this.titleService.setTitle((title))
+  }
 }
