@@ -22,6 +22,7 @@ import org.keycloak.events.Event;
 import org.keycloak.events.EventListenerProvider;
 import org.keycloak.events.EventType;
 import org.keycloak.events.admin.AdminEvent;
+import org.keycloak.events.admin.OperationType;
 
 
 import java.io.IOException;
@@ -44,12 +45,20 @@ public class SampleEventListenerProvider implements EventListenerProvider {
     public void onEvent(Event event) {
 
         System.out.println(" LOL a Event Occurred:" + toString(event));
-        if (event.getType() == EventType.REGISTER){
-            try {
-                createnewUser(event);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        switch (event.getType()){
+            case REGISTER:
+                try {
+                    createnewUser(event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case DELETE_ACCOUNT:
+                try {
+                    deleteUser(event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
         }
     }
 
@@ -57,6 +66,16 @@ public class SampleEventListenerProvider implements EventListenerProvider {
     public void onEvent(AdminEvent adminEvent, boolean b) {
 
         System.out.println("Admin Event Occurred:" + toString(adminEvent));
+
+        switch (adminEvent.getOperationType()){
+            case DELETE:
+                try {
+                    deleteUser(adminEvent);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+        }
     }
 
     @Override
@@ -124,6 +143,34 @@ public class SampleEventListenerProvider implements EventListenerProvider {
 
         HttpResponse response = httpClient.execute(request);
         System.out.println(response.getStatusLine().getStatusCode());
+    }
+
+    private void deleteUser(Event event) throws Exception {
+
+        String authorizationString = "Bearer " + getAccestoken();
+
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpDelete request = new HttpDelete(backend_uri+"/api/v1/user/"+event.getUserId());
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        request.setHeader(HttpHeaders.AUTHORIZATION, authorizationString);
+
+        HttpResponse response = httpClient.execute(request);
+        System.out.println(response.getStatusLine().getStatusCode());
+
+    }
+
+    private void deleteUser(AdminEvent adminEvent) throws Exception {
+
+        String authorizationString = "Bearer " + getAccestoken();
+
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpDelete request = new HttpDelete(backend_uri+"/api/v1/user/"+adminEvent.getResourcePath().substring(6));
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        request.setHeader(HttpHeaders.AUTHORIZATION, authorizationString);
+
+        HttpResponse response = httpClient.execute(request);
+        System.out.println(response.getStatusLine().getStatusCode());
+
     }
 
     private String toString(Event event) {
