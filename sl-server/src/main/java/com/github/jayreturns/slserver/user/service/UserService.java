@@ -27,7 +27,10 @@ public class UserService {
      * @return The create {@link User}
      */
     public User createUser(User user) {
-        if (user.getId().isEmpty()){user.setId(UUID.randomUUID().toString());}
+
+        if(userRepository.existsById(user.getId())){
+            return userRepository.findById(user.getId()).get();
+        }
 
         return userRepository.save(user);
     }
