@@ -20,17 +20,19 @@
   flex: 1 1 auto;
 }
 
-.toggle {
+.filter, .sortOrder {
   font-size: 14px;
   margin: 10px 10px 10px 10px;
 }
 
-.filter {
-  font-size: 14px;
-  margin: 10px 10px 10px 10px;
+.sortOrder {
+  width: 125px;
 }
 
+.showAmount {
 
+  width: 50px;
+}
 
 .container { /*Global Styling of "Übersicht" Page" */
   position: relative;
@@ -38,10 +40,12 @@
   margin: 0 auto;
 }
 
-.new-transaction {
+
+
+.new-transaction, .spinner {
   display: flex;
   justify-content: center;
-  margin: 0 0 -5px 0;
+  margin: 5px 0 -5px 0;
 }
 
 .mat-divider { /* Dividing line  between Transaction Dates */
@@ -86,14 +90,6 @@
 
 .value{
   justify-self: end;
-}
-
-.income {
-  color: var(--graph-income-color);
-}
-
-.expense {
-  color: var(--graph-expense-color);
 }
 
 .mat-card-content{

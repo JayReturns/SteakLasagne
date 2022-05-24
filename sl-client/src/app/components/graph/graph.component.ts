@@ -3,6 +3,7 @@ import {Chart, registerables} from 'chart.js';
 import {GraphsetService} from "../../services/graphset.service";
 import {GraphSet} from "../../models/graphset.model";
 import {KeycloakService} from "keycloak-angular";
+import {MessageService} from "../../services/message.service";
 
 @Component({
   selector: 'graph-component',
@@ -20,18 +21,21 @@ export class GraphComponent implements AfterViewInit {
   date: Date = new Date;
   AccumulatedTransactionChart: any = [];
   DifferentiatedTransactionChart: any = [];
-
+  isLoaded: boolean = false;
   @ViewChild('differentiatedTransactions') differentiatedTransactionsCanvas!: ElementRef;
   @ViewChild('accumulatedTransactions') accumulatedTransactionsCanvas!: ElementRef;
 
   constructor(private graphsetService: GraphsetService,
-              private keyCloak: KeycloakService) {
+              private keyCloak: KeycloakService,
+              private messageService: MessageService) {
     Chart.register(...registerables);
   }
 
   async ngAfterViewInit() {
+    this.isLoaded = false
     const userProfile = await this.keyCloak.loadUserProfile();
     this.userId = userProfile.id;
+    this.messageService.setTitle(`Statistik - ${userProfile.firstName}`)
     this.graphsetService.getGraphset(this.userId!).subscribe(result => {
       this.graphSets = result;
 
@@ -51,7 +55,7 @@ export class GraphComponent implements AfterViewInit {
 
       const down = (ctx: any, value: any) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
       const equal = (ctx: any, value: any) => ctx.p0.parsed.y == ctx.p1.parsed.y ? value : undefined;
-
+      this.isLoaded = true
       this.AccumulatedTransactionChart = new Chart(this.accumulatedTransactionsCanvas.nativeElement, {
         type: 'line',
         data: {

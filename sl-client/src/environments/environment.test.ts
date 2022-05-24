@@ -7,9 +7,9 @@ const keycloakConfig: KeycloakConfig = {
 }
 
 export const environment = {
-  production: true,
-  name: 'prod',
+  production: false,
+  name: 'test',
   baseApiUrl: "https://steaklasagne.9o39s4ozwydzwq2z.myfritz.net:8000/api/v1",
   keycloak: keycloakConfig,
-  keycloakRedirectUri: "https://jayreturns.github.io/SteakLasagne/"
+  keycloakRedirectUri: "http://localhost:4200/"
 };

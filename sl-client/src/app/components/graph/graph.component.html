@@ -1,7 +1,12 @@
+<div class="progessBarContainer">
+<p *ngIf="!isLoaded">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</p>
+</div>
+
 <div class="container">
   <div class="card mt-2">
     <div class="card-body">
-
       <mat-tab-group mat-align-tabs="center" class="tab-group">
 
         <mat-tab label="Kontostand">

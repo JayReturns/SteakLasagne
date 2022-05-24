@@ -12,6 +12,7 @@ const keycloakConfig: KeycloakConfig = {
 
 export const environment = {
   production: false,
+  name: 'dev',
   baseApiUrl: "https://localhost:8080/api/v1",
   keycloak: keycloakConfig,
   // CHANGE THIS IF SOMETHINGS DOESN'T WORK LOL

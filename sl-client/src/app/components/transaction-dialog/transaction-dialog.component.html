@@ -12,7 +12,7 @@
     <input matInput [min]="minDate" [max]="maxDate"  [matDatepicker]="picker" [formControl]="dateControl">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker ></mat-datepicker>
-    <mat-hint>MM/TT/JJJJ</mat-hint>
+    <mat-hint>TT.MM.JJJJ</mat-hint>
     <mat-error *ngIf="dateControl.errors?.['required']">Bitte ein Transaktionsdatum angeben! </mat-error>
   </mat-form-field>
 
@@ -20,6 +20,7 @@
     <mat-label>Betrag</mat-label>
     <input matInput type="number" class="right-align" placeholder="00.00" pattern='{{valuePattern}}' [formControl]="valueControl">
     <span matSuffix>&nbsp;€</span>
+    <mat-hint>Bei Ausgaben ein Minus voranstellen</mat-hint>
     <mat-error *ngIf="valueControl.errors?.['pattern']">Diese Summe ist nicht gültig! </mat-error>
     <mat-error *ngIf="valueControl.errors?.['required']">Bitte eine Transaktionssumme angeben! </mat-error>
   </mat-form-field>

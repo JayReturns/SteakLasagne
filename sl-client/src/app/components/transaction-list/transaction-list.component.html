@@ -2,38 +2,49 @@
 
   Aktueller Kontostand:&nbsp;
   <span [class.positiveValue]="currentValue >= 0" [class.negativeValue]="currentValue < 0">
-     {{currentValue}}€
+    <div *ngIf="currentValue > 0">
+      +{{currentValue}}€
+    </div>
+  <div *ngIf="currentValue <= 0">
+    {{currentValue}}€
+  </div>
+
     </span>
   <span class="spacer"></span>
 
-  <mat-slide-toggle class="toggle" [(ngModel)]="showIncome" (change)="updateTransactions()" color="primary"
+  <mat-slide-toggle class="filter" [(ngModel)]="showIncome" (change)="updateTransactions()" color="primary"
                     matTooltip="Einnahmen anzeigen/ausblenden">
     Einnahmen
   </mat-slide-toggle>
 
-  <mat-slide-toggle class="toggle" [(ngModel)]="showExpense" (change)="updateTransactions()" color="primary"
+  <mat-slide-toggle class="filter" [(ngModel)]="showExpense" (change)="updateTransactions()" color="primary"
                     matTooltip="Ausgaben anzeigen/ausblenden">
     Ausgaben
   </mat-slide-toggle>
 
-  <mat-form-field class="filter" appearance="standard">
-    <mat-select [(value)]="sortOrder">
-      <mat-option value="newest">Neuste zuerst</mat-option>
-      <mat-option value="oldest">Älteste zuerst</mat-option>
-    </mat-select>
+
+  <mat-form-field class="sortOrder" appearance="standard">
+      <mat-select [(value)]="sortOrder" (selectionChange)="updateTransactions()">
+        <mat-option value="newest">Neuste zuerst</mat-option>
+        <mat-option value="oldest">Älteste zuerst</mat-option>
+      </mat-select>
   </mat-form-field>
 
 </mat-toolbar>
 
 
 <div class="container">
+  <p *ngIf="!isLoaded">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </p>
   <div class="add-button new-transaction">
-    <button mat-icon-button (click)="addTransaction()" aria-label="Add new Transaction" matTooltip="Transaktion hinzufügen">
+    <button mat-icon-button (click)="addTransaction()" aria-label="Add new Transaction"
+            matTooltip="Transaktion hinzufügen">
       <mat-icon>add_circle_outline</mat-icon>
     </button>
   </div>
 
-  <div *ngFor="let entry of tempMap | keyvalue">
+  <div *ngFor="let entry of Map | keyvalue: order">
     <mat-card class="mat-card">
       <div class="divider-date">
         {{entry.key | date:'dd.MM.yyyy'}}
@@ -47,8 +58,14 @@
             <!--            <div (contextmenu)="onRightClick($event, transaction)">-->
             <div class="mat-card-title">
               {{transaction.title}}
-              <span class="value" [class.income]="transaction.value >= 0" [class.expense]="transaction.value < 0">
-               {{transaction.value}}€
+              <span class="value" [class.positiveValue]="transaction.value >= 0"
+                    [class.negativeValue]="transaction.value < 0">
+                <div *ngIf="transaction.value > 0">
+                  +{{transaction.value}}€
+                </div>
+                <div *ngIf="transaction.value <= 0">
+                  {{transaction.value}}€
+                </div>
             </span>
             </div>
             <div class="mat-card-content">
@@ -72,7 +89,8 @@
                   </button>
 
                   <button class="delete-button" mat-icon-button aria-label="Delete Transaction"
-                          (click)="deleteTransaction(transaction.id, userId!, transaction.value)" matTooltip="Transaktion löschen">
+                          (click)="deleteTransaction(transaction.id, userId!, transaction.value)"
+                          matTooltip="Transaktion löschen">
 
                     <mat-icon>delete</mat-icon>
                   </button>
@@ -93,13 +111,15 @@
 
                   <a *ngIf="transaction.invoiceLink" [href]="linkPrefix + transaction.invoiceLink" target="_blank"
                      class="link">
-                    <button class="invoice-download-button" mat-icon-button matTooltip="Rechnung herunterladen" aria-label="Download Invoice">
+                    <button class="invoice-download-button" mat-icon-button matTooltip="Rechnung herunterladen"
+                            aria-label="Download Invoice">
                       <mat-icon svgIcon="file-download"></mat-icon>
                     </button>
                   </a>
 
                   <button *ngIf="transaction.invoiceLink" class="invoice-delete-button" mat-icon-button
-                          (click)="deleteInvoice(transaction)" matTooltip="Rechnung löschen" aria-label="Delete Invoice">
+                          (click)="deleteInvoice(transaction)" matTooltip="Rechnung löschen"
+                          aria-label="Delete Invoice">
                     <mat-icon svgIcon="file-delete"></mat-icon>
                   </button>
                 </div>
@@ -114,15 +134,3 @@
     </mat-card>
   </div>
 </div>
-
-<div style="visibility: hidden; position: fixed;"
-     [style.left]="menuTopLeftPosition.x"
-     [style.top]="menuTopLeftPosition.y"
-     [matMenuTriggerFor]="rightMenu"></div>
-
-<mat-menu #rightMenu="matMenu">
-  <ng-template matMenuContent let-transaction="transaction">
-    <button disabled mat-button>Menü</button>
-    <button *ngIf="transaction.invoiceLink" mat-menu-item (click)="deleteInvoice(transaction)">Rechnung löschen</button>
-  </ng-template>
-</mat-menu>
